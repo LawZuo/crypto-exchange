@@ -5,6 +5,8 @@ spring:
     active: dev
     include:
       - feign
+      - db
+      - redis
   application:
     name: service-uc
 

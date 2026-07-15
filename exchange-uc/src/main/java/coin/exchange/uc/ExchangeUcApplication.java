@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients
 @EnableDiscoveryClient
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "coin.exchange")
 public class ExchangeUcApplication {
     public static void main(String[] args) {
         SpringApplication.run(ExchangeUcApplication.class, args);

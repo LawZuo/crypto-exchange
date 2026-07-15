@@ -6,6 +6,8 @@ spring:
   profiles:
     include:
       - route
+      - db
+      - redis
   cloud:
     nacos:
       discovery:

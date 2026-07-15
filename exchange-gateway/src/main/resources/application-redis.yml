@@ -1,0 +1,29 @@
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:106.12.183.54}
+      port: ${REDIS_PORT:63500}
+      password: ${REDIS_PASSWORD:LawZhuo1002.}
+      database: 0
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 100
+          max-idle: 20
+          min-idle: 5
+          max-wait: 2000ms
+
+# Redisson 配置（高级功能）
+redisson:
+  config: |
+    singleServerConfig:
+      address: "redis://${REDIS_HOST:106.12.183.54}:${REDIS_PORT:63500}"
+      password: "${REDIS_PASSWORD:LawZhuo1002.}"
+      database: 0
+      connectionPoolSize: 64
+      connectionMinimumIdleSize: 16
+      idleConnectionTimeout: 10000
+      connectTimeout: 3000
+      timeout: 3000
+      retryAttempts: 3
+      retryInterval: 1500
