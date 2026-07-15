@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    gateway:
+      # cors配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+      routes:
+        # 用户路由
+        - id: uc-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/crypto-exchange/user/**

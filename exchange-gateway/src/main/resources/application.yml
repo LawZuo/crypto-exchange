@@ -1,0 +1,15 @@
+server:
+  port: 80 # 本地默认80端口，spring默认8080端口
+spring:
+  application:
+    name: gateway
+  profiles:
+    include:
+      - route
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        import-check:
+          enabled: false

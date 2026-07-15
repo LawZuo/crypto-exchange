@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    dynamic:
+      primary: ${BT_PRIMARY_DATASOURCE:15区}
+      datasource:
+        "15区":
+          url: ${BT_DB_15_URL:}
+          username: ${BT_DB_15_USERNAME:}
+          password: ${BT_DB_15_PASSWORD:}
+        "8区":
+          url: ${BT_DB_8_URL:}
+          username: ${BT_DB_8_USERNAME:}
+          password: ${BT_DB_8_PASSWORD:}
+        "17区":
+          url: ${BT_DB_17_URL:}
+          username: ${BT_DB_17_USERNAME:}
+          password: ${BT_DB_17_PASSWORD:}
