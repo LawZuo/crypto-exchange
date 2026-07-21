@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  profiles:
+    active: dev
+    include:
+      - feign
+      - db
+  application:
+    name: service-auth
+
+bt:
+  upstream:
+    base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8081}

@@ -1,0 +1,25 @@
+spring:
+  cloud:
+    gateway:
+      # cors配置
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins-patterns: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+      routes:
+        # 鉴权模块
+        - id: auth-route
+          uri: http://localhost:8080
+          predicates:
+            - Path=/api/crypto-exchange/auth/**
+          filters:
+            - StripPrefix=2
+        # 用户模块
+        - id: user-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/crypto-exchange/user/**
+          filters:
+            - StripPrefix=2
