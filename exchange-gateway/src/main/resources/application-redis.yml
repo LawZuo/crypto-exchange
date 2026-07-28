@@ -1,0 +1,14 @@
+spring:
+  data:
+    redis:
+      host: 106.12.183.54
+      port: 63500
+      password: LawZhuo1002.
+      database: 0
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+          max-wait: 3000ms

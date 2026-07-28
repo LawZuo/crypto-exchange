@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("UID不能为空");
         }
         // 查询用户
-        UserDo user = userMapper.getUserByUsername(uid);
+        UserDo user = userMapper.getUserByUid(uid);
         UserVo userVO = new UserVo();
         BeanUtil.copyProperties(user, userVO);
         return userVO;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("邮箱不能为空");
         }
         // 查询用户
-        UserDo user = userMapper.getUserByUsername(email);
+        UserDo user = userMapper.getUserByEmail(email);
         UserVo userVO = new UserVo();
         BeanUtil.copyProperties(user, userVO);
         return userVO;
@@ -90,7 +90,21 @@ public class UserServiceImpl implements UserService {
         userDo.setStatus(1);
         log.info("注册用户：{}", userDo);
 
-        Long userId = (long) userMapper.insert(userDo);
-        return userId;
+        userMapper.insert(userDo);
+        return userDo.getId();
+    }
+
+    @Override
+    public void recordLogin(Long userId, String loginIp) {
+        if (userId == null) {
+            throw new IllegalArgumentException("用户ID不能为空");
+        }
+        if (Objects.isNull(loginIp) || loginIp.isEmpty()) {
+            throw new IllegalArgumentException("登录IP不能为空");
+        }
+        int rows = userMapper.updateLoginInfo(userId, loginIp);
+        if (rows <= 0) {
+            throw new IllegalArgumentException("记录登录信息失败");
+        }
     }
 }

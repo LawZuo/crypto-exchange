@@ -48,7 +48,7 @@ public class UserDo {
     @TableField("last_login_ip")
     private String lastLoginIp;
 
-    @TableField("last_login_ip")
+    @TableField("register_ip")
     private String registerIp;
 
     // @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")

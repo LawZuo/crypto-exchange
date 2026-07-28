@@ -46,7 +46,7 @@ spring:
 # MyBatis-Plus 配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: com.exchange.order.entity
+  type-aliases-package: coin.exchange.module.user.domain
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false

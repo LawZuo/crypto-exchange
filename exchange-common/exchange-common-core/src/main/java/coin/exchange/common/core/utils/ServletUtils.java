@@ -12,6 +12,9 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -214,13 +217,13 @@ public class ServletUtils {
         }
 
         String uri = request.getRequestURI();
-        if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml"))
+        if (inStringIgnoreCase(uri, ".json", ".xml"))
         {
             return true;
         }
 
         String ajax = request.getParameter("__ajax");
-        return StringUtils.inStringIgnoreCase(ajax, "json", "xml");
+        return inStringIgnoreCase(ajax, "json", "xml");
     }
 
     /**
@@ -231,14 +234,7 @@ public class ServletUtils {
      */
     public static String urlEncode(String str)
     {
-        try
-        {
-            return URLEncoder.encode(str, Constants.UTF8);
-        }
-        catch (UnsupportedEncodingException e)
-        {
-            return StringUtils.EMPTY;
-        }
+        return str == null ? "" : URLEncoder.encode(str, StandardCharsets.UTF_8);
     }
 
     /**
@@ -249,13 +245,22 @@ public class ServletUtils {
      */
     public static String urlDecode(String str)
     {
-        try
+        return str == null ? "" : URLDecoder.decode(str, StandardCharsets.UTF_8);
+    }
+
+    private static boolean inStringIgnoreCase(String str, String... strs)
+    {
+        if (str == null || strs == null)
         {
-            return URLDecoder.decode(str, Constants.UTF8);
+            return false;
         }
-        catch (UnsupportedEncodingException e)
+        for (String value : strs)
         {
-            return StringUtils.EMPTY;
+            if (str.equalsIgnoreCase(value))
+            {
+                return true;
+            }
         }
+        return false;
     }
 }

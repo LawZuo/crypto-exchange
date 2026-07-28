@@ -24,7 +24,7 @@ public class RealIpFilter implements GlobalFilter, Ordered {
         log.info("【gateway获取IP地址】{}", realIp);
         // 使用约定好的内部Header，避免被客户端伪造
         ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
-                .header("X-Real-Client-IP", realIp)
+                .headers(headers -> headers.set("X-Real-Client-IP", realIp))
                 .build();
 
         ServerWebExchange mutatedExchange = exchange.mutate()
@@ -52,4 +52,3 @@ public class RealIpFilter implements GlobalFilter, Ordered {
     @Override
     public int getOrder() { return -100; } // 尽早执行
 }
-

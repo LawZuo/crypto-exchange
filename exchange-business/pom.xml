@@ -33,14 +33,12 @@
         <!-- 数据库配置 -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
-            <version>4.3.1</version>
+            <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
         </dependency>
         <!-- 配合 MyBatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
-            <version>3.5.7</version>
         </dependency>
 
 <!--        <dependency>-->

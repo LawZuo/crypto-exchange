@@ -1,14 +1,17 @@
 package coin.exchange.api.user.service;
 
 import coin.exchange.api.user.dto.RegisterUserDto;
+import coin.exchange.api.user.dto.LoginRecordDto;
 import coin.exchange.api.user.factory.RemoteUserFallbackFactory;
 import coin.exchange.api.user.model.UserVo;
+import coin.exchange.common.core.constant.SecurityConstants;
 import coin.exchange.common.core.response.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 /**
  * 远程用户服务 Feign 客户端。
@@ -37,4 +40,13 @@ public interface RemoteUserService {
      */
     @PostMapping("/user/register")
     public R<Long> registerUser(@RequestBody RegisterUserDto dto);
+
+    /**
+     * 记录用户登录信息
+     */
+    @PostMapping("/user/login-record")
+    public R<Void> recordLogin(
+            @RequestHeader(SecurityConstants.FROM_SOURCE) String source,
+            @RequestBody LoginRecordDto dto
+    );
 }

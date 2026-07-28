@@ -1,12 +1,13 @@
 package coin.exchange.auth.controller;
 
 import coin.exchange.api.user.dto.RegisterUserDto;
+import coin.exchange.api.user.model.LoginVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.auth.dto.LoginDto;
 import coin.exchange.auth.service.LoginService;
-import coin.exchange.auth.vo.LoginVo;
 import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.JwtUtil;
+import coin.exchange.common.core.utils.ServletUtils;
 import coin.exchange.common.redis.service.RedisService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,8 @@ public class AuthController {
             HttpServletRequest request
     ) {
         try {
+            log.info("【用户登录】账号：{}，密码：{}", loginDto.getUsername(), loginDto.getPassword());
+            log.info("【用户登录】请求头信息：{}", ServletUtils.getHeaders(request));
             UserVo userVo = loginService.login(loginDto, request);
 
             // 获取当前时间
@@ -41,8 +44,10 @@ public class AuthController {
 
             // 创建token
             String token = JwtUtil.generate(userVo.getId(), userVo.getUsername(), now);
-
+            log.info("【用户登录】token:{}", token);
             LoginVo loginVo = new LoginVo();
+            loginVo.setId(userVo.getId().toString());
+            loginVo.setUsername(userVo.getUsername());
             loginVo.setToken(token);
             loginVo.setUser(userVo);
             loginVo.setLoginTime(String.valueOf(now.getTime()));

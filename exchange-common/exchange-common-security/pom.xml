@@ -16,10 +16,19 @@
     </description>
 
     <dependencies>
-        <!-- Spring Web -->
+        <dependency>
+            <groupId>coin.exchange</groupId>
+            <artifactId>exchange-common-core</artifactId>
+            <version>1.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-crypto</artifactId>
         </dependency>
 
         <dependency>
@@ -27,13 +36,6 @@
             <artifactId>exchange-api-user</artifactId>
             <version>1.0</version>
         </dependency>
-
-        <dependency>
-            <groupId>coin.exchange</groupId>
-            <artifactId>exchange-common-redis</artifactId>
-            <version>1.0</version>
-        </dependency>
-
     </dependencies>
 
 

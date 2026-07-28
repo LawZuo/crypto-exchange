@@ -28,6 +28,14 @@ public record R<T>(int code, String message, T data) {
         return new R<>(FAIL_CODE, Objects.requireNonNullElse(message, FAIL_MESSAGE), null);
     }
 
+    public static <T> R<T> fail(StatusCode statusCode) {
+        return new R<>(statusCode.getCode(), statusCode.getMessage(), null);
+    }
+
+    public static <T> R<T> fail(StatusCode statusCode, String message) {
+        return new R<>(statusCode.getCode(), Objects.requireNonNullElse(message, statusCode.getMessage()), null);
+    }
+
     /**
      * 全返回
      */
@@ -40,4 +48,3 @@ public record R<T>(int code, String message, T data) {
         return data;
     }
 }
-

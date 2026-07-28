@@ -31,4 +31,9 @@ public interface UserService {
      * 创建用户, 返回userId
      */
     Long createUser(RegisterUserDto user, HttpServletRequest request);
+
+    /**
+     * 记录用户最近登录信息
+     */
+    void recordLogin(Long userId, String loginIp);
 }

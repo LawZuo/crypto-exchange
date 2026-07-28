@@ -1,9 +1,7 @@
 package coin.exchange.common.redis.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,11 +9,13 @@ import java.util.concurrent.TimeUnit;
  * Redis服务
  */
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
-@Component
 public class RedisService {
 
-    @Autowired
-    public RedisTemplate redisTemplate;
+    private final RedisTemplate redisTemplate;
+
+    public RedisService(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
@@ -26,7 +26,7 @@ public class RedisService {
      */
     public <T> void setCacheObject(final String key, final T value, long expireMs)
     {
-        redisTemplate.opsForValue().set(key, value);
+        redisTemplate.opsForValue().set(key, value, expireMs, TimeUnit.MILLISECONDS);
     }
 
     /**

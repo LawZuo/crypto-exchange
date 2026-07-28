@@ -6,6 +6,7 @@ spring:
   profiles:
     include:
       - route
+      - redis
   cloud:
     nacos:
       discovery:
@@ -13,3 +14,9 @@ spring:
       config:
         import-check:
           enabled: false
+
+security:
+  ignore-paths:
+    - /api/crypto-exchange/auth/login
+    - /api/crypto-exchange/auth/register
+    - /api/crypto-exchange/auth/logout

@@ -2,9 +2,11 @@ package coin.exchange.module.user.mapper;
 
 import coin.exchange.module.user.domain.UserDo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper extends BaseMapper<UserDo> {
@@ -36,6 +38,12 @@ public interface UserMapper extends BaseMapper<UserDo> {
     /**
      * 创建用户 - 登录时创建
      */
-    @Select("insert into users (username, email, password, uid) values (#{username}, #{email}, #{password}, #{uid})")
+    @Insert("insert into users (username, email, password, uid) values (#{username}, #{email}, #{password}, #{uid})")
     void createUser(@Param("username") String username, @Param("email") String email, @Param("password") String password, @Param("uid") String uid);
+
+    /**
+     * 更新用户最近登录信息
+     */
+    @Update("update users set last_login_ip = #{loginIp}, last_login_time = now() where id = #{userId} and is_deleted = 0")
+    int updateLoginInfo(@Param("userId") Long userId, @Param("loginIp") String loginIp);
 }
