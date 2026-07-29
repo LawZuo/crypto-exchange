@@ -36,6 +36,11 @@
             <artifactId>exchange-common-redis</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>coin.exchange</groupId>
+            <artifactId>exchange-common-security</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>coin.exchange</groupId>

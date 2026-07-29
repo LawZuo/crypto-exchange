@@ -1,1 +1,2 @@
 coin.exchange.common.security.config.WebMvcConfig
+coin.exchange.common.security.config.IdempotentAutoConfiguration

@@ -70,6 +70,7 @@ exchange-business
 - UUID 工具
 - 安全上下文 `SecurityContextHolder`
 - 安全常量 `SecurityConstants`
+- 公共 Logback 文件日志配置
 
 #### 使用库
 
@@ -81,6 +82,7 @@ exchange-business
 | TransmittableThreadLocal | 跨线程上下文传递 |
 | Jakarta Servlet API | Servlet 请求/响应类型 |
 | Lombok | 简化 Java Bean 和日志代码 |
+| Logback | 控制台日志、文件日志、错误日志、滚动归档 |
 
 #### 典型使用
 
@@ -100,6 +102,7 @@ SecurityContextHolder.getUserId();
 
 - RedisTemplate 序列化配置
 - RedisService 基础读写
+- `setIfAbsent` 原子占位，支持幂等提交等场景
 - Spring Boot 自动配置
 
 #### 使用库
@@ -129,7 +132,7 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 
 #### 职责
 
-为 Spring MVC 业务服务提供安全上下文读取能力。
+为 Spring MVC 业务服务提供安全上下文读取能力和接口级防重复提交能力。
 
 它不负责校验 JWT，也不负责查 Redis。当前设计是：
 
@@ -145,13 +148,18 @@ business 服务只读取 gateway 透传的 user_id / username / Authorization
 | `WebMvcConfig` | 注册 HeaderInterceptor |
 | `HeaderInterceptor` | 读取请求头并写入 SecurityContextHolder |
 | `SecurityUtils` | 业务代码获取当前用户上下文 |
+| `Idempotent` | 防重复提交注解 |
+| `IdempotentAspect` | 基于 Redis 的幂等切面 |
+| `IdempotentAutoConfiguration` | 自动注册幂等切面 |
 
 #### 使用库
 
 | 工具库 | 用途 |
 |---|---|
 | Spring WebMVC | HandlerInterceptor |
+| Spring Boot AOP | 注解切面 |
 | Spring Security Crypto | BCrypt 密码工具 |
+| exchange-common-redis | Redis 原子占位 |
 | Lombok | 日志和样板代码 |
 
 #### 典型使用
@@ -162,6 +170,16 @@ business 服务只读取 gateway 透传的 user_id / username / Authorization
 SecurityUtils.getUserId();
 SecurityUtils.getUsername();
 SecurityUtils.getLoginUser();
+```
+
+写接口可以使用：
+
+```java
+@Idempotent(prefix = "order:create", expire = 10)
+@PostMapping("/orders")
+public R<Long> createOrder(@RequestBody CreateOrderDto dto) {
+    return orderService.createOrder(dto);
+}
 ```
 
 ## `exchange-api`
@@ -262,6 +280,7 @@ security:
 - 登录 token 写入 Redis
 - 登录 IP 获取
 - 登录记录通知用户服务
+- 注册接口防重复提交
 
 ### 核心类
 
@@ -279,6 +298,7 @@ security:
 | Spring Boot Starter Web | Servlet Web 服务 |
 | OpenFeign | 调用用户服务 |
 | exchange-common-redis | 缓存 token |
+| exchange-common-security | 注册接口幂等提交 |
 | exchange-common-core | JWT、IP、响应对象 |
 | exchange-api-user | 用户服务契约 |
 
@@ -327,6 +347,7 @@ gateway 后续通过该 key 判断 token 是否仍有效。
 - 最近登录 IP / 时间记录
 - KYC 申请创建和修改
 - 读取 gateway 透传用户上下文
+- 用户注册和 KYC 写接口防重复提交
 
 #### 核心类
 
@@ -349,7 +370,7 @@ gateway 后续通过该 key 判断 token 是否仍有效。
 | MyBatis-Plus | Mapper 和实体映射 |
 | Hutool BeanUtil | DO / VO 属性拷贝 |
 | exchange-api-user | DTO / VO |
-| exchange-common-security | 读取当前用户上下文 |
+| exchange-common-security | 读取当前用户上下文、防重复提交 |
 
 #### 内部接口
 
@@ -382,6 +403,7 @@ exchange-gateway
 
 exchange-auth
   -> exchange-common-redis
+  -> exchange-common-security
   -> exchange-api-user
   -> spring-boot-starter-web
 
@@ -392,7 +414,9 @@ exchange-business-user
 
 exchange-common-security
   -> exchange-common-core
+  -> exchange-common-redis
   -> exchange-api-user
+  -> spring-boot-starter-aop
   -> spring-webmvc
   -> spring-security-crypto
 
@@ -418,4 +442,3 @@ exchange-api-user
 - 具体业务：放 `exchange-business`
 
 如果某个类既想放 common，又依赖具体业务表或业务流程，通常说明边界放错了。这个项目现在最需要守住的就是模块边界，别让公共模块慢慢长成“万能厨房”。
-

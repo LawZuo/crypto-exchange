@@ -2,6 +2,7 @@ package coin.exchange.module.user.controller;
 
 import coin.exchange.api.user.dto.KycApplicationDto;
 import coin.exchange.common.core.response.R;
+import coin.exchange.common.security.annotation.Idempotent;
 import coin.exchange.module.user.domain.KycApplicationDo;
 import coin.exchange.module.user.service.KycApplicationService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ public class KycApplicationController {
     private final KycApplicationService kycApplicationService;
 
     @PostMapping
+    @Idempotent(prefix = "kyc:create", key = "#p0.userId", expire = 10, message = "KYC申请正在处理，请勿重复提交")
     public R<String> createKycApplication(@RequestBody KycApplicationDto kycApplication) {
         try {
             Long application = kycApplicationService.createKycApplication(kycApplication);
@@ -28,6 +30,7 @@ public class KycApplicationController {
     }
 
     @PutMapping("/{id}")
+    @Idempotent(prefix = "kyc:update", expire = 10, message = "KYC修改正在处理，请勿重复提交")
     public R<String> updateKycApplication(
             @PathVariable("id") Long id,
             @RequestBody KycApplicationDto kycApplication
@@ -43,6 +46,7 @@ public class KycApplicationController {
     }
 
     @DeleteMapping("/{id}")
+    @Idempotent(prefix = "kyc:delete", expire = 10, message = "KYC删除正在处理，请勿重复提交")
     public R<String> deleteKycApplication(@PathVariable("id") Long id) {
         try {
             Long application = kycApplicationService.deleteKycApplication(id);
@@ -66,6 +70,7 @@ public class KycApplicationController {
     }
 
     @PutMapping("/{id}/{status}")
+    @Idempotent(prefix = "kyc:status", expire = 10, message = "KYC状态更新正在处理，请勿重复提交")
     public R<String> updateStatus(
             @PathVariable("id") Long id,
             @PathVariable("status") int status

@@ -9,6 +9,7 @@ import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.JwtUtil;
 import coin.exchange.common.core.utils.ServletUtils;
 import coin.exchange.common.redis.service.RedisService;
+import coin.exchange.common.security.annotation.Idempotent;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -69,6 +70,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Idempotent(prefix = "auth:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> register(
             @RequestBody RegisterUserDto registerUserDto
     ) {

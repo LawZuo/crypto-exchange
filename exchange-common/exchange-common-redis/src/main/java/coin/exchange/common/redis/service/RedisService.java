@@ -43,6 +43,21 @@ public class RedisService {
     }
 
     /**
+     * 当 key 不存在时写入缓存，用于分布式锁、幂等提交等需要原子占位的场景。
+     *
+     * @param key Redis键
+     * @param value 缓存的值
+     * @param timeout 过期时间
+     * @param timeUnit 时间单位
+     * @return true=写入成功；false=key 已存在
+     */
+    public <T> boolean setIfAbsent(final String key, final T value, final long timeout, final TimeUnit timeUnit)
+    {
+        Boolean success = redisTemplate.opsForValue().setIfAbsent(key, value, timeout, timeUnit);
+        return Boolean.TRUE.equals(success);
+    }
+
+    /**
      * 设置有效时间
      *
      * @param key Redis键

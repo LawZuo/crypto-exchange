@@ -40,7 +40,7 @@ exchange-api
   对外/服务间 API 契约、DTO、VO、Feign Client
 
 exchange-common
-  通用响应、状态码、JWT、IP、Redis、安全上下文等
+  通用响应、状态码、JWT、IP、Redis、安全上下文、文件日志、幂等提交等
 
 exchange-parent
   Maven 父工程，统一版本和插件
@@ -54,9 +54,9 @@ crypto-exchange/
   dosc/                           项目文档和排障记录
   exchange-parent/                Maven 父工程，统一依赖版本
   exchange-common/                公共能力聚合模块
-    exchange-common-core/         通用核心工具、响应、状态码、JWT、上下文
+    exchange-common-core/         通用核心工具、响应、状态码、JWT、上下文、公共日志配置
     exchange-common-redis/        Redis 配置和 RedisService
-    exchange-common-security/     MVC 服务端请求头上下文拦截器
+    exchange-common-security/     MVC 服务端请求头上下文拦截器、幂等提交
   exchange-api/                   API 契约聚合模块
     exchange-api-user/            用户 DTO / VO / Feign Client
   exchange-gateway/               Spring Cloud Gateway 网关服务
@@ -88,6 +88,52 @@ crypto-exchange/
 | 线程上下文 | TransmittableThreadLocal |
 | 代码简化 | Lombok |
 | 构建 | Maven |
+
+## 工程化公共能力
+
+### 文件日志
+
+各可启动服务通过 `logback-spring.xml` 引入 common-core 的公共日志配置。
+
+默认本地日志目录：
+
+```text
+./log
+```
+
+日志文件按服务名区分：
+
+```text
+log/{spring.application.name}.log
+log/{spring.application.name}-error.log
+```
+
+可通过环境变量覆盖：
+
+```bash
+LOG_PATH=/data/logs/crypto-exchange LOG_LEVEL=INFO java -jar exchange-auth-1.0.jar
+```
+
+### 幂等提交
+
+业务写接口可使用 `@Idempotent` 防止短时间重复提交。底层通过 Redis `setIfAbsent` 原子占位实现。
+
+当前已接入：
+
+```text
+POST /auth/register
+POST /user/register
+POST /user-kyc
+PUT /user-kyc/{id}
+DELETE /user-kyc/{id}
+PUT /user-kyc/{id}/{status}
+```
+
+详细说明见：
+
+```text
+dosc/logging-and-idempotent.md
+```
 
 ## 请求链路
 
@@ -184,4 +230,3 @@ API 契约放 exchange-api
 入口控制放 exchange-gateway
 认证登录放 exchange-auth
 ```
-

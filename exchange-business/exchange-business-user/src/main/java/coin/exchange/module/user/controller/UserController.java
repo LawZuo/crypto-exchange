@@ -8,6 +8,7 @@ import coin.exchange.common.core.constant.SecurityConstants;
 import coin.exchange.common.core.enums.StatusCode;
 import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.ServletUtils;
+import coin.exchange.common.security.annotation.Idempotent;
 import coin.exchange.module.user.domain.UserDo;
 import coin.exchange.module.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -45,6 +46,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
+    @Idempotent(prefix = "user:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> registerUser(@RequestBody RegisterUserDto dto, HttpServletRequest request) {
         log.info("注册用户信息接口被调用，参数：{}", dto.toString());
         try {
