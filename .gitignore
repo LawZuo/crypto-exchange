@@ -10,5 +10,6 @@ out/
 target/
 
 # Logs
+log/
+logs/
 *.log
-
