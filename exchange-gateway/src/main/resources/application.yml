@@ -20,3 +20,18 @@ security:
     - /api/crypto-exchange/auth/login
     - /api/crypto-exchange/auth/register
     - /api/crypto-exchange/auth/logout
+    - /swagger-ui.html
+    - /swagger-ui/**
+    - /webjars/**
+    - /v3/api-docs/**
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    urls-primary-name: auth
+    urls:
+      - name: auth
+        url: /v3/api-docs/auth
+      - name: user
+        url: /v3/api-docs/user

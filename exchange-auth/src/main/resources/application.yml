@@ -12,3 +12,9 @@ spring:
 bt:
   upstream:
     base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8081}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

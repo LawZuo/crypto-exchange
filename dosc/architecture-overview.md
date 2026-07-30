@@ -135,6 +135,22 @@ PUT /user-kyc/{id}/{status}
 dosc/logging-and-idempotent.md
 ```
 
+### 接口文档
+
+项目使用 `springdoc-openapi` 生成接口文档，gateway 聚合 auth 和 user 服务文档。
+
+本地统一入口：
+
+```text
+http://localhost/swagger-ui.html
+```
+
+详细说明见：
+
+```text
+dosc/api-docs.md
+```
+
 ## 请求链路
 
 ### 登录链路

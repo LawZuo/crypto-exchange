@@ -1,6 +1,7 @@
 package coin.exchange.module.user.service;
 
 import coin.exchange.api.user.dto.RegisterUserDto;
+import coin.exchange.api.user.model.UserAuthVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.module.user.domain.UserDo;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,11 @@ public interface UserService {
     UserDo getUserByUsername(String username);
 
     /**
+     * 根据username获取认证信息
+     */
+    UserAuthVo getUserAuthByUsername(String username);
+
+    /**
      * 根据email获取用户信息
      */
     UserVo getUserByEmail(String email);
@@ -35,5 +41,5 @@ public interface UserService {
     /**
      * 记录用户最近登录信息
      */
-    void recordLogin(Long userId, String loginIp);
+    void recordLogin(Long userId, String loginIp, String deviceSource, String deviceInfo);
 }

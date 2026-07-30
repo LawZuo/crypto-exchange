@@ -16,7 +16,7 @@ public interface UserMapper extends BaseMapper<UserDo> {
      * @param uid 用户uid
      * @return 用户信息
      */
-    @Select("select * from users where uid = #{uid} and is_deleted = 0")
+    @Select("select * from user_information where uid = #{uid} and is_deleted = 0")
     UserDo getUserByUid(@Param("uid") String uid);
 
     /**
@@ -24,7 +24,7 @@ public interface UserMapper extends BaseMapper<UserDo> {
      * @param username 用户名
      * @return 用户信息
      */
-    @Select("select * from users where username = #{username} and is_deleted = 0")
+    @Select("select * from user_information where username = #{username} and is_deleted = 0")
     UserDo getUserByUsername(@Param("username") String username);
 
     /**
@@ -32,18 +32,18 @@ public interface UserMapper extends BaseMapper<UserDo> {
      * @param email 邮箱
      * @return 用户信息
      */
-    @Select("select * from users where email = #{email} and is_deleted = 0")
+    @Select("select * from user_information where email = #{email} and is_deleted = 0")
     UserDo getUserByEmail(@Param("email") String email);
 
     /**
      * 创建用户 - 登录时创建
      */
-    @Insert("insert into users (username, email, password, uid) values (#{username}, #{email}, #{password}, #{uid})")
+    @Insert("insert into user_information (username, email, password, uid) values (#{username}, #{email}, #{password}, #{uid})")
     void createUser(@Param("username") String username, @Param("email") String email, @Param("password") String password, @Param("uid") String uid);
 
     /**
      * 更新用户最近登录信息
      */
-    @Update("update users set last_login_ip = #{loginIp}, last_login_time = now() where id = #{userId} and is_deleted = 0")
+    @Update("update user_information set last_login_ip = #{loginIp}, last_login_time = now() where id = #{userId} and is_deleted = 0")
     int updateLoginInfo(@Param("userId") Long userId, @Param("loginIp") String loginIp);
 }

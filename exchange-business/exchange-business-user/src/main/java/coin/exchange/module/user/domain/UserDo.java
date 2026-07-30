@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  */
 
 @Data
-@TableName("users")
+@TableName("user_information")
 public class UserDo {
     @TableId(value = "id", type = IdType.AUTO) // 插入数据后自动返回userId
     private Long id;

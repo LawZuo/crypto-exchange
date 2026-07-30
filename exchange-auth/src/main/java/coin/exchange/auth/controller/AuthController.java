@@ -36,7 +36,7 @@ public class AuthController {
             HttpServletRequest request
     ) {
         try {
-            log.info("【用户登录】账号：{}，密码：{}", loginDto.getUsername(), loginDto.getPassword());
+            log.info("【用户登录】账号：{}", loginDto.getUsername());
             log.info("【用户登录】请求头信息：{}", ServletUtils.getHeaders(request));
             UserVo userVo = loginService.login(loginDto, request);
 
@@ -75,6 +75,7 @@ public class AuthController {
             @RequestBody RegisterUserDto registerUserDto
     ) {
         try {
+            log.info("【用户注册】账号：{}，邮箱：{}", registerUserDto.getUsername(), registerUserDto.getEmail());
             return loginService.register(registerUserDto);
         } catch (Exception e) {
             log.error("注册异常, {}", e.getMessage());

@@ -12,6 +12,6 @@ public interface KycApplicationMapper extends BaseMapper<KycApplicationDo> {
     /**
      * 根据userId查询用户KYC申请
      */
-    @Select("select * from kyc_application where user_id = #{userId}")
+    @Select("select * from user_kyc_application where user_id = #{userId}")
     KycApplicationDo getKycApplication(@Param("userId") Long userId);
 }

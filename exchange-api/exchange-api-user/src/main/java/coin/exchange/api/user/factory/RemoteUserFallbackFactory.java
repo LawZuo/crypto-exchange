@@ -2,6 +2,7 @@ package coin.exchange.api.user.factory;
 
 import coin.exchange.api.user.dto.LoginRecordDto;
 import coin.exchange.api.user.dto.RegisterUserDto;
+import coin.exchange.api.user.model.UserAuthVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.api.user.service.RemoteUserService;
 import coin.exchange.common.core.response.R;
@@ -21,6 +22,11 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             public R<UserVo> getUserInfo(String username)
             {
                 return R.fail("Feign调取用户信息失败:" + throwable.getMessage());
+            }
+
+            @Override
+            public R<UserAuthVo> getUserAuthInfo(String source, String username) {
+                return R.fail("Feign调取用户认证信息失败:" + throwable.getMessage());
             }
 
             @Override

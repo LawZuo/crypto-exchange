@@ -2,17 +2,20 @@ package coin.exchange.module.user.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import coin.exchange.api.user.dto.RegisterUserDto;
+import coin.exchange.api.user.model.UserAuthVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.common.core.utils.IpUtil;
 import coin.exchange.common.core.utils.UUIDUtil;
 import coin.exchange.module.user.domain.UserDo;
 import coin.exchange.module.user.mapper.UserMapper;
+import coin.exchange.module.user.service.UserLoginLogService;
 import coin.exchange.module.user.service.UserService;
 import coin.exchange.module.user.utils.ValidationUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import coin.exchange.common.security.utils.SecurityUtils;
 
 import java.util.Objects;
 
@@ -21,6 +24,9 @@ import java.util.Objects;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserLoginLogService userLoginLogService;
 
     @Override
     public UserDo getUser(Long userId) {
@@ -74,7 +80,6 @@ public class UserServiceImpl implements UserService {
         if (userMapper.getUserByEmail(dto.getEmail()) != null) {
             throw new IllegalArgumentException("邮箱已存在");
         }
-        // TODO 密码加密 使用Spring Security 标准
 
         // 记录注册IP地址
         String clientIp = IpUtil.getClientIp(request);
@@ -85,17 +90,18 @@ public class UserServiceImpl implements UserService {
         // 创建用户
         UserDo userDo = new UserDo();
         BeanUtil.copyProperties(dto, userDo);
+        userDo.setPassword(SecurityUtils.encryptPassword(dto.getPassword()));
         userDo.setUid(uid);
         userDo.setRegisterIp(clientIp);
         userDo.setStatus(1);
-        log.info("注册用户：{}", userDo);
+        log.info("注册用户成功：username={}, uid={}, registerIp={}", userDo.getUsername(), userDo.getUid(), userDo.getRegisterIp());
 
         userMapper.insert(userDo);
         return userDo.getId();
     }
 
     @Override
-    public void recordLogin(Long userId, String loginIp) {
+    public void recordLogin(Long userId, String loginIp, String deviceSource, String deviceInfo) {
         if (userId == null) {
             throw new IllegalArgumentException("用户ID不能为空");
         }
@@ -106,5 +112,17 @@ public class UserServiceImpl implements UserService {
         if (rows <= 0) {
             throw new IllegalArgumentException("记录登录信息失败");
         }
+        userLoginLogService.recordSuccess(userId, loginIp, deviceSource, deviceInfo);
+    }
+
+    @Override
+    public UserAuthVo getUserAuthByUsername(String username) {
+        UserDo user = getUserByUsername(username);
+        if (user == null) {
+            return null;
+        }
+        UserAuthVo userAuthVo = new UserAuthVo();
+        BeanUtil.copyProperties(user, userAuthVo);
+        return userAuthVo;
     }
 }

@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
  * 用户KYC申请表
  */
 @Data
-@TableName("kyc_application")
+@TableName("user_kyc_application")
 public class KycApplicationDo {
     @TableId(value = "id", type = IdType.AUTO) // 插入数据后自动返回Id
     private Long id;

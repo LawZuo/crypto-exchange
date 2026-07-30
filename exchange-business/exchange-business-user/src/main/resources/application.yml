@@ -8,3 +8,9 @@ spring:
       - db
   application:
     name: user-route
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

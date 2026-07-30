@@ -3,6 +3,7 @@ package coin.exchange.api.user.service;
 import coin.exchange.api.user.dto.RegisterUserDto;
 import coin.exchange.api.user.dto.LoginRecordDto;
 import coin.exchange.api.user.factory.RemoteUserFallbackFactory;
+import coin.exchange.api.user.model.UserAuthVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.common.core.constant.SecurityConstants;
 import coin.exchange.common.core.response.R;
@@ -34,6 +35,15 @@ public interface RemoteUserService {
      */
     @GetMapping("/user/{username}")
     public R<UserVo> getUserInfo(@PathVariable("username") String username);
+
+    /**
+     * 通过用户名查询认证信息
+     */
+    @GetMapping("/user/auth/{username}")
+    public R<UserAuthVo> getUserAuthInfo(
+            @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
+            @PathVariable("username") String username
+    );
 
     /**
      * 注册用户

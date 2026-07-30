@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
@@ -36,6 +37,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     private static final String LOGIN_TOKEN_KEY_PREFIX = "user:login:";
     private static final String BEARER_PREFIX = "Bearer ";
+    private static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
     private final RedisService redisService;
     private final ObjectMapper objectMapper;
@@ -93,7 +95,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     private boolean isExcluded(String path) {
         for (String excludePath : securityProperties.getIgnorePaths()) {
-            if (excludePath.equals(path)) {
+            if (PATH_MATCHER.match(excludePath, path)) {
                 return true;
             }
         }

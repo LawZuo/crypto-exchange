@@ -9,6 +9,20 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
       routes:
+        # Auth接口文档
+        - id: auth-api-docs
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v3/api-docs/auth
+          filters:
+            - SetPath=/v3/api-docs
+        # 用户接口文档
+        - id: user-api-docs
+          uri: http://localhost:8081
+          predicates:
+            - Path=/v3/api-docs/user
+          filters:
+            - SetPath=/v3/api-docs
         # 鉴权模块
         - id: auth-route
           uri: http://localhost:8080
