@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Annotation profile for crypto-exchange-root" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
+        </processorPath>
+        <module name="exchange-common-core" />
+        <module name="exchange-auth" />
+        <module name="exchange-common-security" />
+        <module name="exchange-api-user" />
+        <module name="exchange-business-user" />
+        <module name="exchange-common-redis" />
+        <module name="exchange-gateway" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

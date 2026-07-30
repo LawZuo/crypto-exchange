@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-auth/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-auth/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-security/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-security/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-gateway/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-gateway/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-module/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-module/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-parent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-parent/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

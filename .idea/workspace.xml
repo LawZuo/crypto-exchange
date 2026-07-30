@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="docs: 文档" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;LawZuo&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/LawZuo/crypto-exchange.git&quot;,
+    &quot;accountId&quot;: &quot;fa57e5ea-24fe-458b-91ee-1043008fbda3&quot;
+  }
+}</component>
+  <component name="PerforceDirect.Settings">
+    <option name="CHARSET" value="none" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="3GZoiqBFzP4I3QNmWkvUu6ucmj1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.crypto-exchange-root [clean].executor": "Run",
+    "Maven.crypto-exchange-root [compile].executor": "Run",
+    "Maven.crypto-exchange-root [package].executor": "Run",
+    "Maven.crypto-exchange-root [test].executor": "Run",
+    "Maven.crypto-exchange-root [validate].executor": "Run",
+    "Maven.exchange-parent [clean].executor": "Run",
+    "Maven.exchange-parent [compile].executor": "Run",
+    "Maven.exchange-parent [install].executor": "Run",
+    "Maven.exchange-parent [package].executor": "Run",
+    "Maven.exchange-parent [site].executor": "Run",
+    "Maven.exchange-parent [validate].executor": "Run",
+    "Maven.exchange-parent [verify].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/user/Desktop/work/crypto-exchange",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2862069",
+    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
+    "应用程序.ExchangeAuthApplication.executor": "Run",
+    "应用程序.ExchangeBusinessUserApplication.executor": "Run",
+    "应用程序.GatewayApplication.executor": "Run"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/exchange-business" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core" />
+    </key>
+  </component>
+  <component name="RunManager" selected="应用程序.GatewayApplication">
+    <configuration name="ExchangeAuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.auth.ExchangeAuthApplication" />
+      <module name="exchange-auth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="coin.exchange.auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeBusinessUserApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.user.ExchangeBusinessUserApplication" />
+      <module name="exchange-business-user" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="coin.exchange.module.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.gateway.GatewayApplication" />
+      <module name="exchange-gateway" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="coin.exchange.gateway.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="应用程序.GatewayApplication" />
+        <item itemvalue="应用程序.ExchangeAuthApplication" />
+        <item itemvalue="应用程序.ExchangeBusinessUserApplication" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="" />
+      <created>1784188582226</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1784188582226</updated>
+    </task>
+    <task id="LOCAL-00001" summary="feat: fix">
+      <option name="closed" value="true" />
+      <created>1785254524604</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1785254524604</updated>
+    </task>
+    <task id="LOCAL-00002" summary="docs: 文档">
+      <option name="closed" value="true" />
+      <created>1785255712956</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1785255712956</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: fix" />
+    <MESSAGE value="docs: 文档" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: 文档" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
