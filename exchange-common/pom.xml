@@ -19,6 +19,7 @@
         <module>exchange-common-redis</module>
         <module>exchange-common-security</module>
         <module>exchange-common-doc</module>
+        <module>exchange-common-web</module>
     </modules>
 
     <properties>

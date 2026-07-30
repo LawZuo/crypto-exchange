@@ -7,6 +7,7 @@ import coin.exchange.api.user.model.UserAuthVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.common.core.constant.SecurityConstants;
 import coin.exchange.common.core.enums.StatusCode;
+import coin.exchange.common.core.exception.BusinessException;
 import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.ServletUtils;
 import coin.exchange.common.security.annotation.Idempotent;
@@ -32,18 +33,13 @@ public class UserController {
     ) {
         log.info("用户信息接口被调用，参数：{}", username);
         log.info("请求头信息：{}", ServletUtils.getHeaders(request));
-        try {
-            UserDo user = userService.getUserByUsername(username);
-            log.warn("查询到的用户信息：{}", user.toString());
+        UserDo user = userService.getUserByUsername(username);
+        log.warn("查询到的用户信息：{}", user);
 
-            UserVo userVO = new UserVo();
-            BeanUtil.copyProperties(user, userVO);
-            log.warn("将返回的用户信息：{}", userVO);
-            return R.success(userVO);
-        } catch (Exception e) {
-            log.error("调用用户信息接口报错, {}", e.getMessage());
-            return R.fail(e.getMessage());
-        }
+        UserVo userVO = new UserVo();
+        BeanUtil.copyProperties(user, userVO);
+        log.warn("将返回的用户信息：{}", userVO);
+        return R.success(userVO);
     }
 
     @GetMapping("/auth/{username}")
@@ -51,30 +47,20 @@ public class UserController {
             @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
             @PathVariable("username") String username
     ) {
-        try {
-            if (!SecurityConstants.INNER.equals(source)) {
-                return R.fail(StatusCode.FORBIDDEN, "非法内部接口调用");
-            }
-            UserAuthVo userAuthVo = userService.getUserAuthByUsername(username);
-            return R.success(userAuthVo);
-        } catch (Exception e) {
-            log.error("查询用户认证信息失败, {}", e.getMessage());
-            return R.fail(e.getMessage());
+        if (!SecurityConstants.INNER.equals(source)) {
+            throw new BusinessException(StatusCode.FORBIDDEN, "非法内部接口调用");
         }
+        UserAuthVo userAuthVo = userService.getUserAuthByUsername(username);
+        return R.success(userAuthVo);
     }
 
     @PostMapping("/register")
     @Idempotent(prefix = "user:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> registerUser(@RequestBody RegisterUserDto dto, HttpServletRequest request) {
         log.info("注册用户信息接口被调用，账号：{}，邮箱：{}", dto.getUsername(), dto.getEmail());
-        try {
-            Long userId = userService.createUser(dto, request);
-            log.warn("注册用户信息成功，返回用户ID：{}", userId);
-            return R.success(userId);
-        } catch (Exception e) {
-            log.error("注册用户信息报错, {}", e.getMessage());
-            return R.fail(e.getMessage());
-        }
+        Long userId = userService.createUser(dto, request);
+        log.warn("注册用户信息成功，返回用户ID：{}", userId);
+        return R.success(userId);
     }
 
     @PostMapping("/login-record")
@@ -83,16 +69,10 @@ public class UserController {
             @RequestBody LoginRecordDto dto
     ) {
         log.info("记录用户登录信息接口被调用，参数：{}", dto);
-        try {
-            if (!SecurityConstants.INNER.equals(source)) {
-                return R.fail(StatusCode.FORBIDDEN, "非法内部接口调用");
-            }
-            userService.recordLogin(dto.getUserId(), dto.getLoginIp(), dto.getDeviceSource(), dto.getDeviceInfo());
-            return R.success(null);
-        } catch (Exception e) {
-            log.error("记录用户登录信息失败：userId:{}, loginIp:{}, message:{}",
-                    dto.getUserId(), dto.getLoginIp(), e.getMessage());
-            return R.fail(e.getMessage());
+        if (!SecurityConstants.INNER.equals(source)) {
+            throw new BusinessException(StatusCode.FORBIDDEN, "非法内部接口调用");
         }
+        userService.recordLogin(dto.getUserId(), dto.getLoginIp(), dto.getDeviceSource(), dto.getDeviceInfo());
+        return R.success(null);
     }
 }
