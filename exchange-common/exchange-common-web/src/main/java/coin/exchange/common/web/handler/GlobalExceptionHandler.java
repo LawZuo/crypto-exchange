@@ -3,12 +3,16 @@ package coin.exchange.common.web.handler;
 import coin.exchange.common.core.enums.StatusCode;
 import coin.exchange.common.core.exception.BusinessException;
 import coin.exchange.common.core.response.R;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestControllerAdvice
@@ -18,6 +22,24 @@ public class GlobalExceptionHandler {
     public R<Void> handleBusinessException(BusinessException e) {
         log.warn("业务异常: {}", e.getMessage());
         return R.fail(e.getStatusCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public R<Void> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String message = e.getBindingResult().getFieldErrors().stream()
+                .map(error -> error.getDefaultMessage())
+                .collect(Collectors.joining("; "));
+        log.warn("请求体参数校验失败: {}", message);
+        return R.fail(StatusCode.BAD_REQUEST, message);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public R<Void> handleConstraintViolationException(ConstraintViolationException e) {
+        String message = e.getConstraintViolations().stream()
+                .map(violation -> violation.getMessage())
+                .collect(Collectors.joining("; "));
+        log.warn("请求参数校验失败: {}", message);
+        return R.fail(StatusCode.BAD_REQUEST, message);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

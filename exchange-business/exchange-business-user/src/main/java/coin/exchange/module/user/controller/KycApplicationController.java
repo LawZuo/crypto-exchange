@@ -5,6 +5,7 @@ import coin.exchange.common.core.response.R;
 import coin.exchange.common.security.annotation.Idempotent;
 import coin.exchange.module.user.domain.KycApplicationDo;
 import coin.exchange.module.user.service.KycApplicationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class KycApplicationController {
 
     @PostMapping
     @Idempotent(prefix = "kyc:create", key = "#p0.userId", expire = 10, message = "KYC申请正在处理，请勿重复提交")
-    public R<String> createKycApplication(@RequestBody KycApplicationDto kycApplication) {
+    public R<String> createKycApplication(@Valid @RequestBody KycApplicationDto kycApplication) {
         Long application = kycApplicationService.createKycApplication(kycApplication);
         log.info("【KYC】新增KYC成功，userId:{}", kycApplication.getUserId());
         return R.success(String.valueOf(application));
@@ -28,7 +29,7 @@ public class KycApplicationController {
     @Idempotent(prefix = "kyc:update", expire = 10, message = "KYC修改正在处理，请勿重复提交")
     public R<String> updateKycApplication(
             @PathVariable("id") Long id,
-            @RequestBody KycApplicationDto kycApplication
+            @Valid @RequestBody KycApplicationDto kycApplication
     ) {
         Long application = kycApplicationService.updateKycApplication(id, kycApplication);
         log.info("【KYC】修改KYC成功，id:{}，userId:{}", id, kycApplication.getUserId());

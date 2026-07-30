@@ -14,6 +14,7 @@ import coin.exchange.common.security.annotation.Idempotent;
 import coin.exchange.module.user.domain.UserDo;
 import coin.exchange.module.user.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -56,7 +57,7 @@ public class UserController {
 
     @PostMapping("/register")
     @Idempotent(prefix = "user:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
-    public R<Long> registerUser(@RequestBody RegisterUserDto dto, HttpServletRequest request) {
+    public R<Long> registerUser(@Valid @RequestBody RegisterUserDto dto, HttpServletRequest request) {
         log.info("注册用户信息接口被调用，账号：{}，邮箱：{}", dto.getUsername(), dto.getEmail());
         Long userId = userService.createUser(dto, request);
         log.warn("注册用户信息成功，返回用户ID：{}", userId);
@@ -66,7 +67,7 @@ public class UserController {
     @PostMapping("/login-record")
     public R<Void> recordLogin(
             @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
-            @RequestBody LoginRecordDto dto
+            @Valid @RequestBody LoginRecordDto dto
     ) {
         log.info("记录用户登录信息接口被调用，参数：{}", dto);
         if (!SecurityConstants.INNER.equals(source)) {

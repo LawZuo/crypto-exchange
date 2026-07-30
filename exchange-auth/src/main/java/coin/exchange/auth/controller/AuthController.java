@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Tag(name = "认证服务", description = "用户登录、注册、登出接口")
@@ -39,7 +39,7 @@ public class AuthController {
     @ApiResponse(responseCode = "400", description = "用户登录失败")
     @PostMapping("/login")
     public R<LoginVo> login(
-            @RequestBody LoginDto loginDto,
+            @Valid @RequestBody LoginDto loginDto,
             HttpServletRequest request
     ) {
         log.info("【用户登录】账号：{}", loginDto.getUsername());
@@ -80,7 +80,7 @@ public class AuthController {
     @PostMapping("/register")
     @Idempotent(prefix = "auth:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> register(
-            @RequestBody RegisterUserDto registerUserDto
+            @Valid @RequestBody RegisterUserDto registerUserDto
     ) {
         log.info("【用户注册】账号：{}，邮箱：{}", registerUserDto.getUsername(), registerUserDto.getEmail());
         return loginService.register(registerUserDto);
