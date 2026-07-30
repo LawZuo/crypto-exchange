@@ -80,6 +80,7 @@ crypto-exchange/
 | 负载均衡 | Spring Cloud LoadBalancer |
 | 数据访问 | MyBatis-Plus 3.5.7 |
 | 动态数据源 | dynamic-datasource-spring-boot3-starter 4.3.0 |
+| 数据库迁移 | Flyway |
 | 数据库连接池 | Druid 1.2.22 |
 | 数据库 | MySQL |
 | 缓存 | Spring Data Redis |

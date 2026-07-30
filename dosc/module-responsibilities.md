@@ -362,6 +362,7 @@ gateway 后续通过该 key 判断 token 是否仍有效。
 |---|---|
 | MyBatis-Plus | ORM / Mapper |
 | dynamic-datasource | 动态数据源 |
+| Flyway | 数据库版本迁移 |
 | Druid | 数据库连接池 |
 | MySQL Connector | MySQL 驱动 |
 
