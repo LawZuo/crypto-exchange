@@ -4,9 +4,23 @@
 
 为各服务生成 OpenAPI 文档，并通过 gateway 提供统一 Swagger UI 入口。
 
-## 技术选型
+## 技术选型与模块
 
-使用 `springdoc-openapi`：
+使用 `springdoc-openapi`，公共配置放在：
+
+```text
+exchange-common/exchange-common-doc
+```
+
+该模块负责：
+
+```text
+OpenAPI 基础信息
+Bearer JWT 安全方案
+Spring Boot 自动配置
+```
+
+各启动服务仍按 Web 类型引入对应 UI starter：
 
 | 服务类型 | 依赖 |
 |---|---|
@@ -74,18 +88,22 @@ gateway 鉴权白名单已放开：
 
 `AuthFilter` 使用 Ant 风格路径匹配，所以 `/**` 可以匹配多级路径。
 
-## OpenAPI 配置类
+## OpenAPI 配置
 
-认证服务：
+服务通过 `exchange.doc` 配置文档标题、描述和版本：
 
-```text
-exchange-auth/src/main/java/coin/exchange/auth/config/OpenApiConfig.java
+```yaml
+exchange:
+  doc:
+    title: Crypto Exchange Auth API
+    description: 认证服务接口文档
+    version: 1.0
 ```
 
-用户服务：
+默认启用 Bearer JWT 安全方案，Swagger UI 页面可通过 `Authorize` 输入 token 后调试需要登录的接口。
+
+公共配置入口：
 
 ```text
-exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/config/OpenApiConfig.java
+exchange-common/exchange-common-doc/src/main/java/coin/exchange/common/doc/config/ExchangeDocAutoConfiguration.java
 ```
-
-两者都配置了 Bearer JWT 安全方案，Swagger UI 页面可通过 `Authorize` 输入 token 后调试需要登录的接口。

@@ -10,6 +10,9 @@ import coin.exchange.common.core.utils.JwtUtil;
 import coin.exchange.common.core.utils.ServletUtils;
 import coin.exchange.common.redis.service.RedisService;
 import coin.exchange.common.security.annotation.Idempotent;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+@Tag(name = "认证服务", description = "用户登录、注册、登出接口")
 @RequestMapping("/auth")
 @RestController
 @RequiredArgsConstructor
@@ -30,6 +34,9 @@ public class AuthController {
     private final LoginService loginService;
     private final RedisService redisService;
 
+    @Operation(summary = "用户登录")
+    @ApiResponse(responseCode = "200", description = "用户登录成功")
+    @ApiResponse(responseCode = "400", description = "用户登录失败")
     @PostMapping("/login")
     public R<LoginVo> login(
             @RequestBody LoginDto loginDto,
@@ -64,11 +71,17 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "用户登出")
+    @ApiResponse(responseCode = "200", description = "用户登出成功")
+    @ApiResponse(responseCode = "400", description = "用户登出失败")
     @PostMapping("/logout")
     public R<String> logout() {
         return R.success("logout");
     }
 
+    @Operation(summary = "用户注册")
+    @ApiResponse(responseCode = "200", description = "用户注册成功")
+    @ApiResponse(responseCode = "400", description = "用户注册失败")
     @PostMapping("/register")
     @Idempotent(prefix = "auth:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> register(

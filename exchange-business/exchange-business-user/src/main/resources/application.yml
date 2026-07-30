@@ -6,6 +6,7 @@ spring:
     include:
       - feign
       - db
+      - redis
   application:
     name: user-route
 
@@ -14,3 +15,9 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+exchange:
+  doc:
+    title: Crypto Exchange User API
+    description: 用户服务接口文档
+    version: 1.0

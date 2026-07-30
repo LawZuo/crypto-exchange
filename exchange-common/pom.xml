@@ -18,6 +18,7 @@
         <module>exchange-common-core</module>
         <module>exchange-common-redis</module>
         <module>exchange-common-security</module>
+        <module>exchange-common-doc</module>
     </modules>
 
     <properties>

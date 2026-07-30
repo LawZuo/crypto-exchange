@@ -5,7 +5,7 @@ spring:
     active: dev
     include:
       - feign
-      - db
+      - redis
   application:
     name: service-auth
 
@@ -18,3 +18,9 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui.html
+
+exchange:
+  doc:
+    title: Crypto Exchange Auth API
+    description: 认证服务接口文档
+    version: 1.0

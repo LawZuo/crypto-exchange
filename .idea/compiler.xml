@@ -2,6 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Annotation profile for crypto-exchange-root" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -11,6 +12,7 @@
         </processorPath>
         <module name="exchange-common-core" />
         <module name="exchange-auth" />
+        <module name="exchange-common-doc" />
         <module name="exchange-common-security" />
         <module name="exchange-api-user" />
         <module name="exchange-business-user" />

@@ -57,6 +57,7 @@ crypto-exchange/
     exchange-common-core/         通用核心工具、响应、状态码、JWT、上下文、公共日志配置
     exchange-common-redis/        Redis 配置和 RedisService
     exchange-common-security/     MVC 服务端请求头上下文拦截器、幂等提交
+    exchange-common-doc/          OpenAPI 接口文档公共配置
   exchange-api/                   API 契约聚合模块
     exchange-api-user/            用户 DTO / VO / Feign Client
   exchange-gateway/               Spring Cloud Gateway 网关服务
@@ -82,7 +83,7 @@ crypto-exchange/
 | 数据库连接池 | Druid 1.2.22 |
 | 数据库 | MySQL |
 | 缓存 | Spring Data Redis |
-| Redis 客户端 | Redisson 3.27.2 |
+| Redis 客户端 | Spring Data Redis / Lettuce |
 | JWT | jjwt 0.12.6 |
 | 工具库 | Hutool 5.8.20 |
 | 线程上下文 | TransmittableThreadLocal |
@@ -137,7 +138,7 @@ dosc/logging-and-idempotent.md
 
 ### 接口文档
 
-项目使用 `springdoc-openapi` 生成接口文档，gateway 聚合 auth 和 user 服务文档。
+项目使用 `springdoc-openapi` 生成接口文档，公共 OpenAPI 配置位于 `exchange-common-doc`，gateway 聚合 auth 和 user 服务文档。
 
 本地统一入口：
 

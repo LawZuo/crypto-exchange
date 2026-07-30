@@ -35,3 +35,9 @@ springdoc:
         url: /v3/api-docs/auth
       - name: user
         url: /v3/api-docs/user
+
+exchange:
+  doc:
+    title: Crypto Exchange Gateway API
+    description: 网关接口文档聚合入口
+    version: 1.0

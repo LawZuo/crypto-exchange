@@ -4,7 +4,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="docs: 文档" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 修改忽略文件">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dosc/api-docs.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/api-docs.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dosc/architecture-overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/architecture-overview.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dosc/module-responsibilities.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/module-responsibilities.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/config/OpenApiConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/resources/application-db.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/config/OpenApiConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-redis/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-redis/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java/coin/exchange/common/redis/configure/ExchangeRedisAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java/coin/exchange/common/redis/configure/ExchangeRedisAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java/coin/exchange/common/redis/configure/RedisConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java/coin/exchange/common/redis/configure/RedisConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-redis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-redis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-parent/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-parent/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -44,37 +67,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.crypto-exchange-root [clean].executor": "Run",
-    "Maven.crypto-exchange-root [compile].executor": "Run",
-    "Maven.crypto-exchange-root [package].executor": "Run",
-    "Maven.crypto-exchange-root [test].executor": "Run",
-    "Maven.crypto-exchange-root [validate].executor": "Run",
-    "Maven.exchange-parent [clean].executor": "Run",
-    "Maven.exchange-parent [compile].executor": "Run",
-    "Maven.exchange-parent [install].executor": "Run",
-    "Maven.exchange-parent [package].executor": "Run",
-    "Maven.exchange-parent [site].executor": "Run",
-    "Maven.exchange-parent [validate].executor": "Run",
-    "Maven.exchange-parent [verify].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/user/Desktop/work/crypto-exchange",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2862069",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
-    "应用程序.ExchangeAuthApplication.executor": "Run",
-    "应用程序.ExchangeBusinessUserApplication.executor": "Run",
-    "应用程序.GatewayApplication.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [verify].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/user/Desktop/work/crypto-exchange&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2862069&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
+    &quot;应用程序.ExchangeAuthApplication.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.ExchangeBusinessUserApplication.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.GatewayApplication.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/exchange-business" />
@@ -82,7 +105,7 @@
       <recent name="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.GatewayApplication">
+  <component name="RunManager" selected="应用程序.ExchangeBusinessUserApplication">
     <configuration name="ExchangeAuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="coin.exchange.auth.ExchangeAuthApplication" />
       <module name="exchange-auth" />
@@ -124,9 +147,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.ExchangeBusinessUserApplication" />
         <item itemvalue="应用程序.GatewayApplication" />
         <item itemvalue="应用程序.ExchangeAuthApplication" />
-        <item itemvalue="应用程序.ExchangeBusinessUserApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -161,7 +184,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785255712956</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: 修改忽略文件">
+      <option name="closed" value="true" />
+      <created>1785382618419</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1785382618419</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -178,7 +209,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: fix" />
     <MESSAGE value="docs: 文档" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs: 文档" />
+    <MESSAGE value="feat: 修改忽略文件" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 修改忽略文件" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

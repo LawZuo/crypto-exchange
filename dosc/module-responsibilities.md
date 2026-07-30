@@ -37,7 +37,6 @@ Maven 父工程，统一管理：
 | MySQL Connector | 8.3.0 |
 | MyBatis-Plus | 3.5.7 |
 | dynamic-datasource | 4.3.0 |
-| Redisson | 3.27.2 |
 | Druid | 1.2.22 |
 | Hutool | 5.8.20 |
 
@@ -110,7 +109,8 @@ SecurityContextHolder.getUserId();
 | 工具库 | 用途 |
 |---|---|
 | Spring Data Redis | RedisTemplate |
-| Redisson | Redis 客户端与连接工厂 |
+| Lettuce | Spring Data Redis 默认客户端 |
+| commons-pool2 | Lettuce 连接池 |
 | Jackson | Redis value JSON 序列化 |
 
 #### 自动配置
@@ -180,6 +180,38 @@ SecurityUtils.getLoginUser();
 public R<Long> createOrder(@RequestBody CreateOrderDto dto) {
     return orderService.createOrder(dto);
 }
+```
+
+### `exchange-common-doc`
+
+#### 职责
+
+封装接口文档公共配置：
+
+- OpenAPI 基础信息
+- Bearer JWT 安全方案
+- Spring Boot 自动配置
+- `exchange.doc` 配置项
+
+#### 核心类
+
+| 类 | 职责 |
+|---|---|
+| `ExchangeDocAutoConfiguration` | 自动注册 OpenAPI Bean |
+| `ExchangeDocProperties` | 读取 `exchange.doc` 配置 |
+
+#### 使用库
+
+| 工具库 | 用途 |
+|---|---|
+| springdoc-openapi-starter-common | OpenAPI 模型和公共配置 |
+| Spring Boot Autoconfigure | 自动配置 |
+
+服务侧仍需要按 Web 类型引入 UI starter：
+
+```text
+Spring MVC -> springdoc-openapi-starter-webmvc-ui
+Gateway WebFlux -> springdoc-openapi-starter-webflux-ui
 ```
 
 ## `exchange-api`
@@ -400,16 +432,19 @@ from-source: inner
 exchange-gateway
   -> exchange-common-core
   -> exchange-common-redis
+  -> exchange-common-doc
 
 exchange-auth
   -> exchange-common-redis
   -> exchange-common-security
+  -> exchange-common-doc
   -> exchange-api-user
   -> spring-boot-starter-web
 
 exchange-business-user
   -> exchange-api-user
   -> exchange-common-security
+  -> exchange-common-doc
   -> spring-boot-starter-web
 
 exchange-common-security
@@ -423,7 +458,10 @@ exchange-common-security
 exchange-common-redis
   -> exchange-common-core
   -> spring-boot-starter-data-redis
-  -> redisson-spring-boot-starter
+
+exchange-common-doc
+  -> springdoc-openapi-starter-common
+  -> spring-boot-autoconfigure
 
 exchange-api-user
   -> exchange-common-core

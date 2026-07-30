@@ -1,11 +1,11 @@
 spring:
   data:
     redis:
-      host: 106.12.183.54
-      port: 63500
-      password: LawZhuo1002.
-      database: 0
-      timeout: 5000ms
+      host: ${REDIS_HOST:106.12.183.54}
+      port: ${REDIS_PORT:63500}
+      password: ${REDIS_PASSWORD:LawZhuo1002.}
+      database: ${REDIS_DATABASE:0}
+      timeout: ${REDIS_TIMEOUT:5000ms}
       lettuce:
         pool:
           max-active: 16
