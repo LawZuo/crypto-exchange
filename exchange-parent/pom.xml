@@ -34,6 +34,7 @@
         <hutool.version>5.8.20</hutool.version>
         <hikari.version>5.0.1</hikari.version>
         <transmittable.thread.local>2.14.5</transmittable.thread.local>
+        <springdoc.version>2.6.0</springdoc.version>
     </properties>
 
     <dependencyManagement>
@@ -93,6 +94,16 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+                <version>${springdoc.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
