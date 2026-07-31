@@ -4,29 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 优化项目模块结构">
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/java/coin/exchange/resource/upload/ExchangeResourceUploadApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/java/coin/exchange/resource/upload/controller/ImageUploadController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/java/coin/exchange/resource/upload/service/ImageUploadService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/java/coin/exchange/resource/upload/service/impl/ImageUploadServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/resources/application-feign.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-resource/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 开发图片上传模块">
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/ExchangeModuleMailApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/controller/VerificationCodeEmailController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/model/EmailCodeVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/EmailService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/impl/EmailServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-feign.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/templates/email/code.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/test/java/coin/exchange/AppTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/service/RemoteUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/service/RemoteUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/KycApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/KycApplicationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/KycApplicationDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/KycApplicationDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-web/src/main/java/coin/exchange/common/web/config/ExchangeWebAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-web/src/main/java/coin/exchange/common/web/config/ExchangeWebAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-web/src/main/java/coin/exchange/common/web/handler/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-web/src/main/java/coin/exchange/common/web/handler/GlobalExceptionHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-parent/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-parent/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +87,7 @@
     "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
     "应用程序.ExchangeAuthApplication.executor": "Run",
     "应用程序.ExchangeBusinessUserApplication.executor": "Run",
+    "应用程序.ExchangeModuleMailApplication.executor": "Run",
     "应用程序.ExchangeResourceUploadApplication.executor": "Run",
     "应用程序.GatewayApplication.executor": "Run"
   }
@@ -106,7 +99,7 @@
       <recent name="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ExchangeResourceUploadApplication">
+  <component name="RunManager" selected="应用程序.ExchangeModuleMailApplication">
     <configuration name="ExchangeAuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="coin.exchange.auth.ExchangeAuthApplication" />
       <module name="exchange-auth" />
@@ -126,6 +119,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="coin.exchange.module.user.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeModuleMailApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.mail.ExchangeModuleMailApplication" />
+      <module name="exchange-module-mail" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="coin.exchange.module.mail.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -161,6 +167,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.ExchangeModuleMailApplication" />
         <item itemvalue="应用程序.ExchangeResourceUploadApplication" />
         <item itemvalue="应用程序.GatewayApplication" />
         <item itemvalue="应用程序.ExchangeAuthApplication" />
@@ -223,7 +230,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785384756975</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: 开发图片上传模块">
+      <option name="closed" value="true" />
+      <created>1785486038439</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1785486038439</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -242,7 +257,8 @@
     <MESSAGE value="docs: 文档" />
     <MESSAGE value="feat: 修改忽略文件" />
     <MESSAGE value="feat: 优化项目模块结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 优化项目模块结构" />
+    <MESSAGE value="feat: 开发图片上传模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 开发图片上传模块" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
