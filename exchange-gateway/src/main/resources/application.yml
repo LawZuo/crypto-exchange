@@ -24,6 +24,7 @@ security:
     - /swagger-ui/**
     - /webjars/**
     - /v3/api-docs/**
+    - /api/crypto-exchange/files/**
 
 springdoc:
   swagger-ui:

@@ -33,13 +33,13 @@ public interface RemoteUserService {
      * @param username 用户名
      * @return 结果
      */
-    @GetMapping("/user/{username}")
+    @GetMapping("/user/information/{username}")
     public R<UserVo> getUserInfo(@PathVariable("username") String username);
 
     /**
      * 通过用户名查询认证信息
      */
-    @GetMapping("/user/auth/{username}")
+    @GetMapping("/user/information/auth/{username}")
     public R<UserAuthVo> getUserAuthInfo(
             @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
             @PathVariable("username") String username
@@ -48,13 +48,13 @@ public interface RemoteUserService {
     /**
      * 注册用户
      */
-    @PostMapping("/user/register")
+    @PostMapping("/user/information/register")
     public R<Long> registerUser(@RequestBody RegisterUserDto dto);
 
     /**
      * 记录用户登录信息
      */
-    @PostMapping("/user/login-record")
+    @PostMapping("/user/information/login-record")
     public R<Void> recordLogin(
             @RequestHeader(SecurityConstants.FROM_SOURCE) String source,
             @RequestBody LoginRecordDto dto

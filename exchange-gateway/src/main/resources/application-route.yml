@@ -23,6 +23,21 @@ spring:
             - Path=/v3/api-docs/user
           filters:
             - SetPath=/v3/api-docs
+
+        # 文件上传模块
+        - id: upload-route
+          uri: http://localhost:8079
+          predicates:
+            - Path=/api/crypto-exchange/upload/**
+          filters:
+            - StripPrefix=2
+        # 文件访问模块
+        - id: upload-file-route
+          uri: http://localhost:8079
+          predicates:
+            - Path=/api/crypto-exchange/files/**
+          filters:
+            - StripPrefix=2
         # 鉴权模块
         - id: auth-route
           uri: http://localhost:8080

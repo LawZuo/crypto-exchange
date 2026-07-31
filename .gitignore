@@ -13,3 +13,7 @@ target/
 log/
 logs/
 *.log
+
+# Upload files
+/upload/
+/uploads/
