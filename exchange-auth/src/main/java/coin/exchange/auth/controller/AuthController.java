@@ -5,6 +5,7 @@ import coin.exchange.api.user.model.LoginVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.auth.dto.LoginDto;
 import coin.exchange.auth.service.LoginService;
+import coin.exchange.common.core.constant.RedisKeyConstants;
 import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.JwtUtil;
 import coin.exchange.common.core.utils.ServletUtils;
@@ -61,7 +62,7 @@ public class AuthController {
         loginVo.setExpireTime(String.valueOf(JwtUtil.getExpireMs(now)));
 
         // 缓存 token
-        redisService.setCacheObject("user:login:" + token, userVo.getId(), JwtUtil.EXPIRE_MS);
+        redisService.setCacheObject(RedisKeyConstants.LOGIN_TOKEN_KEY_PREFIX + token, userVo.getId(), JwtUtil.EXPIRE_MS);
 
         return R.success(loginVo);
     }

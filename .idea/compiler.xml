@@ -20,6 +20,7 @@
         <module name="exchange-auth" />
         <module name="exchange-module-mail" />
         <module name="exchange-common-doc" />
+        <module name="exchange-common-rabbitmq" />
         <module name="exchange-common-security" />
         <module name="exchange-api-user" />
         <module name="exchange-common-web" />

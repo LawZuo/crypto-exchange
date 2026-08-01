@@ -17,6 +17,7 @@
     <modules>
         <module>exchange-common-core</module>
         <module>exchange-common-redis</module>
+        <module>exchange-common-rabbitmq</module>
         <module>exchange-common-security</module>
         <module>exchange-common-doc</module>
         <module>exchange-common-web</module>

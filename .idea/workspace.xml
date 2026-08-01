@@ -4,21 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 开发图片上传模块">
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/ExchangeModuleMailApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/controller/VerificationCodeEmailController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/model/EmailCodeVo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/EmailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/impl/EmailServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-feign.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/templates/email/code.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/test/java/coin/exchange/AppTest.java" afterDir="false" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 集成邮件服务">
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/MqConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/RedisKeyConstants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/config/RabbitMqProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/model/MqMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/service/MqMessageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-mail.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-mq.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/filter/AuthFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/filter/AuthFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/model/EmailCodeVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/model/EmailCodeVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/impl/EmailServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/impl/EmailServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +32,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -59,41 +63,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.crypto-exchange-root [clean].executor": "Run",
-    "Maven.crypto-exchange-root [compile].executor": "Run",
-    "Maven.crypto-exchange-root [package].executor": "Run",
-    "Maven.crypto-exchange-root [test].executor": "Run",
-    "Maven.crypto-exchange-root [validate].executor": "Run",
-    "Maven.exchange-parent [clean].executor": "Run",
-    "Maven.exchange-parent [compile].executor": "Run",
-    "Maven.exchange-parent [install].executor": "Run",
-    "Maven.exchange-parent [package].executor": "Run",
-    "Maven.exchange-parent [site].executor": "Run",
-    "Maven.exchange-parent [validate].executor": "Run",
-    "Maven.exchange-parent [verify].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/user/Desktop/work/crypto-exchange",
-    "project.structure.last.edited": "模块",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2862069",
-    "settings.editor.selected.configurable": "project.propVCSSupport.CommitDialog",
-    "应用程序.ExchangeAuthApplication.executor": "Run",
-    "应用程序.ExchangeBusinessUserApplication.executor": "Run",
-    "应用程序.ExchangeModuleMailApplication.executor": "Run",
-    "应用程序.ExchangeResourceUploadApplication.executor": "Run",
-    "应用程序.GatewayApplication.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [test].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.crypto-exchange-root [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [site].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [validate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.exchange-parent [verify].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/user/Desktop/work/crypto-exchange&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2862069&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
+    &quot;应用程序.ExchangeAuthApplication.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.ExchangeBusinessUserApplication.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.ExchangeModuleMailApplication.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.ExchangeResourceUploadApplication.executor&quot;: &quot;Run&quot;,
+    &quot;应用程序.GatewayApplication.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources" />
       <recent name="$PROJECT_DIR$/exchange-business" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core" />
@@ -238,7 +243,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785486038439</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="feat: 集成邮件服务">
+      <option name="closed" value="true" />
+      <created>1785498475421</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1785498475421</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -258,7 +271,8 @@
     <MESSAGE value="feat: 修改忽略文件" />
     <MESSAGE value="feat: 优化项目模块结构" />
     <MESSAGE value="feat: 开发图片上传模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 开发图片上传模块" />
+    <MESSAGE value="feat: 集成邮件服务" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 集成邮件服务" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -1,5 +1,6 @@
 package coin.exchange.gateway.filter;
 
+import coin.exchange.common.core.constant.RedisKeyConstants;
 import coin.exchange.common.core.constant.SecurityConstants;
 import coin.exchange.common.core.enums.StatusCode;
 import coin.exchange.common.core.response.R;
@@ -35,7 +36,6 @@ import java.nio.charset.StandardCharsets;
 @Slf4j
 public class AuthFilter implements GlobalFilter, Ordered {
 
-    private static final String LOGIN_TOKEN_KEY_PREFIX = "user:login:";
     private static final String BEARER_PREFIX = "Bearer ";
     private static final AntPathMatcher PATH_MATCHER = new AntPathMatcher();
 
@@ -78,7 +78,7 @@ public class AuthFilter implements GlobalFilter, Ordered {
 
     private Claims parseAndCheck(String token) {
         Claims claims = JwtUtil.parse(token);
-        Boolean exists = redisService.hasKey(LOGIN_TOKEN_KEY_PREFIX + token);
+        Boolean exists = redisService.hasKey(RedisKeyConstants.LOGIN_TOKEN_KEY_PREFIX + token);
         if (!Boolean.TRUE.equals(exists)) {
             throw new IllegalArgumentException("token已过期");
         }

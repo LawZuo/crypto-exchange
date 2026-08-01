@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>coin.exchange</groupId>
-            <artifactId>exchange-common-core</artifactId>
+            <artifactId>exchange-common-rabbitmq</artifactId>
             <version>1.0</version>
         </dependency>
 

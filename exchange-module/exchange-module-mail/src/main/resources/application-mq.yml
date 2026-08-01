@@ -1,0 +1,27 @@
+spring:
+  rabbitmq:
+    host: 192.168.1.100
+    port: 5672
+    username: admin
+    password: ${RABBITMQ_PASSWORD:admin123}  # 推荐用环境变量，不要硬编码
+    virtual-host: /notification
+
+    # 连接级优化（生产环境必配）
+    connection-timeout: 15000          # 连接超时 15s
+    requested-heartbeat: 30            # 心跳间隔 30s，防止防火墙断开空闲连接
+    listener:
+      simple:
+        acknowledge-mode: manual       # 全局手动ACK（与封装中的 channel.basicAck 配合）
+        prefetch: 10                   # 单消费者预取数，防止积压时撑爆内存
+        retry:
+          enabled: false               # ⚠️ 关闭Spring内置重试！我们已在Listener中自行处理异常+DLX
+
+exchange:
+  rabbitmq:
+    queues:
+      - name: queue.email.send
+        exchange: exchange.notification
+        routing-key: email.send
+        dlx-exchange: exchange.notification.dlx
+        dlx-routing-key: email.send.dlx
+        dlx-queue: queue.email.send.dlx
