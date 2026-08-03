@@ -49,6 +49,7 @@ exchange-gateway
 exchange-auth
 exchange-module
 exchange-business
+exchange-resource
 ```
 
 ## `exchange-common`
@@ -67,6 +68,8 @@ exchange-business
 - IP 获取工具 `IpUtil`
 - Servlet 工具 `ServletUtils`
 - UUID 工具
+- MQ 常量 `MqConstants`
+- Redis key 常量 `RedisKeyConstants`
 - 安全上下文 `SecurityContextHolder`
 - 安全常量 `SecurityConstants`
 - 公共 Logback 文件日志配置
@@ -127,6 +130,98 @@ META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
 - `RedisService`
 
 不需要在启动类里手写扫描 `coin.exchange.common.redis`。
+
+### `exchange-common-rabbitmq`
+
+#### 职责
+
+封装 RabbitMQ 基础能力：
+
+- RabbitMQ 自动配置
+- JSON 消息转换器
+- `RabbitTemplate` confirm / return 回调
+- 按配置动态声明交换机、队列、绑定和死信队列
+- 标准消息体 `MqMessage<T>`
+- 统一发送入口 `MqMessageService`
+
+#### 核心类
+
+| 类 | 职责 |
+|---|---|
+| `ExchangeRabbitMqAutoConfiguration` | RabbitMQ 自动配置、消息转换器、RabbitTemplate、动态队列声明 |
+| `RabbitMqProperties` | 读取 `exchange.rabbitmq.queues` 配置 |
+| `MqMessage` | 标准消息包装，提供 messageId、bizType、payload、timestamp |
+| `MqMessageService` | 统一包装并发送 MQ 消息 |
+| `RabbitMqService` | RabbitTemplate / AmqpTemplate 轻量发送工具 |
+
+#### 使用库
+
+| 工具库 | 用途 |
+|---|---|
+| Spring AMQP | RabbitTemplate、队列、交换机、绑定、监听注解 |
+| RabbitMQ Java Client | Consumer 手动 ACK / NACK |
+| Jackson | MQ 消息 JSON 序列化 |
+| exchange-common-redis | 消息消费幂等去重 |
+| Lombok | 消息模型和服务样板代码 |
+
+#### 自动配置
+
+模块提供：
+
+```text
+META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+```
+
+依赖该模块的 Spring Boot 服务会自动加载 `ExchangeRabbitMqAutoConfiguration`。
+
+业务服务可以通过配置声明队列：
+
+```yaml
+exchange:
+  rabbitmq:
+    queues:
+      - name: ${email.queue.name}
+        exchange: ${email.exchange.name}
+        routing-key: ${email.routing-key}
+        dlx-exchange: exchange.notification.dlx
+        dlx-routing-key: email.send.dlx
+        dlx-queue: queue.email.send.dlx
+```
+
+队列名、交换机和 routing key 必须与生产者发送参数、消费者 `@RabbitListener` 监听队列一致。
+
+标准发送方式：
+
+```java
+mqMessageService.send(exchange, routingKey, bizType, payload);
+```
+
+消费端建议使用 `messageId` 做幂等 key，资金、订单、充值提现等强一致场景仍需要业务流水号或数据库唯一约束兜底。
+
+### `exchange-common-web`
+
+#### 职责
+
+封装 Web 服务公共能力：
+
+- 全局异常处理
+- Jackson `LocalDateTime` 序列化和反序列化格式
+- Spring Boot 自动配置
+
+#### 核心类
+
+| 类 | 职责 |
+|---|---|
+| `ExchangeWebAutoConfiguration` | 自动注册全局异常处理和 Jackson 时间格式配置 |
+| `GlobalExceptionHandler` | 统一处理业务异常、参数异常和系统异常 |
+
+#### 使用库
+
+| 工具库 | 用途 |
+|---|---|
+| Spring WebMVC | 全局异常处理 |
+| Spring Boot Validation | 请求参数校验 |
+| Jackson JSR310 | Java Time 类型处理 |
 
 ### `exchange-common-security`
 
@@ -417,15 +512,150 @@ from-source: inner
 
 ## `exchange-module`
 
-当前是预留模块，只依赖 `exchange-common-core`，还没有承载明确业务。
+通用业务能力聚合模块，适合承载可独立部署、可被多个业务域复用的能力。
 
-后续如果交易所业务扩大，可以考虑承载更独立的领域能力，例如：
+当前聚合：
 
-- account
-- order
-- market
-- asset
-- risk
+```text
+exchange-module-mail
+```
+
+### `exchange-module-mail`
+
+#### 职责
+
+邮件服务。
+
+当前负责：
+
+- 邮件验证码接口
+- 生成验证码和邮件内容
+- 发送邮件任务到 RabbitMQ
+- 消费 RabbitMQ 邮件任务
+- 使用 Redis 对 MQ 消息做幂等去重
+- 通过 JavaMailSender 发送文本邮件
+- 预留 HTML 模板邮件能力
+
+#### 核心类
+
+| 类 | 职责 |
+|---|---|
+| `ExchangeModuleMailApplication` | 邮件服务启动类 |
+| `VerificationCodeEmailController` | 邮件验证码接口 |
+| `EmailService` / `EmailServiceImpl` | 邮件发送、MQ 投递和 MQ 消费 |
+| `EmailCodeVo` | 邮件验证码接口入参 |
+| `templates/email/code.html` | HTML 邮件模板预留 |
+
+#### 使用库
+
+| 工具库 | 用途 |
+|---|---|
+| exchange-common-rabbitmq | 发送和消费邮件 MQ 任务 |
+| exchange-common-redis | MQ 消费幂等去重 |
+| Spring Boot Starter Mail | 邮件发送 |
+| Thymeleaf | HTML 邮件模板 |
+| Spring Boot Starter Web | 对外提供邮件接口 |
+
+#### 消息处理
+
+生产侧：
+
+```text
+EmailServiceImpl.sendTextEmail
+  -> MqMessageService.send
+  -> RabbitTemplate.convertAndSend
+```
+
+当前发送参数来自 `MqConstants`：
+
+| 常量 | 当前值 | 用途 |
+|---|---|---|
+| `EMAIL_SEND_TYPE` | `EMAIL_SEND` | 消息业务类型 |
+| `EMAIL_SEND_NAME` | `exchange.email.send` | 当前发送 exchange，同时也是监听队列名 |
+| `EMAIL_SEND_KEY` | `queue.email.send` | routing key |
+
+消费侧：
+
+```text
+@RabbitListener(queues = MqConstants.EMAIL_SEND_NAME)
+  -> Redis SETNX mq:dedup:{messageId}
+  -> JavaMailSender.send
+  -> channel.basicAck
+```
+
+异常时执行：
+
+```text
+channel.basicNack(tag, false, false)
+```
+
+消息不会重新入队，按队列配置进入死信队列。
+
+## `exchange-resource`
+
+资源服务聚合模块。
+
+当前聚合：
+
+```text
+exchange-resource-upload
+```
+
+### `exchange-resource-upload`
+
+#### 职责
+
+图片上传服务。
+
+当前负责：
+
+- KYC 图片上传
+- 用户头像上传
+- 图片类型校验
+- 按业务路径和日期分目录存储
+- 生成访问 URL
+
+#### 核心类
+
+| 类 | 职责 |
+|---|---|
+| `ExchangeResourceUploadApplication` | 上传服务启动类 |
+| `UploadResourceConfig` | 静态资源访问配置 |
+| `ImageUploadController` | 图片上传接口 |
+| `ImageUploadService` / `ImageUploadServiceImpl` | 图片校验、存储和 URL 生成 |
+| `UploadVo` | 上传结果返回对象 |
+
+#### 使用库
+
+| 工具库 | 用途 |
+|---|---|
+| exchange-common-web | 统一 Web 异常处理和 Jackson 配置 |
+| exchange-common-doc | OpenAPI 文档配置 |
+| Spring Boot Starter Web | 文件上传接口 |
+| springdoc-openapi-starter-webmvc-ui | Swagger UI |
+| Commons IO | 文件处理工具 |
+| Lombok | DTO/VO 简化 |
+
+#### 存储规则
+
+上传文件会写入：
+
+```text
+{file.upload-path}/image/{bizPath}/{yyyy/MM/dd}/{uuid}.{ext}
+```
+
+返回访问路径：
+
+```text
+{file.access-path}/image/{bizPath}/{yyyy/MM/dd}/{uuid}.{ext}
+```
+
+当前支持接口：
+
+| 接口 | 说明 |
+|---|---|
+| `POST /upload/image/user/kyc` | 上传用户 KYC 图片 |
+| `POST /upload/image/user/avatar` | 上传用户头像 |
 
 ## 模块依赖关系
 
@@ -460,14 +690,37 @@ exchange-common-redis
   -> exchange-common-core
   -> spring-boot-starter-data-redis
 
+exchange-common-rabbitmq
+  -> exchange-common-redis
+  -> spring-boot-starter-amqp
+  -> spring-boot-autoconfigure
+
 exchange-common-doc
   -> springdoc-openapi-starter-common
+  -> spring-boot-autoconfigure
+
+exchange-common-web
+  -> exchange-common-core
+  -> spring-webmvc
+  -> spring-boot-starter-validation
   -> spring-boot-autoconfigure
 
 exchange-api-user
   -> exchange-common-core
   -> spring-cloud-starter-openfeign
   -> spring-cloud-starter-loadbalancer
+
+exchange-module-mail
+  -> exchange-common-rabbitmq
+  -> spring-boot-starter-mail
+  -> spring-boot-starter-thymeleaf
+  -> spring-boot-starter-web
+
+exchange-resource-upload
+  -> exchange-common-web
+  -> spring-boot-starter-web
+  -> springdoc-openapi-starter-webmvc-ui
+  -> commons-io
 ```
 
 ## 使用建议
@@ -479,5 +732,7 @@ exchange-api-user
 - 网关入口控制：放 `exchange-gateway`
 - 登录认证：放 `exchange-auth`
 - 具体业务：放 `exchange-business`
+- 通用业务能力：放 `exchange-module`
+- 文件、图片等资源能力：放 `exchange-resource`
 
 如果某个类既想放 common，又依赖具体业务表或业务流程，通常说明边界放错了。这个项目现在最需要守住的就是模块边界，别让公共模块慢慢长成“万能厨房”。

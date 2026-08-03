@@ -6,6 +6,8 @@
 
 项目采用 Maven 多模块结构，服务间通过 HTTP / OpenFeign 通信。当前本地开发环境没有启用 Nacos 服务发现，Feign 和 Gateway 路由主要使用固定地址。
 
+异步任务通过 RabbitMQ 承载，公共封装位于 `exchange-common-rabbitmq`。当前邮件验证码发送已经接入消息队列，生产者将邮件任务投递到 RabbitMQ，消费者完成邮件发送并使用 Redis 做消息幂等去重。
+
 ## 整体架构
 
 ```text
@@ -31,6 +33,14 @@ exchange-gateway
          - 用户注册
          - KYC 业务
          - 登录记录落库
+  |
+  +--> exchange-resource-upload
+  |      - KYC 图片上传
+  |      - 用户头像上传
+  |
+  +--> exchange-module-mail
+         - 邮件验证码
+         - RabbitMQ 异步邮件任务消费
 ```
 
 公共模块提供复用能力：
@@ -40,7 +50,7 @@ exchange-api
   对外/服务间 API 契约、DTO、VO、Feign Client
 
 exchange-common
-  通用响应、状态码、JWT、IP、Redis、安全上下文、文件日志、幂等提交等
+  通用响应、状态码、JWT、IP、Redis、RabbitMQ、安全上下文、文件日志、幂等提交等
 
 exchange-parent
   Maven 父工程，统一版本和插件
@@ -56,15 +66,20 @@ crypto-exchange/
   exchange-common/                公共能力聚合模块
     exchange-common-core/         通用核心工具、响应、状态码、JWT、上下文、公共日志配置
     exchange-common-redis/        Redis 配置和 RedisService
+    exchange-common-rabbitmq/     RabbitMQ 自动配置、消息包装、队列/交换机声明
     exchange-common-security/     MVC 服务端请求头上下文拦截器、幂等提交
     exchange-common-doc/          OpenAPI 接口文档公共配置
+    exchange-common-web/          Web 公共异常处理、Jackson 时间格式配置
   exchange-api/                   API 契约聚合模块
     exchange-api-user/            用户 DTO / VO / Feign Client
   exchange-gateway/               Spring Cloud Gateway 网关服务
   exchange-auth/                  认证服务
   exchange-business/              业务聚合模块
     exchange-business-user/       用户业务服务
-  exchange-module/                预留模块，目前未承载具体服务
+  exchange-module/                可独立部署的通用业务能力聚合模块
+    exchange-module-mail/         邮件发送服务，消费 RabbitMQ 邮件任务
+  exchange-resource/              资源服务聚合模块
+    exchange-resource-upload/     本地图片上传服务
 ```
 
 ## 技术栈
@@ -85,6 +100,10 @@ crypto-exchange/
 | 数据库 | MySQL |
 | 缓存 | Spring Data Redis |
 | Redis 客户端 | Spring Data Redis / Lettuce |
+| 消息队列 | RabbitMQ / Spring AMQP |
+| 邮件 | Spring Boot Starter Mail |
+| 模板引擎 | Thymeleaf |
+| 文件处理 | Commons IO |
 | JWT | jjwt 0.12.6 |
 | 工具库 | Hutool 5.8.20 |
 | 线程上下文 | TransmittableThreadLocal |
@@ -153,6 +172,22 @@ http://localhost/swagger-ui.html
 dosc/api-docs.md
 ```
 
+### RabbitMQ 消息封装
+
+`exchange-common-rabbitmq` 提供 Spring Boot 自动配置：
+
+- JSON 消息转换器，支持 Java Time 类型
+- `RabbitTemplate` 发送确认和 return 回调
+- 根据 `exchange.rabbitmq.queues` 动态声明交换机、队列、绑定和死信队列
+- `MqMessage<T>` 标准消息体，包含 `messageId`、`bizType`、`payload`、`timestamp`
+- `MqMessageService` 统一包装消息并携带 `CorrelationData`
+
+当前邮件服务使用 RabbitMQ 异步发送邮件，消费者用 Redis key 做幂等去重：
+
+```text
+mq:dedup:{messageId}
+```
+
 ## 请求链路
 
 ### 登录链路
@@ -191,6 +226,41 @@ SecurityUtils.getLoginUser();
 
 获取当前用户上下文。
 
+### 邮件验证码链路
+
+```text
+POST /email/verification/code
+  -> exchange-module-mail 生成验证码和邮件内容
+  -> MqMessageService 包装 MqMessage
+  -> RabbitTemplate 按 MqConstants 投递邮件消息
+  -> @RabbitListener 消费邮件任务
+  -> Redis SETNX: mq:dedup:{messageId}
+  -> JavaMailSender 发送邮件
+  -> 手动 ACK；异常时 NACK 并进入死信队列
+```
+
+当前邮件 MQ 常量：
+
+```text
+MqConstants.EMAIL_SEND_TYPE = EMAIL_SEND
+MqConstants.EMAIL_SEND_NAME = exchange.email.send
+MqConstants.EMAIL_SEND_KEY  = queue.email.send
+```
+
+RabbitMQ 队列声明通过业务服务配置。配置中的队列名、交换机和 routing key 需要与生产者发送参数、`@RabbitListener` 监听队列保持一致：
+
+```yaml
+exchange:
+  rabbitmq:
+    queues:
+      - name: ${email.queue.name}
+        exchange: ${email.exchange.name}
+        routing-key: ${email.routing-key}
+        dlx-exchange: exchange.notification.dlx
+        dlx-routing-key: email.send.dlx
+        dlx-queue: queue.email.send.dlx
+```
+
 ## 端口和路由
 
 | 服务 | 默认端口 | 说明 |
@@ -198,12 +268,16 @@ SecurityUtils.getLoginUser();
 | exchange-gateway | 80 | 统一入口 |
 | exchange-auth | 8080 | 认证服务 |
 | exchange-business-user | 8081 | 用户业务服务 |
+| exchange-module-mail | 8078 | 邮件服务 |
+| exchange-resource-upload | 8079 | 图片上传服务 |
 
 Gateway 路由：
 
 ```text
 /api/crypto-exchange/auth/** -> http://localhost:8080
 /api/crypto-exchange/user/** -> http://localhost:8081
+/api/crypto-exchange/upload/** -> http://localhost:8079
+/api/crypto-exchange/files/** -> http://localhost:8079
 ```
 
 当前 `application-route.yml` 使用固定 URL。后续如果启用 Nacos，可切换为服务名路由。
@@ -218,12 +292,16 @@ application-route.yml
 application-redis.yml
 application-db.yml
 application-feign.yml
+application-mail.yml
+application-mq.yml
 ```
 
 已知需要进一步外置的敏感项：
 
 - Redis host / port / password
+- RabbitMQ host / port / username / password / virtual-host
 - MySQL url / username / password
+- Mail host / username / password
 - JWT secret
 - Druid 监控密码
 
@@ -238,6 +316,8 @@ application-feign.yml
 - 风控
 - 管理后台
 - 权限模型
+- 消息可靠投递表和失败重试补偿
+- 对象存储或 CDN 文件资源服务
 
 后续新增业务时建议继续保持：
 
