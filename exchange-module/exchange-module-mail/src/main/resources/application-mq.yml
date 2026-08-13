@@ -1,9 +1,9 @@
 spring:
   rabbitmq:
-    host: 192.168.1.100
-    port: 5672
-    username: admin
-    password: ${RABBITMQ_PASSWORD:admin123}  # 推荐用环境变量，不要硬编码
+    host: ${RABBITMQ_HOST:106.12.183.54}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:admin}
+    password: ${RABBITMQ_PASSWORD:ChangeMe_2026!}
     virtual-host: /notification
 
     # 连接级优化（生产环境必配）

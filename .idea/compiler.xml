@@ -18,17 +18,29 @@
         <module name="exchange-common-core" />
         <module name="exchange-resource-upload" />
         <module name="exchange-auth" />
+        <module name="exchange-business-notification" />
         <module name="exchange-common-doc" />
         <module name="exchange-common-security" />
+        <module name="exchange-api-notification" />
+        <module name="exchange-business-market" />
         <module name="exchange-api-user" />
+        <module name="exchange-api-account" />
         <module name="exchange-common-redis" />
         <module name="exchange-gateway" />
         <module name="exchange-module-mail" />
         <module name="exchange-bussiness-account" />
         <module name="exchange-common-rabbitmq" />
+        <module name="exchange-module-datasource" />
+        <module name="exchange-api-market" />
         <module name="exchange-common-web" />
         <module name="exchange-business-user" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="exchange-bussiness-trade" target="17" />
+      <module name="exchange-common-ws" target="17" />
+      <module name="exchange-module-biance" target="17" />
+      <module name="exchange-module-notification" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -11,6 +11,9 @@
     <packaging>jar</packaging>
 
     <name>exchange-api-user</name>
+    <description>
+        用户模块Feign接口
+    </description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

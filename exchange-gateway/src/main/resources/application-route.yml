@@ -23,6 +23,20 @@ spring:
             - Path=/v3/api-docs/user
           filters:
             - SetPath=/v3/api-docs
+        # 行情接口文档
+        - id: market-api-docs
+          uri: http://localhost:8083
+          predicates:
+            - Path=/v3/api-docs/market
+          filters:
+            - SetPath=/v3/api-docs
+        # 通知接口文档
+        - id: notification-api-docs
+          uri: http://localhost:8084
+          predicates:
+            - Path=/v3/api-docs/notification
+          filters:
+            - SetPath=/v3/api-docs
 
         # 文件上传模块
         - id: upload-route
@@ -50,5 +64,26 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=/api/crypto-exchange/user/**
+          filters:
+            - StripPrefix=2
+        # 行情模块
+        - id: market-route
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/crypto-exchange/market/**
+          filters:
+            - StripPrefix=2
+        # 用户私有化WebSocket通知
+        - id: notification-ws-route
+          uri: ws://localhost:8084
+          predicates:
+            - Path=/api/crypto-exchange/ws/notification,/api/crypto-exchange/ws/notification/**
+          filters:
+            - StripPrefix=2
+        # 通知模块
+        - id: notification-route
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/crypto-exchange/notification/**
           filters:
             - StripPrefix=2

@@ -1,0 +1,83 @@
+CREATE TABLE IF NOT EXISTS `market_symbol` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '交易对ID',
+    `symbol` VARCHAR(50) NOT NULL COMMENT '交易对，例如 BTCUSDT',
+    `base_currency` VARCHAR(50) NOT NULL COMMENT '基础币种，例如 BTC',
+    `quote_currency` VARCHAR(50) NOT NULL COMMENT '计价币种，例如 USDT',
+    `price_precision` INT NOT NULL DEFAULT 8 COMMENT '价格精度',
+    `quantity_precision` INT NOT NULL DEFAULT 8 COMMENT '数量精度',
+    `min_order_quantity` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '最小下单数量',
+    `min_order_amount` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '最小下单金额',
+    `status` INT NOT NULL DEFAULT 1 COMMENT '状态：0-禁用，1-启用',
+    `sort` INT NOT NULL DEFAULT 0 COMMENT '排序',
+    `remark` VARCHAR(500) DEFAULT NULL COMMENT '备注',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted` INT NOT NULL DEFAULT 0 COMMENT '是否删除：0-未删除，1-已删除',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uk_market_symbol` (`symbol`) USING BTREE,
+    KEY `idx_base_currency` (`base_currency`) USING BTREE,
+    KEY `idx_quote_currency` (`quote_currency`) USING BTREE,
+    KEY `idx_status_sort` (`status`, `sort`) USING BTREE
+) COMMENT='行情交易对表';
+
+CREATE TABLE IF NOT EXISTS `market_ticker` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '行情快照ID',
+    `symbol` VARCHAR(50) NOT NULL COMMENT '交易对',
+    `last_price` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '最新价',
+    `open_price` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '24h开盘价',
+    `high_price` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '24h最高价',
+    `low_price` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '24h最低价',
+    `volume` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '24h成交量',
+    `turnover` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '24h成交额',
+    `price_change` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '24h涨跌额',
+    `price_change_percent` DECIMAL(18,8) NOT NULL DEFAULT 0.00000000 COMMENT '24h涨跌幅',
+    `statistics_time` DATETIME DEFAULT NULL COMMENT '统计时间',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted` INT NOT NULL DEFAULT 0 COMMENT '是否删除：0-未删除，1-已删除',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uk_market_ticker_symbol` (`symbol`) USING BTREE,
+    KEY `idx_update_time` (`update_time`) USING BTREE
+) COMMENT='行情快照表';
+
+CREATE TABLE IF NOT EXISTS `market_kline` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'K线ID',
+    `symbol` VARCHAR(50) NOT NULL COMMENT '交易对',
+    `interval_type` VARCHAR(20) NOT NULL COMMENT '周期：1m,5m,15m,1h,1d',
+    `open_price` DECIMAL(36,18) NOT NULL COMMENT '开盘价',
+    `high_price` DECIMAL(36,18) NOT NULL COMMENT '最高价',
+    `low_price` DECIMAL(36,18) NOT NULL COMMENT '最低价',
+    `close_price` DECIMAL(36,18) NOT NULL COMMENT '收盘价',
+    `volume` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '成交量',
+    `turnover` DECIMAL(36,18) NOT NULL DEFAULT 0.000000000000000000 COMMENT '成交额',
+    `trade_count` BIGINT NOT NULL DEFAULT 0 COMMENT '成交笔数',
+    `open_time` DATETIME NOT NULL COMMENT 'K线开始时间',
+    `close_time` DATETIME NOT NULL COMMENT 'K线结束时间',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted` INT NOT NULL DEFAULT 0 COMMENT '是否删除：0-未删除，1-已删除',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uk_symbol_interval_open_time` (`symbol`, `interval_type`, `open_time`) USING BTREE,
+    KEY `idx_symbol_interval_time` (`symbol`, `interval_type`, `open_time`) USING BTREE
+) COMMENT='行情K线表';
+
+CREATE TABLE IF NOT EXISTS `market_trade` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT '成交ID',
+    `symbol` VARCHAR(50) NOT NULL COMMENT '交易对',
+    `trade_no` VARCHAR(64) NOT NULL COMMENT '成交编号',
+    `price` DECIMAL(36,18) NOT NULL COMMENT '成交价',
+    `quantity` DECIMAL(36,18) NOT NULL COMMENT '成交数量',
+    `amount` DECIMAL(36,18) NOT NULL COMMENT '成交额',
+    `direction` INT NOT NULL COMMENT '成交方向：1-买，2-卖',
+    `maker_order_id` BIGINT DEFAULT NULL COMMENT 'Maker订单ID',
+    `taker_order_id` BIGINT DEFAULT NULL COMMENT 'Taker订单ID',
+    `trade_time` DATETIME NOT NULL COMMENT '成交时间',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    `is_deleted` INT NOT NULL DEFAULT 0 COMMENT '是否删除：0-未删除，1-已删除',
+    PRIMARY KEY (`id`) USING BTREE,
+    UNIQUE KEY `uk_market_trade_no` (`trade_no`) USING BTREE,
+    KEY `idx_symbol_trade_time` (`symbol`, `trade_time`) USING BTREE,
+    KEY `idx_maker_order_id` (`maker_order_id`) USING BTREE,
+    KEY `idx_taker_order_id` (`taker_order_id`) USING BTREE
+) COMMENT='行情成交记录表';

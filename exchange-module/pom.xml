@@ -13,6 +13,7 @@
     <name>exchange-module</name>
     <modules>
         <module>exchange-module-mail</module>
+        <module>exchange-module-datasource</module>
     </modules>
 
     <properties>

@@ -1,0 +1,30 @@
+server:
+  port: 8083
+spring:
+  profiles:
+    active: dev
+    include:
+      - db
+      - redis
+      - mq
+  application:
+    name: service-market
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+exchange:
+  doc:
+    title: Crypto Exchange Market API
+    description: 行情服务接口文档
+    version: 1.0
+  market:
+    cache:
+      default-kline-interval: 1m
+
+bt:
+  datasource:
+    base-url: ${BT_DATASOURCE_BASE_URL:http://localhost:8077}

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import coin.exchange.common.rabbitmq.service.MqMessageService;
+import coin.exchange.common.rabbitmq.service.RabbitMqService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -15,6 +17,7 @@ import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
+import org.springframework.boot.autoconfigure.amqp.RabbitTemplateCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -47,11 +50,22 @@ public class ExchangeRabbitMqAutoConfiguration {
 
 
     @Bean
+    @ConditionalOnMissingBean(RabbitTemplate.class)
     public RabbitTemplate rabbitTemplate(ConnectionFactory factory,
                                          MessageConverter converter) {
         RabbitTemplate template = new RabbitTemplate(factory);
         template.setMessageConverter(converter);
+        customizeRabbitTemplate(template);
+        return template;
+    }
 
+    @Bean("exchangeRabbitTemplateCustomizer")
+    @ConditionalOnMissingBean(name = "exchangeRabbitTemplateCustomizer")
+    public RabbitTemplateCustomizer exchangeRabbitTemplateCustomizer() {
+        return this::customizeRabbitTemplate;
+    }
+
+    private void customizeRabbitTemplate(RabbitTemplate template) {
         // 开启发送确认（保证消息到达交换机）
         template.setConfirmCallback((data, ack, cause) -> {
             if (!ack) {
@@ -67,7 +81,6 @@ public class ExchangeRabbitMqAutoConfiguration {
         });
 
         template.setMandatory(true);
-        return template;
     }
 
     @Bean
@@ -78,6 +91,18 @@ public class ExchangeRabbitMqAutoConfiguration {
         // 关键：防止反序列化时因缺少 __TypeId__ 头而失败
         converter.setCreateMessageIds(true);
         return converter;
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RabbitMqService rabbitMqService(AmqpTemplate amqpTemplate, RabbitTemplate rabbitTemplate) {
+        return new RabbitMqService(amqpTemplate, rabbitTemplate);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public MqMessageService mqMessageService(RabbitTemplate rabbitTemplate) {
+        return new MqMessageService(rabbitTemplate);
     }
 
     /**

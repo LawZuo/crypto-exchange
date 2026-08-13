@@ -4,16 +4,44 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 封装RabbitMQ，邮件接入mq&amp;redis缓存">
-      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/ExchangeBusinessAccountApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/test/java/coin/exchange/AppTest.java" afterDir="false" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 开发账户模块">
+      <change afterPath="$PROJECT_DIR$/dosc/ws-market.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dosc/ws-user.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/config/ExchangeApiAccountAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/factory/RemoteAccountFallbackFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/model/AccountWalletVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/service/RemoteAccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/model/WsKLineVo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/ExchangeModuleDataSourceApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/cache/KlineCacheService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/BinanceProperties.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/domain/KlineWsMessageDo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/enums/BinanceStreamType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/utils/BinanceUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/utils/MultiSymbolKlineManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-binance.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dosc/architecture-overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/architecture-overview.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dosc/module-responsibilities.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/module-responsibilities.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/test/java/coin/exchange/AppTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/exchange-business/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/MqConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/MqConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/config/ExchangeRabbitMqAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/config/ExchangeRabbitMqAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-mq.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/test/java/coin/exchange/AppTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +72,9 @@
     &quot;accountId&quot;: &quot;fa57e5ea-24fe-458b-91ee-1043008fbda3&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/6.1.12/spring-web-6.1.12.jar!/org/springframework/web/bind/annotation/PathVariable.class" root0="SKIP_INSPECTION" />
+  </component>
   <component name="PerforceDirect.Settings">
     <option name="CHARSET" value="none" />
   </component>
@@ -55,39 +86,50 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [site].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [verify].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/user/Desktop/work/crypto-exchange&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2862069&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.CommitDialog&quot;,
-    &quot;应用程序.ExchangeAuthApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeBusinessUserApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeModuleMailApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeResourceUploadApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.GatewayApplication.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.BinanceMarkWebSocketTest.executor": "Run",
+    "JUnit.BinanceMarkWebSocketTest.ws.executor": "Run",
+    "JUnit.BinanceMarketDataManualTest.connectBinanceMarketData.executor": "Run",
+    "JUnit.BinanceMarketDataManualTest.executor": "Run",
+    "JUnit.BinanceMarketPropertiesTest.normalizeSymbolsRemovesBlankAndDuplicateValues.executor": "Run",
+    "JUnit.BinanceStreamUrlBuilderTest.buildCombinedTickerStreamUrl.executor": "Debug",
+    "JUnit.BinanceWebSocketTest.ws.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.crypto-exchange-root [clean].executor": "Run",
+    "Maven.crypto-exchange-root [compile].executor": "Run",
+    "Maven.crypto-exchange-root [install].executor": "Run",
+    "Maven.crypto-exchange-root [package].executor": "Run",
+    "Maven.crypto-exchange-root [test].executor": "Run",
+    "Maven.crypto-exchange-root [validate].executor": "Run",
+    "Maven.exchange-parent [clean].executor": "Run",
+    "Maven.exchange-parent [compile].executor": "Run",
+    "Maven.exchange-parent [install].executor": "Run",
+    "Maven.exchange-parent [package].executor": "Run",
+    "Maven.exchange-parent [site].executor": "Run",
+    "Maven.exchange-parent [validate].executor": "Run",
+    "Maven.exchange-parent [verify].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/user/Desktop/work/crypto-exchange",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2862069",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "应用程序.BinanceMarkWebSocketTest.executor": "Run",
+    "应用程序.ExchangeAuthApplication.executor": "Run",
+    "应用程序.ExchangeBusinessMarketApplication.executor": "Run",
+    "应用程序.ExchangeBusinessUserApplication.executor": "Run",
+    "应用程序.ExchangeModuleDataSourceApplication.executor": "Run",
+    "应用程序.ExchangeModuleMailApplication.executor": "Run",
+    "应用程序.ExchangeResourceUploadApplication.executor": "Run",
+    "应用程序.GatewayApplication.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources" />
@@ -96,13 +138,13 @@
       <recent name="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ExchangeModuleMailApplication">
-    <configuration name="ExchangeAuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.auth.ExchangeAuthApplication" />
-      <module name="exchange-auth" />
+  <component name="RunManager" selected="应用程序.ExchangeBusinessMarketApplication">
+    <configuration name="BinanceMarkWebSocketTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.biance.BinanceMarkWebSocketTest" />
+      <module name="exchange-module-biance" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.auth.*" />
+          <option name="PATTERN" value="coin.exchange.module.biance.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -110,12 +152,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExchangeBusinessUserApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.user.ExchangeBusinessUserApplication" />
-      <module name="exchange-business-user" />
+    <configuration name="ExchangeBusinessMarketApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.business.market.ExchangeBusinessMarketApplication" />
+      <module name="exchange-business-market" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.module.user.*" />
+          <option name="PATTERN" value="coin.exchange.business.market.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -123,12 +165,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExchangeModuleMailApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.mail.ExchangeModuleMailApplication" />
-      <module name="exchange-module-mail" />
+    <configuration name="ExchangeModuleDataSourceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.datasrouce.ExchangeModuleDataSourceApplication" />
+      <module name="exchange-module-datasource" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.module.mail.*" />
+          <option name="PATTERN" value="coin.exchange.module.datasrouce.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -136,39 +178,44 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExchangeResourceUploadApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.resource.upload.ExchangeResourceUploadApplication" />
-      <module name="exchange-resource-upload" />
+    <configuration name="BinanceMarkWebSocketTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="exchange-module-biance" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.resource.upload.*" />
+          <option name="PATTERN" value="coin.exchange.module.biance.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="coin.exchange.module.biance" />
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.biance.BinanceMarkWebSocketTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.gateway.GatewayApplication" />
-      <module name="exchange-gateway" />
+    <configuration name="BinanceWebSocketTest.ws" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="exchange-module-biance" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.gateway.*" />
+          <option name="PATTERN" value="coin.exchange.module.biance.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="coin.exchange.module.biance" />
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.biance.BinanceWebSocketTest" />
+      <option name="METHOD_NAME" value="ws" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="应用程序.ExchangeModuleMailApplication" />
-        <item itemvalue="应用程序.ExchangeResourceUploadApplication" />
-        <item itemvalue="应用程序.GatewayApplication" />
-        <item itemvalue="应用程序.ExchangeAuthApplication" />
-        <item itemvalue="应用程序.ExchangeBusinessUserApplication" />
+        <item itemvalue="应用程序.ExchangeBusinessMarketApplication" />
+        <item itemvalue="应用程序.ExchangeModuleDataSourceApplication" />
+        <item itemvalue="JUnit.BinanceWebSocketTest.ws" />
+        <item itemvalue="应用程序.BinanceMarkWebSocketTest" />
+        <item itemvalue="JUnit.BinanceMarkWebSocketTest" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +298,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785554683367</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: 开发账户模块">
+      <option name="closed" value="true" />
+      <created>1785757509201</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1785757509201</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -273,7 +328,8 @@
     <MESSAGE value="feat: 开发图片上传模块" />
     <MESSAGE value="feat: 集成邮件服务" />
     <MESSAGE value="feat: 封装RabbitMQ，邮件接入mq&amp;redis缓存" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 封装RabbitMQ，邮件接入mq&amp;redis缓存" />
+    <MESSAGE value="feat: 开发账户模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 开发账户模块" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

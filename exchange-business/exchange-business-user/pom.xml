@@ -12,6 +12,9 @@
     <packaging>jar</packaging>
 
     <name>exchange-business-user</name>
+    <description>
+        用户服务模块
+    </description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

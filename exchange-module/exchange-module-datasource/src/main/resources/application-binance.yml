@@ -1,0 +1,24 @@
+exchange:
+  market:
+    binance:
+      enabled: true
+      base-url: wss://data-stream.binance.vision
+      rest-base-url: https://api.binance.com
+      symbols:
+        - BTCUSDT
+        - ETHUSDT
+        - XRPUSDT
+        - SOLUSDT
+        - TRXUSDT
+        - DOGEUSDT
+        - ADAUSDT
+        - DOTUSDT
+      stream-types:
+        - kline
+        - depth
+        - ticker
+        - trade
+      kline-interval: 1m
+      reconnect-delay: 5s
+      timeout-seconds: 30
+      snapshot-interval-ms: 1000

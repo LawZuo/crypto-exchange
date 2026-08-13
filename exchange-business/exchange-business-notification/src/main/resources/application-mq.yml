@@ -1,0 +1,25 @@
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:106.12.183.54}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:admin}
+    password: ${RABBITMQ_PASSWORD:ChangeMe_2026!}
+    virtual-host: ${RABBITMQ_VIRTUAL_HOST:/}
+    connection-timeout: 15000
+    requested-heartbeat: 30
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 50
+        retry:
+          enabled: false
+
+exchange:
+  rabbitmq:
+    queues:
+      - name: queue.notification.business
+        exchange: exchange.notification
+        routing-key: notification.event.#
+        dlx-exchange: exchange.notification.dlx
+        dlx-routing-key: notification.event.dlx
+        dlx-queue: queue.notification.business.dlx

@@ -1,0 +1,15 @@
+server:
+  port: 8077
+spring:
+  profiles:
+    active: dev
+    include:
+      - binance
+      - redis
+      - mq
+  application:
+    name: service-binance
+
+bt:
+  upstream:
+    base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8077}

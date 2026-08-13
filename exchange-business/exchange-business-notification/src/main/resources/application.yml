@@ -1,0 +1,23 @@
+server:
+  port: 8084
+
+spring:
+  profiles:
+    active: dev
+    include:
+      - db
+      - mq
+  application:
+    name: service-notification
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+exchange:
+  doc:
+    title: Crypto Exchange Notification API
+    description: 用户私有化 WebSocket 通知服务接口文档
+    version: 1.0
