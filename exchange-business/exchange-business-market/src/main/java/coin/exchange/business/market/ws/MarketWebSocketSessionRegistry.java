@@ -1,6 +1,7 @@
 package coin.exchange.business.market.ws;
 
 import coin.exchange.api.market.model.MarketStreamMessageVo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.ConcurrentWebSocketSessionDecorator;
@@ -10,17 +11,23 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * WebSocket连接注册
+ */
 @Component
 public class MarketWebSocketSessionRegistry {
 
-    private static final int SEND_TIME_LIMIT_MS = 5_000;
-    private static final int BUFFER_SIZE_LIMIT_BYTES = 512 * 1024;
+    @Value("${exchange.market.websocket.send_time_limit_ms}")
+    private int sendTimeLimitMs;
+
+    @Value("${exchange.market.websocket.buffer_size_limit_bytes}")
+    private int bufferSizeLimitBytes;
 
     private final Map<String, ClientSession> clients = new ConcurrentHashMap<>();
 
     public void register(WebSocketSession session) {
         WebSocketSession concurrentSession = new ConcurrentWebSocketSessionDecorator(
-                session, SEND_TIME_LIMIT_MS, BUFFER_SIZE_LIMIT_BYTES);
+                session, sendTimeLimitMs, bufferSizeLimitBytes);
         clients.put(session.getId(), new ClientSession(concurrentSession));
     }
 

@@ -1,9 +1,10 @@
 spring:
   flyway:
     enabled: true
-    url: ${MYSQL.DB_URL}
+    url: ${MYSQL.USER.DB_URL}
     user: ${MYSQL.DB_USER}
     password: ${MYSQL.DB_PASSWORD}
+    table: flyway_schema_history_user
     locations: classpath:db/migration
     baseline-on-migrate: true
     baseline-version: 0
@@ -15,7 +16,7 @@ spring:
       primary: user
       datasource:
         user:
-          url: ${MYSQL.DB_URL}
+          url: ${MYSQL.USER.DB_URL}
           username: ${MYSQL.DB_USER}
           password: ${MYSQL.DB_PASSWORD}
 

@@ -1,5 +1,8 @@
 package coin.exchange.module.datasrouce.adapter;
 
+import coin.exchange.api.market.model.MarketSymbolVo;
+import coin.exchange.api.market.service.RemoteMarketService;
+import coin.exchange.common.core.response.R;
 import coin.exchange.module.datasrouce.cache.MarketMemoryCache;
 import coin.exchange.module.datasrouce.config.BinanceProperties;
 import coin.exchange.module.datasrouce.domain.DepthWsMessageDo;
@@ -23,6 +26,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -37,6 +41,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class BinanceWsClient {
 
     private final BinanceProperties binanceProperties;
+    private final RemoteMarketService remoteMarketService;
     private final MarketMemoryCache marketMemoryCache;
     private final MarketDataPublisher marketDataPublisher;
 
@@ -60,7 +65,7 @@ public class BinanceWsClient {
         subscribeCombineStreams(
                 binanceProperties.getKlineInterval(),
                 binanceProperties.getStreamTypes(),
-                binanceProperties.getSymbols()
+                loadMarketSymbols()
         );
     }
 
@@ -120,7 +125,7 @@ public class BinanceWsClient {
      * 订阅全币种其他数据
      */
     public void subscribeQuoteAll() {
-        List<String> symbols = binanceProperties.getSymbols();
+        List<String> symbols = loadMarketSymbols();
         subscribeCombineStreams("1m", List.of(BinanceStreamType.TICKER, BinanceStreamType.DEPTH, BinanceStreamType.TRADE), symbols);
     }
 
@@ -128,8 +133,26 @@ public class BinanceWsClient {
      * 订阅全币种的最新k线数据
      */
     public void subscribeKlineByAll() {
-        List<String> symbols = binanceProperties.getSymbols();
+        List<String> symbols = loadMarketSymbols();
         subscribeCombineStreams("1m", List.of(BinanceStreamType.KLINE), symbols);
+    }
+
+    private List<String> loadMarketSymbols() {
+        R<List<MarketSymbolVo>> response = remoteMarketService.listSymbols();
+        if (response == null || response.code() != R.SUCCESS_CODE || response.data() == null) {
+            String message = response == null ? "无响应" : response.message();
+            log.error("从 market 服务获取交易对失败: {}", message);
+            return List.of();
+        }
+
+        List<String> symbols = response.data().stream()
+                .map(MarketSymbolVo::getSymbol)
+                .filter(StringUtils::hasText)
+                .map(symbol -> symbol.trim().toUpperCase(Locale.ROOT))
+                .distinct()
+                .toList();
+        log.info("从 market 服务获取到 {} 个交易对: {}", symbols.size(), symbols);
+        return symbols;
     }
 
     /**
@@ -140,12 +163,8 @@ public class BinanceWsClient {
             List<BinanceStreamType> streamTypes,
             List<String> symbols
     ) {
-        // // 类型 kline，trade
-        // List<BinanceStreamType> streamTypes = binanceProperties.getStreamTypes();
-        // // 币种列表
-        // List<String> symbols = binanceProperties.getSymbols();
-        if (symbols.isEmpty()) {
-            log.warn("Binance WebSocket 未配置币种列表，跳过启动");
+        if (symbols == null || symbols.isEmpty()) {
+            log.warn("market 服务未返回交易对，跳过 Binance WebSocket 订阅");
             return null;
         }
 

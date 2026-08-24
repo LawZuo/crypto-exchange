@@ -3,6 +3,7 @@ package coin.exchange.business.market.ws;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -14,13 +15,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+/**
+ * 行情WebSocket处理器
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class MarketWebSocketHandler extends TextWebSocketHandler {
 
-    private static final List<String> DEFAULT_TYPES = List.of("ticker", "depth", "trade", "kline");
-    private static final Set<String> SUPPORTED_TYPES = Set.copyOf(DEFAULT_TYPES);
+    @Value("${exchange.market.cache.default_types}")
+    private List<String> DEFAULT_TYPES;
 
     private final ObjectMapper objectMapper;
     private final MarketWebSocketSessionRegistry sessionRegistry;
@@ -100,7 +104,7 @@ public class MarketWebSocketHandler extends TextWebSocketHandler {
         LinkedHashSet<String> normalized = new LinkedHashSet<>();
         for (String type : types) {
             String value = type == null ? "" : type.trim().toLowerCase(Locale.ROOT);
-            if (!SUPPORTED_TYPES.contains(value)) {
+            if (!DEFAULT_TYPES.contains(value)) {
                 throw new IllegalArgumentException("不支持的行情类型: " + type);
             }
             normalized.add(value);

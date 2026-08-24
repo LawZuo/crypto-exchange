@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * 币安数据源服务实现
+ */
 @Service
 @RequiredArgsConstructor
 public class BinanceMarketServiceImpl implements BinanceMarketService {

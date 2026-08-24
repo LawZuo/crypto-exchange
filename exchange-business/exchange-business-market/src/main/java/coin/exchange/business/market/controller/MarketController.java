@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "行情接口")
+/**
+ * 市场行情控制层
+ */
 @RequestMapping("/market")
 @RestController
 @RequiredArgsConstructor
@@ -33,41 +35,53 @@ public class MarketController {
     private final BinanceMarketService binanceMarketService;
     private final MarketCacheService marketCacheService;
 
-    @Operation(summary = "交易对列表")
+    /**
+     * 交易对列表
+     */
     @GetMapping("/symbols")
     public R<List<MarketSymbolVo>> listSymbols(@RequestParam(value = "status", required = false) Integer status) {
         List<MarketSymbolDo> symbols = marketSymbolService.listSymbols(status);
         return R.success(BeanUtil.copyToList(symbols, MarketSymbolVo.class));
     }
 
-    @Operation(summary = "交易对详情")
+    /**
+     * 交易对详情
+     */
     @GetMapping("/symbols/{symbol}")
     public R<MarketSymbolVo> getSymbol(@PathVariable("symbol") String symbol) {
         MarketSymbolDo result = marketSymbolService.getSymbol(symbol);
         return R.success(BeanUtil.copyProperties(result, MarketSymbolVo.class));
     }
 
-    @Operation(summary = "获取24小时Ticker")
+    /**
+     * 获取24小时Ticker
+     */
     @GetMapping("/ticker")
     public R<BinanceTickerVo> getBinanceTicker(@RequestParam("symbol") String symbol) {
         return binanceMarketService.getTicker(symbol);
     }
 
-    @Operation(summary = "获取深度快照")
+    /**
+     * 获取深度快照
+     */
     @GetMapping("/depth")
     public R<BinanceDepthVo> getBinanceDepth(@RequestParam("symbol") String symbol,
                                              @RequestParam(value = "limit", required = false) Integer limit) {
         return binanceMarketService.getDepth(symbol, limit);
     }
 
-    @Operation(summary = "获取最近成交")
+    /**
+     * 获取最近成交
+     */
     @GetMapping("/trades")
     public R<List<BinanceTradeVo>> listBinanceTrades(@RequestParam("symbol") String symbol,
                                                      @RequestParam(value = "limit", required = false) Integer limit) {
         return binanceMarketService.listTrades(symbol, limit);
     }
 
-    @Operation(summary = "获取历史K线")
+    /**
+     * 获取历史K线
+     */
     @GetMapping("/klines")
     public R<List<BinanceKlineVo>> listBinanceKlines(@RequestParam("symbol") String symbol,
                                                      @RequestParam("interval") String interval,
@@ -77,7 +91,9 @@ public class MarketController {
         return binanceMarketService.listKlines(symbol, interval, startTime, endTime, limit);
     }
 
-    @Operation(summary = "最新缓存快照")
+    /**
+     * 最新缓存快照
+     */
     @GetMapping("/cache")
     public R<MarketCacheSnapshotVo> getBinanceCache(@RequestParam("symbol") String symbol,
                                                    @RequestParam(value = "interval", defaultValue = "1m") String interval,

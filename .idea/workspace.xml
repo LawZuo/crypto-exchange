@@ -4,79 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 完成ws消息模块">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 完善用户模块&amp;整理项目结构">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dosc/architecture-overview.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/architecture-overview.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dosc/module-responsibilities.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/module-responsibilities.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dosc/ws-user.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/service/RemoteUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/service/RemoteUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ExchangeBusinessMarketApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ExchangeBusinessMarketApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/cache/MarketCacheWarmupRunner.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/cache/MarketCacheWarmupRunner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/controller/MarketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/controller/MarketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/mq/MarketDataConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/mq/MarketDataConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/BinanceMarketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/BinanceMarketService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/MarketCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/MarketCacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/MarketSymbolService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/MarketSymbolService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/BinanceMarketServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/BinanceMarketServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/MarketCacheServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/MarketCacheServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/MarketSymbolServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/MarketSymbolServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketSessionRegistry.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketSessionRegistry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWsSubscription.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWsSubscription.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-db.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-db.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-mq.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ExchangeBusinessNotificationApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/config/NotificationWebSocketConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/controller/NotificationController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/domain/NotificationAnnouncementDo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/domain/NotificationMessageDo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/domain/NotificationReadDo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/mapper/NotificationAnnouncementMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/mapper/NotificationMessageMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/mapper/NotificationReadMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/mq/NotificationEventConsumer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/service/NotificationEventPublisher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/service/NotificationService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/service/impl/NotificationEventPublisherImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/service/impl/NotificationServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ws/NotificationHandshakeHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ws/NotificationHandshakeInterceptor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ws/NotificationPrincipal.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ws/NotificationWebSocketHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ws/NotificationWebSocketPublisher.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java/coin/exchange/business/notification/ws/NotificationWebSocketSessionRegistry.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/resources/application-db.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/resources/application-mq.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/resources/db/migration/V1__init_notification_schema.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-notification/src/test/java/coin/exchange/business/notification/ws/NotificationWebSocketSessionRegistryTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/ExchangeBusinessUserApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/ExchangeBusinessUserApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/KycApplicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/KycApplicationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/KycApplicationDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/KycApplicationDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/UserDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/UserDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/UserLoginLogDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/domain/UserLoginLogDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-redis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-redis.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/test/java/coin/exchange/business/market/ws/MarketWebSocketSessionRegistryTest.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application-db.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application-db.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application-feign.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application-feign.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application-redis.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application-redis.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountBalanceLogDo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/MqConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/MqConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/ExchangeModuleDataSourceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/ExchangeModuleDataSourceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-mq.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/ExchangeModuleMailApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/controller/VerificationCodeEmailController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/model/EmailCodeVo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/EmailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/java/coin/exchange/module/mail/service/impl/EmailServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-feign.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-mail.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application-mq.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-mail/src/main/resources/templates/email/code.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/java/coin/exchange/resource/upload/ExchangeResourceUploadApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/java/coin/exchange/resource/upload/ExchangeResourceUploadApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-resource/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-resource/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/BinanceProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/BinanceProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-binance.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-binance.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,7 +132,7 @@
       <recent name="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ExchangeBusinessUserApplication">
+  <component name="RunManager" selected="应用程序.ExchangeBusinessMarketApplication">
     <configuration name="ExchangeAuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="coin.exchange.auth.ExchangeAuthApplication" />
       <module name="exchange-auth" />
@@ -244,10 +200,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.ExchangeBusinessMarketApplication" />
         <item itemvalue="应用程序.ExchangeBusinessUserApplication" />
         <item itemvalue="应用程序.ExchangeAuthApplication" />
         <item itemvalue="应用程序.ExchangeBusinessAccountApplication" />
-        <item itemvalue="应用程序.ExchangeBusinessMarketApplication" />
         <item itemvalue="应用程序.ExchangeModuleServiceApplication" />
       </list>
     </recent_temporary>
@@ -371,7 +327,8 @@
     <MESSAGE value="feat: 封装RabbitMQ，邮件接入mq&amp;redis缓存" />
     <MESSAGE value="feat: 开发账户模块" />
     <MESSAGE value="feat: 完成ws消息模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 完成ws消息模块" />
+    <MESSAGE value="feat: 完善用户模块&amp;整理项目结构" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 完善用户模块&amp;整理项目结构" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

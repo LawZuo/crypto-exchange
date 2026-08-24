@@ -9,6 +9,7 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Slf4j
@@ -18,6 +19,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 })
 @RequiredArgsConstructor
 @EnableConfigurationProperties(BinanceProperties.class)
+@EnableFeignClients(basePackages = "coin.exchange.api.market.service")
 @EnableScheduling
 public class ExchangeModuleDataSourceApplication implements CommandLineRunner {
 

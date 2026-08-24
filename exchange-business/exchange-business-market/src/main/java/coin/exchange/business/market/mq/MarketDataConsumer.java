@@ -16,6 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * RabbitMQ接收市场数据
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

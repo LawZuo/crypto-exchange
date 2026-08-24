@@ -11,5 +11,7 @@ spring:
     name: service-binance
 
 bt:
+  market:
+    base-url: ${BT_MARKET_BASE_URL:http://localhost:18472}
   upstream:
     base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8077}

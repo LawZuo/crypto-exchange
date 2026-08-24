@@ -5,8 +5,14 @@ import coin.exchange.api.market.model.MarketStreamMessageVo;
 
 import java.util.Collection;
 
+/**
+ * 行情缓存服务 - 从缓存中获取行情数据
+ */
 public interface MarketCacheService {
 
+    /**
+     * 获取24小时
+     */
     Object getTicker(String symbol);
 
     Object getDepth(String symbol);

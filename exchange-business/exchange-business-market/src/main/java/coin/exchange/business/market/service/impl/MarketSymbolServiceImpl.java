@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * 交易对服务实现类
+ */
 @RequiredArgsConstructor
 @Service
 public class MarketSymbolServiceImpl implements MarketSymbolService {

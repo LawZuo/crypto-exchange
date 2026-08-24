@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * 行情缓存预热
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

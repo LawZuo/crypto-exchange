@@ -5,20 +5,27 @@ import coin.exchange.api.market.model.MarketStreamMessageVo;
 import coin.exchange.business.market.service.MarketCacheService;
 import coin.exchange.common.redis.service.RedisService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 行情缓存服务实现
+ */
 @Service
 @RequiredArgsConstructor
 public class MarketCacheServiceImpl implements MarketCacheService {
 
-    private static final String KLINE_KEY_PREFIX = "kline:latest:";
-    private static final String MARKET_KEY_PREFIX = "market:";
-    private static final Set<String> DEFAULT_TYPES = Set.of("ticker", "depth", "trade", "kline");
+    @Value("${exchange.market.cache.kline_key_prefix}")
+    private String KLINE_KEY_PREFIX;
+
+    @Value("${exchange.market.cache.market_key_prefix}")
+    private String MARKET_KEY_PREFIX;
+
+    @Value("${exchange.market.cache.default_types}")
+    private List<String> DEFAULT_TYPES;
 
     private final RedisService redisService;
     private final ConcurrentHashMap<String, Object> tickerCache = new ConcurrentHashMap<>();
@@ -56,7 +63,7 @@ public class MarketCacheServiceImpl implements MarketCacheService {
 
     @Override
     public MarketCacheSnapshotVo getSnapshot(String symbol, String interval, Collection<String> types) {
-        Set<String> normalizedTypes = normalizeTypes(types);
+        List<String> normalizedTypes = normalizeTypes(types);
         MarketCacheSnapshotVo snapshot = new MarketCacheSnapshotVo();
         snapshot.setSymbol(normalizeSymbol(symbol));
         snapshot.setInterval(normalizeInterval(interval));
@@ -121,7 +128,7 @@ public class MarketCacheServiceImpl implements MarketCacheService {
                 });
     }
 
-    private Set<String> normalizeTypes(Collection<String> types) {
+    private List<String> normalizeTypes(Collection<String> types) {
         if (types == null || types.isEmpty()) {
             return DEFAULT_TYPES;
         }
@@ -129,7 +136,7 @@ public class MarketCacheServiceImpl implements MarketCacheService {
                 .filter(type -> type != null && !type.isBlank())
                 .map(type -> type.trim().toLowerCase(Locale.ROOT))
                 .filter(DEFAULT_TYPES::contains)
-                .collect(java.util.stream.Collectors.toSet());
+                .toList();
     }
 
     private String marketKey(String type, String symbol) {

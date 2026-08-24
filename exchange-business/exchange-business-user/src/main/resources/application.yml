@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 18471
 spring:
   profiles:
     active: dev
@@ -9,11 +9,6 @@ spring:
       - redis
   application:
     name: business-user
-  config:
-    import:
-      - nacos:exchange-config-database.yml?group=CONFIG_GROUP
-      - nacos:exchange-config-redis.yml?group=CONFIG_GROUP
-
   cloud:
     nacos:
       username: nacos
@@ -26,3 +21,7 @@ spring:
         file-extension: yaml
         refresh-enabled: true
         namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+  config:
+    import:
+      - nacos:exchange-config-database.yml?group=CONFIG_GROUP
+      - nacos:exchange-config-redis.yml?group=CONFIG_GROUP

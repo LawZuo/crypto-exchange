@@ -1,12 +1,12 @@
 spring:
   rabbitmq:
-    host: ${RABBITMQ_HOST:106.12.183.54}
-    port: ${RABBITMQ_PORT:5672}
-    username: ${RABBITMQ_USERNAME:admin}
-    password: ${RABBITMQ_PASSWORD:ChangeMe_2026!}
-    virtual-host: ${RABBITMQ_VIRTUAL_HOST:vhost_market}
-    connection-timeout: 15000
-    requested-heartbeat: 30
+    host: ${RABBITMQ.HOST:106.12.183.54}
+    port: ${RABBITMQ.PORT:5672}
+    username: ${RABBITMQ.USERNAME:admin}
+    password: ${RABBITMQ.PASSWORD:ChangeMe_2026!}
+    virtual-host: ${RABBITMQ.VIRTUAL_HOST:vhost_market}
+    connection-timeout: ${RABBITMQ.CONNECTION_TIMEOUT:5000}
+    requested-heartbeat: ${RABBITMQ.REQUESTED_HEARTBEAT:60}
     listener:
       simple:
         acknowledge-mode: manual
@@ -17,9 +17,9 @@ spring:
 exchange:
   rabbitmq:
     queues:
-      - name: queue.market.data.business
-        exchange: exchange.market.data
-        routing-key: market.binance.#
-        dlx-exchange: exchange.market.data.dlx
-        dlx-routing-key: market.binance.dlx
-        dlx-queue: queue.market.data.business.dlx
+      - name: ${RABBITMQ.MARKET.DATA_QUEUE} # 业务队列
+        exchange: ${RABBITMQ.MARKET.DATA_EXCHANGE} # 交换机
+        routing-key: ${RABBITMQ.MARKET.DATA_ROUTING_KEY} # 绑定规则
+        dlx-exchange: ${RABBITMQ.MARKET.DATA_DLX_EXCHANGE}
+        dlx-routing-key: ${RABBITMQ.MARKET.DATA_DLX_ROUTING_KEY}
+        dlx-queue: ${RABBITMQ.MARKET.DATA_DLX_QUEUE}

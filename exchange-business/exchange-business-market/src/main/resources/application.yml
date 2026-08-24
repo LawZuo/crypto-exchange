@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 18472
 spring:
   profiles:
     active: dev
@@ -8,22 +8,36 @@ spring:
       - redis
       - mq
   application:
-    name: service-market
-
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
+    name: business-market
+  cloud:
+    nacos:
+      username: nacos
+      password: LawZhuo1002.
+      discovery:
+        server-addr: 106.12.183.54:8848
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+      config:
+        server-addr: 106.12.183.54:8848
+        file-extension: yaml
+        refresh-enabled: true
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+  config:
+    import:
+      - nacos:exchange-business-market.yml?group=BUSINESS_GROUP
+      - nacos:exchange-config-database.yml?group=CONFIG_GROUP
+      - nacos:exchange-config-redis.yml?group=CONFIG_GROUP
+      - nacos:exchange-config-rabbitmq.yml?group=CONFIG_GROUP
 
 exchange:
-  doc:
-    title: Crypto Exchange Market API
-    description: 行情服务接口文档
-    version: 1.0
   market:
     cache:
-      default-kline-interval: 1m
+      default-kline-interval: ${business.market.cache.default-kline-interval}
+      kline_key_prefix: ${business.market.cache.kline-key-prefix}
+      market_key_prefix: ${business.market.cache.market-key-prefix}
+      default_types: ${business.market.cache.default-types}
+    websocket:
+      send_time_limit_ms: ${business.market.websocket.send-time-limit-ms}
+      buffer_size_limit_bytes: ${business.market.websocket.buffer-size-limit-bytes}
 
 bt:
   datasource:

@@ -16,6 +16,9 @@ import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * WebSocket消息发布者
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

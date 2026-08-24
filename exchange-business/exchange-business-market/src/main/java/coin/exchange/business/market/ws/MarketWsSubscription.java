@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * 消息订阅
+ */
 @Data
 public class MarketWsSubscription {
 

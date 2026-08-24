@@ -1,9 +1,10 @@
 spring:
   flyway:
     enabled: true
-    url: jdbc:mysql://106.12.183.54:3306/exchange_market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
-    user: ${DB_USER:lawzhuo}
-    password: ${DB_PASSWORD:LawZhuo1002.}
+    url: ${MYSQL.MARKET.DB_URL}
+    user: ${MYSQL.DB_USER}
+    password: ${MYSQL.DB_PASSWORD}
+    table: flyway_schema_history_market
     locations: classpath:db/migration
     baseline-on-migrate: true
     baseline-version: 0
@@ -12,12 +13,12 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
     dynamic:
-      primary: user
+      primary: market
       datasource:
-        user:
-          url: jdbc:mysql://106.12.183.54:3306/exchange_market?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
-          username: ${DB_USER:lawzhuo}
-          password: ${DB_PASSWORD:LawZhuo1002.}
+        market:
+          url: ${MYSQL.MARKET.DB_URL}
+          username: ${MYSQL.DB_USER}
+          password: ${MYSQL.DB_PASSWORD}
 
     # Druid 专属配置
     druid:
@@ -55,7 +56,7 @@ spring:
 # MyBatis-Plus 配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
-  type-aliases-package: coin.exchange.business.market.domain
+  type-aliases-package: coin.exchange.module.user.domain
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false

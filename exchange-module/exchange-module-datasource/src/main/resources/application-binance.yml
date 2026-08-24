@@ -4,15 +4,6 @@ exchange:
       enabled: true
       base-url: wss://data-stream.binance.vision
       rest-base-url: https://api.binance.com
-      symbols:
-        - BTCUSDT
-        - ETHUSDT
-        - XRPUSDT
-        - SOLUSDT
-        - TRXUSDT
-        - DOGEUSDT
-        - ADAUSDT
-        - DOTUSDT
       stream-types:
         - kline
         - depth
