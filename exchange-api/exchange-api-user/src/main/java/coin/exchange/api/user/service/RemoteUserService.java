@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
  */
 @FeignClient(
         name = "exchange-business-user",
-        url = "${bt.upstream.base-url:http://localhost:8081}",
+        url = "${bt.upstream.base-url:http://localhost:9001}",
         fallbackFactory = RemoteUserFallbackFactory.class
 )
 public interface RemoteUserService {

@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 9001
 spring:
   profiles:
     active: dev
@@ -8,16 +8,21 @@ spring:
       - db
       - redis
   application:
-    name: user-route
+    name: business-user
+  config:
+    import:
+      - nacos:exchange-config-database.yml?group=CONFIG_GROUP
+      - nacos:exchange-config-redis.yml?group=CONFIG_GROUP
 
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-
-exchange:
-  doc:
-    title: Crypto Exchange User API
-    description: 用户服务接口文档
-    version: 1.0
+  cloud:
+    nacos:
+      username: nacos
+      password: LawZhuo1002.
+      discovery:
+        server-addr: 106.12.183.54:8848
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+      config:
+        server-addr: 106.12.183.54:8848
+        file-extension: yaml
+        refresh-enabled: true
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6

@@ -1,9 +1,9 @@
 spring:
   flyway:
     enabled: true
-    url: jdbc:mysql://106.12.183.54:3306/exchange_user?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
-    user: ${DB_USER:lawzhuo}
-    password: ${DB_PASSWORD:LawZhuo1002.}
+    url: ${MYSQL.DB_URL}
+    user: ${MYSQL.DB_USER}
+    password: ${MYSQL.DB_PASSWORD}
     locations: classpath:db/migration
     baseline-on-migrate: true
     baseline-version: 0
@@ -15,9 +15,9 @@ spring:
       primary: user
       datasource:
         user:
-          url: jdbc:mysql://106.12.183.54:3306/exchange_user?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&rewriteBatchedStatements=true
-          username: ${DB_USER:lawzhuo}
-          password: ${DB_PASSWORD:LawZhuo1002.}
+          url: ${MYSQL.DB_URL}
+          username: ${MYSQL.DB_USER}
+          password: ${MYSQL.DB_PASSWORD}
 
     # Druid 专属配置
     druid:

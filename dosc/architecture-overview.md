@@ -38,7 +38,7 @@ exchange-gateway
   |      - KYC 图片上传
   |      - 用户头像上传
   |
-  +--> exchange-module-mail
+  +--> exchange-resource-mail
          - 邮件验证码
          - RabbitMQ 异步邮件任务消费
 ```
@@ -77,8 +77,8 @@ crypto-exchange/
   exchange-business/              业务聚合模块
     exchange-business-user/       用户业务服务
   exchange-module/                可独立部署的通用业务能力聚合模块
-    exchange-module-mail/         邮件发送服务，消费 RabbitMQ 邮件任务
   exchange-resource/              资源服务聚合模块
+    exchange-resource-mail/       邮件发送资源模块，消费 RabbitMQ 邮件任务
     exchange-resource-upload/     本地图片上传服务
 ```
 
@@ -230,7 +230,7 @@ SecurityUtils.getLoginUser();
 
 ```text
 POST /email/verification/code
-  -> exchange-module-mail 生成验证码和邮件内容
+  -> exchange-resource-mail 生成验证码和邮件内容
   -> MqMessageService 包装 MqMessage
   -> RabbitTemplate 按 MqConstants 投递邮件消息
   -> @RabbitListener 消费邮件任务
@@ -268,7 +268,7 @@ exchange:
 | exchange-gateway | 80 | 统一入口 |
 | exchange-auth | 8080 | 认证服务 |
 | exchange-business-user | 8081 | 用户业务服务 |
-| exchange-module-mail | 8078 | 邮件服务 |
+| exchange-resource-mail | 8078 | 邮件服务 |
 | exchange-resource-upload | 8079 | 图片上传服务 |
 
 Gateway 路由：

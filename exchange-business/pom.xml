@@ -17,7 +17,6 @@
         <module>exchange-business-user</module>
         <module>exchange-bussiness-account</module>
         <module>exchange-business-market</module>
-        <module>exchange-business-notification</module>
     </modules>
 
     <properties>

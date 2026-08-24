@@ -14,6 +14,7 @@
     <name>exchange-resource</name>
     <description>资源模块</description>
     <modules>
+        <module>exchange-resource-mail</module>
         <module>exchange-resource-upload</module>
     </modules>
 

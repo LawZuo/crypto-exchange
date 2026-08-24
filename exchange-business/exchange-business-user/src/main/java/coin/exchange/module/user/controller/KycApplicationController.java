@@ -5,14 +5,14 @@ import coin.exchange.common.core.response.R;
 import coin.exchange.common.security.annotation.Idempotent;
 import coin.exchange.module.user.domain.KycApplicationDo;
 import coin.exchange.module.user.service.KycApplicationService;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "用户KYC")
+/**
+ * 用户KYC信息控制层
+ */
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user/kyc")
@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 public class KycApplicationController {
     private final KycApplicationService kycApplicationService;
 
-    @Operation(summary = "创建KYC申请")
+    /**
+     * 创建KYC申请
+     */
     @PostMapping
     @Idempotent(prefix = "kyc:create", key = "#p0.userId", expire = 10, message = "KYC申请正在处理，请勿重复提交")
     public R<String> createKycApplication(@Valid @RequestBody KycApplicationDto kycApplication) {
@@ -29,7 +31,9 @@ public class KycApplicationController {
         return R.success(String.valueOf(application));
     }
 
-    @Operation(summary = "修改KYC申请")
+    /**
+     * 修改KYC申请
+     */
     @PutMapping("/{id}")
     @Idempotent(prefix = "kyc:update", expire = 10, message = "KYC修改正在处理，请勿重复提交")
     public R<String> updateKycApplication(
@@ -41,7 +45,9 @@ public class KycApplicationController {
         return R.success(String.valueOf(application));
     }
 
-    @Operation(summary = "删除KYC申请")
+    /**
+     * 删除KYC申请
+     */
     @DeleteMapping("/{id}")
     @Idempotent(prefix = "kyc:delete", expire = 10, message = "KYC删除正在处理，请勿重复提交")
     public R<String> deleteKycApplication(@PathVariable("id") Long id) {
@@ -50,14 +56,18 @@ public class KycApplicationController {
         return R.success(String.valueOf(application));
     }
 
-    @Operation(summary = "获取KYC申请")
+    /**
+     * 获取KYC申请
+     */
     @GetMapping("/{userId}")
     public R<KycApplicationDo> getKycApplication(@PathVariable("userId") Long userId) {
         KycApplicationDo kycApplication = kycApplicationService.getKycApplication(userId);
         return R.success(kycApplication);
     }
 
-    @Operation(summary = "更新KYC申请状态")
+    /**
+     * 更新KYC申请状态
+     */
     @PutMapping("/{id}/{status}")
     @Idempotent(prefix = "kyc:status", expire = 10, message = "KYC状态更新正在处理，请勿重复提交")
     public R<String> updateStatus(

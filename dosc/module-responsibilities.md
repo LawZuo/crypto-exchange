@@ -510,17 +510,17 @@ gateway 后续通过该 key 判断 token 是否仍有效。
 from-source: inner
 ```
 
-## `exchange-module`
+## `exchange-resource`
 
 通用业务能力聚合模块，适合承载可独立部署、可被多个业务域复用的能力。
 
 当前聚合：
 
 ```text
-exchange-module-mail
+exchange-resource-mail
 ```
 
-### `exchange-module-mail`
+### `exchange-resource-mail`
 
 #### 职责
 
@@ -710,7 +710,7 @@ exchange-api-user
   -> spring-cloud-starter-openfeign
   -> spring-cloud-starter-loadbalancer
 
-exchange-module-mail
+exchange-resource-mail
   -> exchange-common-rabbitmq
   -> spring-boot-starter-mail
   -> spring-boot-starter-thymeleaf

@@ -1,11 +1,10 @@
 package coin.exchange.resource.upload;
 
-import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Configuration;
 
-@SpringBootApplication(exclude = DynamicDataSourceAutoConfiguration.class)
+/**
+ * 上传模块配置入口，由统一模块服务加载。
+ */
+@Configuration
 public class ExchangeResourceUploadApplication {
-    public static void main(String[] args) {
-        org.springframework.boot.SpringApplication.run(ExchangeResourceUploadApplication.class, args);
-    }
 }

@@ -1,12 +1,17 @@
 spring:
   cloud:
-    nacos:
-      discovery:
-        enabled: false
-      config:
-        import-check:
-          enabled: false
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: full
+            connect-timeout: 3000
+            read-timeout: 5000
+          service-product:
+            logger-level: full
+            connect-timeout: 3000
+            read-timeout: 5000
 
 feign:
   sentinel:
-    enabled: true
+    enabled: false

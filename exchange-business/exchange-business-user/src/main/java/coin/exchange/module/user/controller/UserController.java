@@ -20,9 +20,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "用户模块", description = "用户模块接口")
+/**
+ * 用户信息控制层
+ */
 @RequestMapping("/user/information")
 @RestController
 @RequiredArgsConstructor
@@ -31,7 +34,9 @@ public class UserController {
 
     private final UserService userService;
 
-    @Operation(summary = "获取用户信息")
+    /**
+     * 获取用户信息
+     */
     @GetMapping("/{username}")
     public R<UserVo> getUser(
             @PathVariable("username") String username,
@@ -48,7 +53,9 @@ public class UserController {
         return R.success(userVO);
     }
 
-    @Operation(summary = "获取用户认证信息")
+    /**
+     * 获取用户认证信息
+     */
     @GetMapping("/auth/{username}")
     public R<UserAuthVo> getUserAuth(
             @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
@@ -61,7 +68,9 @@ public class UserController {
         return R.success(userAuthVo);
     }
 
-    @Operation(summary = "注册用户")
+    /**
+     * 注册用户
+     */
     @PostMapping("/register")
     @Idempotent(prefix = "user:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> registerUser(@Valid @RequestBody RegisterUserDto dto, HttpServletRequest request) {
@@ -71,7 +80,9 @@ public class UserController {
         return R.success(userId);
     }
 
-    @Operation(summary = "记录用户登录信息")
+    /**
+     * 记录用户登录信息
+     */
     @PostMapping("/login-record")
     public R<Void> recordLogin(
             @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,

@@ -12,8 +12,8 @@
 
     <name>exchange-module</name>
     <modules>
-        <module>exchange-module-mail</module>
         <module>exchange-module-datasource</module>
+        <module>exchange-module-resource</module>
     </modules>
 
     <properties>

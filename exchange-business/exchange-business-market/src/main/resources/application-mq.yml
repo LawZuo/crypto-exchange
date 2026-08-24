@@ -4,7 +4,7 @@ spring:
     port: ${RABBITMQ_PORT:5672}
     username: ${RABBITMQ_USERNAME:admin}
     password: ${RABBITMQ_PASSWORD:ChangeMe_2026!}
-    virtual-host: ${RABBITMQ_VIRTUAL_HOST:/}
+    virtual-host: ${RABBITMQ_VIRTUAL_HOST:vhost_market}
     connection-timeout: 15000
     requested-heartbeat: 30
     listener:

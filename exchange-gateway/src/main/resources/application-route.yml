@@ -11,14 +11,14 @@ spring:
       routes:
         # Auth接口文档
         - id: auth-api-docs
-          uri: http://localhost:8080
+          uri: http://localhost:9000
           predicates:
             - Path=/v3/api-docs/auth
           filters:
             - SetPath=/v3/api-docs
         # 用户接口文档
         - id: user-api-docs
-          uri: http://localhost:8081
+          uri: http://localhost:9001
           predicates:
             - Path=/v3/api-docs/user
           filters:
@@ -30,38 +30,30 @@ spring:
             - Path=/v3/api-docs/market
           filters:
             - SetPath=/v3/api-docs
-        # 通知接口文档
-        - id: notification-api-docs
-          uri: http://localhost:8084
-          predicates:
-            - Path=/v3/api-docs/notification
-          filters:
-            - SetPath=/v3/api-docs
-
         # 文件上传模块
         - id: upload-route
-          uri: http://localhost:8079
+          uri: http://localhost:8078
           predicates:
             - Path=/api/crypto-exchange/upload/**
           filters:
             - StripPrefix=2
         # 文件访问模块
         - id: upload-file-route
-          uri: http://localhost:8079
+          uri: http://localhost:8078
           predicates:
             - Path=/api/crypto-exchange/files/**
           filters:
             - StripPrefix=2
         # 鉴权模块
         - id: auth-route
-          uri: http://localhost:8080
+          uri: http://localhost:9000
           predicates:
             - Path=/api/crypto-exchange/auth/**
           filters:
             - StripPrefix=2
         # 用户模块
         - id: user-route
-          uri: http://localhost:8081
+          uri: http://localhost:9001
           predicates:
             - Path=/api/crypto-exchange/user/**
           filters:
@@ -71,19 +63,5 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/api/crypto-exchange/market/**
-          filters:
-            - StripPrefix=2
-        # 用户私有化WebSocket通知
-        - id: notification-ws-route
-          uri: ws://localhost:8084
-          predicates:
-            - Path=/api/crypto-exchange/ws/notification,/api/crypto-exchange/ws/notification/**
-          filters:
-            - StripPrefix=2
-        # 通知模块
-        - id: notification-route
-          uri: http://localhost:8084
-          predicates:
-            - Path=/api/crypto-exchange/notification/**
           filters:
             - StripPrefix=2

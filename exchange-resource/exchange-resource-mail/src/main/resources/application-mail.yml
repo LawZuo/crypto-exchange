@@ -1,0 +1,15 @@
+spring:
+  mail:
+    host: smtp.qq.com
+    port: 587
+    username: lawzhuo@qq.com
+    password: bwezkusbvdzdcbcc
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+        transport:
+          protocol: smtp

@@ -11,8 +11,9 @@ public class MqConstants {
      * 邮件验证码
      */
     public static final String EMAIL_SEND_TYPE = "EMAIL_SEND";
-    public static final String EMAIL_SEND_NAME = "exchange.email.send";
-    public static final String EMAIL_SEND_KEY = "queue.email.send";
+    public static final String EMAIL_SEND_EXCHANGE = "exchange.notification";
+    public static final String EMAIL_SEND_QUEUE = "queue.email.send";
+    public static final String EMAIL_SEND_ROUTING_KEY = "email.send";
 
     /**
      * 行情广播
