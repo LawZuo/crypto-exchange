@@ -1,0 +1,27 @@
+server:
+  port: 18472
+spring:
+  profiles:
+    active: dev
+    include:
+      - feign
+      - db
+      - redis
+  application:
+    name: business-account
+  cloud:
+    nacos:
+      username: nacos
+      password: LawZhuo1002.
+      discovery:
+        server-addr: 106.12.183.54:8848
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+      config:
+        server-addr: 106.12.183.54:8848
+        file-extension: yaml
+        refresh-enabled: true
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+
+  config:
+    import:
+      - nacos:exchange-config-database.yml?group=CONFIG_GROUP

@@ -4,6 +4,9 @@ import coin.exchange.business.account.domain.AccountBalanceLogDo;
 
 import java.util.List;
 
+/**
+ * 资金变动记录服务层
+ */
 public interface AccountBalanceLogService {
 
     /**

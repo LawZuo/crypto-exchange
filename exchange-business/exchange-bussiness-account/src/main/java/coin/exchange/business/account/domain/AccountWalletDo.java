@@ -18,45 +18,59 @@ import java.time.LocalDateTime;
 @TableName("account_wallet")
 public class AccountWalletDo {
 
+    // 主键ID
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    // 用户ID
     @TableField("user_id")
     private Long userId;
 
+    // 币种
     @TableField("currency")
     private String currency;
 
+    // 钱包类型
     @TableField("wallet_type")
     private Integer walletType;
 
+    // 可用余额
     @TableField("available_balance")
     private BigDecimal availableBalance;
 
+    // 冻结余额
     @TableField("frozen_balance")
     private BigDecimal frozenBalance;
 
+    // 总余额
     @TableField("total_balance")
     private BigDecimal totalBalance;
 
+    // 地址
     @TableField("address")
     private String address;
 
+    // 网络
     @TableField("network")
     private String network;
 
+    // 公钥
     @TableField("public_key")
     private String publicKey;
 
+    // 私钥
     @TableField("private_key")
     private String privateKey;
 
+    // 状态
     @TableField("status")
     private Integer status;
 
+    // 备注
     @TableField("remark")
     private String remark;
 
+    // 版本
     @TableField("version")
     private Integer version;
 

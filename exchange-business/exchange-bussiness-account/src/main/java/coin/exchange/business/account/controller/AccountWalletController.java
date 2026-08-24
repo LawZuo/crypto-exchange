@@ -6,9 +6,6 @@ import coin.exchange.business.account.domain.AccountWalletDo;
 import coin.exchange.business.account.service.AccountBalanceLogService;
 import coin.exchange.business.account.service.AccountWalletService;
 import coin.exchange.common.core.response.R;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name = "账户钱包接口")
+/**
+ * 账户钱包接口
+ */
 @Slf4j
 @RequestMapping("/account/wallet")
 @RestController
@@ -32,7 +31,6 @@ public class AccountWalletController {
      * 获取用户钱包余额
      * @param userId
      */
-    @Operation(summary = "获取用户钱包余额")
     @GetMapping("/balance/{userId}")
     public R<List<AccountWalletVo>> getBalance(
             @PathVariable(name = "userId", required = true) Long userId

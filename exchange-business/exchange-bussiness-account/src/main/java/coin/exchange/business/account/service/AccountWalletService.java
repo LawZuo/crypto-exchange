@@ -4,6 +4,9 @@ import coin.exchange.business.account.domain.AccountWalletDo;
 
 import java.util.List;
 
+/**
+ * 钱包服务
+ */
 public interface AccountWalletService {
 
     /**

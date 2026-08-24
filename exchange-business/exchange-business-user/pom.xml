@@ -35,11 +35,6 @@
         </dependency>
         <dependency>
             <groupId>coin.exchange</groupId>
-            <artifactId>exchange-common-doc</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>coin.exchange</groupId>
             <artifactId>exchange-common-web</artifactId>
             <version>1.0</version>
         </dependency>
