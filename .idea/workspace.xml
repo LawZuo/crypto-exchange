@@ -4,22 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 优化market模块">
-      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/resources/application-db.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/resources/application-feign.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/resources/application.yml" afterDir="false" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 优化account模块">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-db.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-db.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountBalanceLogDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountBalanceLogDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountRechargeRecordDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountRechargeRecordDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountWalletDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountWalletDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountWithdrawRecordDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountWithdrawRecordDo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountBalanceLogService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountBalanceLogService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountWalletService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountWalletService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +285,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787563907937</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: 优化account模块">
+      <option name="closed" value="true" />
+      <created>1787569419839</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1787569419839</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -324,7 +319,8 @@
     <MESSAGE value="feat: 完成ws消息模块" />
     <MESSAGE value="feat: 完善用户模块&amp;整理项目结构" />
     <MESSAGE value="feat: 优化market模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 优化market模块" />
+    <MESSAGE value="feat: 优化account模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 优化account模块" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
