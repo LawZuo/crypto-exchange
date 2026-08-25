@@ -1,6 +1,6 @@
 package coin.exchange.resource.upload.service;
 
-import coin.exchange.resource.upload.model.UploadVo;
+import coin.exchange.api.resource.model.UploadVo;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface ImageUploadService {

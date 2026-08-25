@@ -18,6 +18,7 @@
         <module>exchange-api-market</module>
         <module>exchange-api-notification</module>
         <module>exchange-api-common</module>
+        <module>exchange-api-resource</module>
     </modules>
 
     <properties>

@@ -1,5 +1,5 @@
 server:
-  port: 8077
+  port: 18461
 spring:
   profiles:
     active: dev
@@ -8,10 +8,20 @@ spring:
       - redis
       - mq
   application:
-    name: service-binance
-
-bt:
-  market:
-    base-url: ${BT_MARKET_BASE_URL:http://localhost:18472}
-  upstream:
-    base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8077}
+    name: exchange-service-datasource
+  cloud:
+    nacos:
+      username: nacos
+      password: LawZhuo1002.
+      discovery:
+        server-addr: 106.12.183.54:8848
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+      config:
+        server-addr: 106.12.183.54:8848
+        file-extension: yaml
+        refresh-enabled: true
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+  config:
+    import:
+      - nacos:exchange-config-redis.yml?group=CONFIG_GROUP
+      - nacos:exchange-config-rabbitmq.yml?group=CONFIG_GROUP

@@ -9,59 +9,27 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
       routes:
-        # Auth接口文档
-        - id: auth-api-docs
-          uri: http://localhost:9000
-          predicates:
-            - Path=/v3/api-docs/auth
-          filters:
-            - SetPath=/v3/api-docs
-        # 用户接口文档
-        - id: user-api-docs
-          uri: http://localhost:9001
-          predicates:
-            - Path=/v3/api-docs/user
-          filters:
-            - SetPath=/v3/api-docs
-        # 行情接口文档
-        - id: market-api-docs
-          uri: http://localhost:8083
-          predicates:
-            - Path=/v3/api-docs/market
-          filters:
-            - SetPath=/v3/api-docs
-        # 文件上传模块
-        - id: upload-route
-          uri: http://localhost:8078
-          predicates:
-            - Path=/api/crypto-exchange/upload/**
-          filters:
-            - StripPrefix=2
         # 文件访问模块
         - id: upload-file-route
-          uri: http://localhost:8078
+          uri: http://localhost:18460
           predicates:
             - Path=/api/crypto-exchange/files/**
           filters:
             - StripPrefix=2
+
+        # 资源服务模块
+        - id: service-resource-route
+          uri: http://localhost:18460
+          predicates:
+            - Path=/api/crypto-exchange/upload/** # 文件上传
+            - Path=/api/crypto-exchange/email/** # 邮件服务
+          filters:
+            - StripPrefix=2
+
         # 鉴权模块
         - id: auth-route
-          uri: http://localhost:9000
+          uri: http://localhost:18400
           predicates:
             - Path=/api/crypto-exchange/auth/**
-          filters:
-            - StripPrefix=2
-        # 用户模块
-        - id: user-route
-          uri: http://localhost:9001
-          predicates:
-            - Path=/api/crypto-exchange/user/**
-          filters:
-            - StripPrefix=2
-        # 行情模块
-        - id: market-route
-          uri: http://localhost:8083
-          predicates:
-            - Path=/api/crypto-exchange/market/**
           filters:
             - StripPrefix=2

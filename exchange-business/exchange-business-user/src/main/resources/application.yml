@@ -8,7 +8,7 @@ spring:
       - db
       - redis
   application:
-    name: business-user
+    name: exchange-business-user
   cloud:
     nacos:
       username: nacos

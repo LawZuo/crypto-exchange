@@ -35,12 +35,6 @@ springdoc:
     urls:
       - name: auth
         url: /v3/api-docs/auth
-      - name: user
-        url: /v3/api-docs/user
-      - name: market
-        url: /v3/api-docs/market
-      - name: notification
-        url: /v3/api-docs/notification
 
 exchange:
   doc:

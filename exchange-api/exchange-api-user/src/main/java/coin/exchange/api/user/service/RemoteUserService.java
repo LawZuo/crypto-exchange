@@ -19,19 +19,17 @@ import org.springframework.web.bind.annotation.RequestHeader;
  *
  * 注意：当前部署未启用服务注册中心（nacos discovery 已关），
  * 这里通过 url 指定绝对地址，绕过 LoadBalancer。
+ * url = "${bt.upstream.base-url:http://localhost:18471}",
  * 后续若启用 Nacos，删掉 url 即可走服务名。
  */
 @FeignClient(
         name = "exchange-business-user",
-        url = "${bt.upstream.base-url:http://localhost:9001}",
         fallbackFactory = RemoteUserFallbackFactory.class
 )
 public interface RemoteUserService {
+
     /**
      * 通过用户名查询用户信息
-     *
-     * @param username 用户名
-     * @return 结果
      */
     @GetMapping("/user/information/{username}")
     public R<UserVo> getUserInfo(@PathVariable("username") String username);

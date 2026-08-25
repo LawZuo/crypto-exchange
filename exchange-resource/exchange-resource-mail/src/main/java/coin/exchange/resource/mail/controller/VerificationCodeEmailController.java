@@ -1,5 +1,6 @@
 package coin.exchange.resource.mail.controller;
 
+import coin.exchange.api.resource.dto.EmailDto;
 import coin.exchange.resource.mail.model.EmailCodeVo;
 import coin.exchange.resource.mail.service.EmailService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,10 @@ public class VerificationCodeEmailController {
     private final EmailService emailService;
 
     @PostMapping("/verification/code")
-    public void sendVerificationCodeEmail(@RequestBody EmailCodeVo emailCodeVo) {
-        String email = emailCodeVo.getEmail();
+    public void sendVerificationCodeEmail(@RequestBody EmailDto emailDto) {
+        String email = emailDto.getEmail();
         if (!StringUtils.hasText(email)) {
-            log.error("邮箱错误 -> {}", emailCodeVo);
+            log.error("邮箱错误 -> {}", emailDto);
             return;
         }
 

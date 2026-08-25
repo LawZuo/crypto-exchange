@@ -1,36 +1,32 @@
 server:
-  port: ${MODULE_RESOURCE_PORT:8078}
+  port: ${MODULE_RESOURCE_PORT:18460}
 
 spring:
   application:
-    name: service-resource
+    name: exchange-service-resource
   profiles:
     active: dev
     include:
+      - feign
+      - upload
+      - mail
       - redis
       - mail
-      - integrated-mq
-  servlet:
-    multipart:
-      max-file-size: 100MB
-      max-request-size: 100MB
+      - mq
+  cloud:
+    nacos:
+      username: nacos
+      password: LawZhuo1002.
+      discovery:
+        server-addr: 106.12.183.54:8848
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+      config:
+        server-addr: 106.12.183.54:8848
+        file-extension: yaml
+        refresh-enabled: true
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
 
-file:
-  upload-path: ${FILE_UPLOAD_PATH:./uploads/}
-  access-path: /files/
-
-springdoc:
-  api-docs:
-    path: /v3/api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-
-exchange:
-  doc:
-    title: Crypto Exchange Resource API
-    description: 邮件和文件上传资源服务接口文档
-    version: 1.0
-
-bt:
-  upstream:
-    base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8078}
+  config:
+    import:
+      - nacos:exchange-config-redis.yml?group=CONFIG_GROUP
+      - nacos:exchange-config-rabbitmq.yml?group=CONFIG_GROUP

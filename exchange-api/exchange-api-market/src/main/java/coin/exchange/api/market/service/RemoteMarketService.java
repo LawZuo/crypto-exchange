@@ -16,7 +16,6 @@ import java.util.List;
 
 @FeignClient(
         name = "exchange-business-market",
-        url = "${bt.market.base-url:http://localhost:8083}",
         fallbackFactory = RemoteMarketFallbackFactory.class
 )
 public interface RemoteMarketService {

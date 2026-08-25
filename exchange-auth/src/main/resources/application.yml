@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 18400
 spring:
   profiles:
     active: dev
@@ -7,11 +7,22 @@ spring:
       - feign
       - redis
   application:
-    name: service-auth
-
-bt:
-  upstream:
-    base-url: ${BT_UPSTREAM_BASE_URL:http://localhost:8081}
+    name: exchange-service-auth
+  cloud:
+    nacos:
+      username: nacos
+      password: LawZhuo1002.
+      discovery:
+        server-addr: 106.12.183.54:8848
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+      config:
+        server-addr: 106.12.183.54:8848
+        file-extension: yaml
+        refresh-enabled: true
+        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+    config:
+      import:
+        - nacos:exchange-config-redis.yml?group=CONFIG_GROUP
 
 springdoc:
   api-docs:

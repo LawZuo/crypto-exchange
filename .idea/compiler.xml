@@ -18,6 +18,7 @@
         <module name="exchange-common-core" />
         <module name="exchange-resource-upload" />
         <module name="exchange-auth" />
+        <module name="exchange-api-resource" />
         <module name="exchange-common-doc" />
         <module name="exchange-common-security" />
         <module name="exchange-api-notification" />

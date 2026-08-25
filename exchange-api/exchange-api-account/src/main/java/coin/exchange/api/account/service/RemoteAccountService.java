@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(
         name = "exchange-business-account",
-        url = "${bt.upstream.base-url:http://localhost:8082}",
         fallbackFactory = RemoteAccountFallbackFactory.class
 )
 public interface RemoteAccountService {

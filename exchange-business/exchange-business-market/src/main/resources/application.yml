@@ -8,7 +8,7 @@ spring:
       - redis
       - mq
   application:
-    name: business-market
+    name: exchange-business-market
   cloud:
     nacos:
       username: nacos

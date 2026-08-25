@@ -19,9 +19,9 @@ import org.springframework.stereotype.Component;
 /**
  * 登录服务
  */
-@RequiredArgsConstructor
-@Component
 @Slf4j
+@Component
+@RequiredArgsConstructor
 public class LoginService {
 
     private final RemoteUserService remoteUserService;

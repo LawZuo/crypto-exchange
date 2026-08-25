@@ -3,39 +3,35 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>coin.exchange</groupId>
-        <artifactId>exchange-resource</artifactId>
+        <artifactId>exchange-api</artifactId>
         <version>1.0</version>
     </parent>
 
-    <artifactId>exchange-resource-upload</artifactId>
+    <artifactId>exchange-api-resource</artifactId>
     <packaging>jar</packaging>
 
-    <name>exchange-resource-upload</name>
-    <url>http://maven.apache.org</url>
+    <name>exchange-api-resource</name>
+    <description>资源模块Feign接口</description>
 
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>coin.exchange</groupId>
-            <artifactId>exchange-common-web</artifactId>
+            <artifactId>exchange-common-core</artifactId>
             <version>1.0</version>
         </dependency>
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
     </dependencies>
-
 </project>

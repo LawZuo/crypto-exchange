@@ -1,6 +1,6 @@
 package coin.exchange.resource.upload.service.impl;
 
-import coin.exchange.resource.upload.model.UploadVo;
+import coin.exchange.api.resource.model.UploadVo;
 import coin.exchange.resource.upload.service.ImageUploadService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

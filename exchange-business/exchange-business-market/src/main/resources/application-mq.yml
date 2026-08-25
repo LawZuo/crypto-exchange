@@ -1,12 +1,12 @@
 spring:
   rabbitmq:
-    host: ${RABBITMQ.HOST:106.12.183.54}
-    port: ${RABBITMQ.PORT:5672}
-    username: ${RABBITMQ.USERNAME:admin}
-    password: ${RABBITMQ.PASSWORD:ChangeMe_2026!}
-    virtual-host: ${RABBITMQ.VIRTUAL_HOST:vhost_market}
-    connection-timeout: ${RABBITMQ.CONNECTION_TIMEOUT:5000}
-    requested-heartbeat: ${RABBITMQ.REQUESTED_HEARTBEAT:60}
+    host: ${RABBITMQ.HOST}
+    port: ${RABBITMQ.PORT}
+    username: ${RABBITMQ.USERNAME}
+    password: ${RABBITMQ.PASSWORD}
+    virtual-host: ${RABBITMQ.MARKET_VIRTUAL_HOST:/}
+    connection-timeout: ${RABBITMQ.CONNECTION_TIMEOUT}
+    requested-heartbeat: ${RABBITMQ.REQUESTED_HEARTBEAT}
     listener:
       simple:
         acknowledge-mode: manual

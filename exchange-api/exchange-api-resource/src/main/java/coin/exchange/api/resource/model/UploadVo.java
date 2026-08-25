@@ -1,4 +1,4 @@
-package coin.exchange.resource.upload.model;
+package coin.exchange.api.resource.model;
 
 import lombok.Data;
 
