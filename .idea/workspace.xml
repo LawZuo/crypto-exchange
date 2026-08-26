@@ -4,18 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 持续优化">
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 部署docker">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/service/RemoteMarketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/service/RemoteMarketService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-resource/src/main/java/coin/exchange/api/resource/service/RemoteResourceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-resource/src/main/java/coin/exchange/api/resource/service/RemoteResourceService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-parent/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-parent/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -320,7 +310,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787662502225</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: 部署docker">
+      <option name="closed" value="true" />
+      <created>1787736139905</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1787736139905</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -348,7 +346,8 @@
     <MESSAGE value="feat: 优化market模块" />
     <MESSAGE value="feat: 优化account模块" />
     <MESSAGE value="feat: 持续优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 持续优化" />
+    <MESSAGE value="feat: 部署docker" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 部署docker" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
