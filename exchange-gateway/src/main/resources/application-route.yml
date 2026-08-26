@@ -9,27 +9,18 @@ spring:
             allowed-methods: "*"
             allowed-headers: "*"
       routes:
-        # 文件访问模块
-        - id: upload-file-route
-          uri: http://localhost:18460
+        # 用户端统一接口
+        - id: exchange-web-route
+          uri: lb://exchange-web
           predicates:
-            - Path=/api/crypto-exchange/files/**
+            - Path=/api/crypto-exchange/web/**
           filters:
-            - StripPrefix=2
+            - StripPrefix=3
 
-        # 资源服务模块
-        - id: service-resource-route
-          uri: http://localhost:18460
+        # 后台统一接口
+        - id: exchange-admin-route
+          uri: lb://exchange-admin
           predicates:
-            - Path=/api/crypto-exchange/upload/** # 文件上传
-            - Path=/api/crypto-exchange/email/** # 邮件服务
+            - Path=/api/crypto-exchange/admin/**
           filters:
-            - StripPrefix=2
-
-        # 鉴权模块
-        - id: auth-route
-          uri: http://localhost:18400
-          predicates:
-            - Path=/api/crypto-exchange/auth/**
-          filters:
-            - StripPrefix=2
+            - StripPrefix=3

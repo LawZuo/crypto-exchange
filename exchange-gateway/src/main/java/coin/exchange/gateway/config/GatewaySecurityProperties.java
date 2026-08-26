@@ -13,13 +13,15 @@ import java.util.List;
 public class GatewaySecurityProperties {
 
     private List<String> ignorePaths = new ArrayList<>(List.of(
-            "/api/crypto-exchange/auth/login",
-            "/api/crypto-exchange/auth/register",
-            "/api/crypto-exchange/auth/logout",
+            "/api/crypto-exchange/web/auth/login",
+            "/api/crypto-exchange/web/auth/register",
+            "/api/crypto-exchange/web/auth/logout",
+            "/api/crypto-exchange/web/market/**",
             "/swagger-ui.html",
             "/swagger-ui/**",
             "/webjars/**",
             "/v3/api-docs/**",
-            "/api/crypto-exchange/files/**"
+            "/api/crypto-exchange/web/v3/api-docs/**",
+            "/api/crypto-exchange/admin/v3/api-docs/**"
     ));
 }

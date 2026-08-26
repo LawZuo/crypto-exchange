@@ -17,3 +17,7 @@ logs/
 # Upload files
 /upload/
 /uploads/
+
+# Docker release artifacts
+/dist/
+/jars/

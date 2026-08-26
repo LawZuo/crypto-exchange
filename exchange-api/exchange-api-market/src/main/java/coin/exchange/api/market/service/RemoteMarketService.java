@@ -23,25 +23,25 @@ public interface RemoteMarketService {
     @GetMapping("/market/symbols")
     R<List<MarketSymbolVo>> listSymbols();
 
-    @GetMapping("/market/binance/ticker")
+    @GetMapping("/market/ticker")
     R<BinanceTickerVo> getBinanceTicker(@RequestParam("symbol") String symbol);
 
-    @GetMapping("/market/binance/depth")
+    @GetMapping("/market/depth")
     R<BinanceDepthVo> getBinanceDepth(@RequestParam("symbol") String symbol,
                                       @RequestParam(value = "limit", required = false) Integer limit);
 
-    @GetMapping("/market/binance/trades")
+    @GetMapping("/market/trades")
     R<List<BinanceTradeVo>> listBinanceTrades(@RequestParam("symbol") String symbol,
                                               @RequestParam(value = "limit", required = false) Integer limit);
 
-    @GetMapping("/market/binance/klines")
+    @GetMapping("/market/klines")
     R<List<BinanceKlineVo>> listBinanceKlines(@RequestParam("symbol") String symbol,
                                               @RequestParam("interval") String interval,
                                               @RequestParam(value = "startTime", required = false) Long startTime,
                                               @RequestParam(value = "endTime", required = false) Long endTime,
                                               @RequestParam(value = "limit", required = false) Integer limit);
 
-    @GetMapping("/market/binance/cache")
+    @GetMapping("/market/cache")
     R<MarketCacheSnapshotVo> getBinanceCache(@RequestParam("symbol") String symbol,
                                              @RequestParam(value = "interval", required = false) String interval,
                                              @RequestParam(value = "types", required = false) List<String> types);

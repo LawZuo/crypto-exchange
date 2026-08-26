@@ -1,0 +1,31 @@
+server:
+  port: ${EXCHANGE_WEB_PORT:18300}
+
+spring:
+  application:
+    name: exchange-web
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration
+      - com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration
+  cloud:
+    nacos:
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:LawZhuo1002.}
+      discovery:
+        server-addr: ${NACOS_SERVER_ADDR:106.12.183.54:8848}
+        namespace: ${NACOS_NAMESPACE:09a6d4e7-6ba4-410c-9451-822410f9fbe6}
+      config:
+        server-addr: ${NACOS_SERVER_ADDR:106.12.183.54:8848}
+        namespace: ${NACOS_NAMESPACE:09a6d4e7-6ba4-410c-9451-822410f9fbe6}
+        file-extension: yaml
+  config:
+    import:
+      - optional:nacos:exchange-web.yml?group=WEB_GROUP
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

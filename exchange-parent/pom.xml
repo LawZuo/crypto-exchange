@@ -17,6 +17,8 @@
      <module>../exchange-module</module>
      <module>../exchange-business</module>
      <module>../exchange-resource</module>
+     <module>../exchange-web</module>
+     <module>../exchange-admin</module>
  </modules>
 
     <properties>

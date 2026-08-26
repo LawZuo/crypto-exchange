@@ -1,40 +1,47 @@
 server:
-  port: 80 # 本地默认80端口，spring默认8080端口
+  port: ${GATEWAY_PORT:18080}
 spring:
   application:
-    name: gateway
+    name: exchange-gateway
   profiles:
     include:
       - route
       - redis
   cloud:
     nacos:
+      username: ${NACOS_USERNAME:nacos}
+      password: ${NACOS_PASSWORD:LawZhuo1002.}
       discovery:
-        enabled: false
+        enabled: true
+        server-addr: ${NACOS_SERVER_ADDR:106.12.183.54:8848}
+        namespace: ${NACOS_NAMESPACE:09a6d4e7-6ba4-410c-9451-822410f9fbe6}
       config:
         import-check:
           enabled: false
 
 security:
   ignore-paths:
-    - /api/crypto-exchange/auth/login
-    - /api/crypto-exchange/auth/register
-    - /api/crypto-exchange/auth/logout
+    - /api/crypto-exchange/web/auth/login
+    - /api/crypto-exchange/web/auth/register
+    - /api/crypto-exchange/web/auth/logout
+    - /api/crypto-exchange/web/market/**
     - /swagger-ui.html
     - /swagger-ui/**
     - /webjars/**
     - /v3/api-docs/**
-    - /api/crypto-exchange/files/**
-    - /api/crypto-exchange/ws/notification/**
+    - /api/crypto-exchange/web/v3/api-docs/**
+    - /api/crypto-exchange/admin/v3/api-docs/**
 
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
     disable-swagger-default-url: true
-    urls-primary-name: auth
+    urls-primary-name: web
     urls:
-      - name: auth
-        url: /v3/api-docs/auth
+      - name: web
+        url: /api/crypto-exchange/web/v3/api-docs
+      - name: admin
+        url: /api/crypto-exchange/admin/v3/api-docs
 
 exchange:
   doc:
