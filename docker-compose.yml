@@ -1,0 +1,129 @@
+x-service-defaults: &service-defaults
+  restart: unless-stopped
+  env_file:
+    - .env
+  environment: &service-environment
+    TZ: ${TZ:-Asia/Macau}
+    JAVA_OPTS: ${JAVA_OPTS:--XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0}
+    LOG_PATH: /app/logs
+    LOGGING_FILE_PATH: /app/logs
+    NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
+    NACOS_NAMESPACE: ${NACOS_NAMESPACE}
+    NACOS_USERNAME: ${NACOS_USERNAME}
+    NACOS_PASSWORD: ${NACOS_PASSWORD}
+    REDIS_HOST: ${REDIS_HOST}
+    REDIS_PORT: ${REDIS_PORT}
+    REDIS_PASSWORD: ${REDIS_PASSWORD}
+    REDIS_DATABASE: ${REDIS_DATABASE:-0}
+    REDIS_TIMEOUT: ${REDIS_TIMEOUT:-5000ms}
+    DATABASE.REDIS.HOST: ${REDIS_HOST}
+    DATABASE.REDIS.PORT: ${REDIS_PORT}
+    DATABASE.REDIS.PASSWORD: ${REDIS_PASSWORD}
+    DATABASE.REDIS.DATABASE: ${REDIS_DATABASE:-0}
+    DATABASE.REDIS.TIMEOUT: ${REDIS_TIMEOUT:-5000ms}
+  networks:
+    - exchange-network
+
+services:
+  exchange-gateway:
+    <<: *service-defaults
+    image: crypto-exchange/gateway:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-gateway.jar
+    ports:
+      - "${GATEWAY_HOST_PORT:-18080}:18080"
+    volumes:
+      - ./logs/exchange-gateway:/app/logs
+
+  exchange-web:
+    <<: *service-defaults
+    image: crypto-exchange/web:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-web.jar
+    volumes:
+      - ./logs/exchange-web:/app/logs
+
+  exchange-admin:
+    <<: *service-defaults
+    image: crypto-exchange/admin:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-admin.jar
+    volumes:
+      - ./logs/exchange-admin:/app/logs
+
+  exchange-auth:
+    <<: *service-defaults
+    image: crypto-exchange/auth:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-auth.jar
+    volumes:
+      - ./logs/exchange-auth:/app/logs
+
+  exchange-business-user:
+    <<: *service-defaults
+    image: crypto-exchange/business-user:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-business-user.jar
+    volumes:
+      - ./logs/exchange-business-user:/app/logs
+
+  exchange-business-account:
+    <<: *service-defaults
+    image: crypto-exchange/business-account:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-business-account.jar
+    volumes:
+      - ./logs/exchange-business-account:/app/logs
+
+  exchange-business-market:
+    <<: *service-defaults
+    image: crypto-exchange/business-market:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-business-market.jar
+    volumes:
+      - ./logs/exchange-business-market:/app/logs
+
+  exchange-datasource:
+    <<: *service-defaults
+    image: crypto-exchange/datasource:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-datasource.jar
+    volumes:
+      - ./logs/exchange-datasource:/app/logs
+
+  exchange-resource:
+    <<: *service-defaults
+    image: crypto-exchange/resource:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-resource.jar
+    environment:
+      <<: *service-environment
+      FILE_UPLOAD_PATH: /app/uploads/
+    volumes:
+      - exchange-uploads:/app/uploads
+      - ./logs/exchange-resource:/app/logs
+
+networks:
+  exchange-network:
+    driver: bridge
+
+volumes:
+  exchange-uploads:

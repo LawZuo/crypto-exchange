@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -31,6 +32,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Slf4j
 public class AuthController {
+
+    private static final String BEARER_PREFIX = "Bearer ";
 
     private final LoginService loginService;
     private final RedisService redisService;
@@ -71,7 +74,17 @@ public class AuthController {
     @ApiResponse(responseCode = "200", description = "用户登出成功")
     @ApiResponse(responseCode = "400", description = "用户登出失败")
     @PostMapping("/logout")
-    public R<String> logout() {
+    public R<String> logout(HttpServletRequest request) {
+        String token = request.getHeader("Authorization");
+        if (StringUtils.hasText(token)) {
+            token = token.trim();
+            if (token.regionMatches(true, 0, BEARER_PREFIX, 0, BEARER_PREFIX.length())) {
+                token = token.substring(BEARER_PREFIX.length()).trim();
+            }
+            if (StringUtils.hasText(token)) {
+                redisService.deleteObject(RedisKeyConstants.LOGIN_TOKEN_KEY_PREFIX + token);
+            }
+        }
         return R.success("logout");
     }
 

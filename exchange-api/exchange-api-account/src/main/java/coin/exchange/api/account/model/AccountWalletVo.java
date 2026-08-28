@@ -1,5 +1,8 @@
 package coin.exchange.api.account.model;
 
+import lombok.Data;
+
+@Data
 public class AccountWalletVo {
     private Long id;
     private Long userId;

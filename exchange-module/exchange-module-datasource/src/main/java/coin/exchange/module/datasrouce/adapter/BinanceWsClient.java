@@ -32,6 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -52,7 +53,15 @@ public class BinanceWsClient {
         thread.setDaemon(true);
         return thread;
     });
+    private final ScheduledExecutorService subscriptionRetryExecutor = Executors.newSingleThreadScheduledExecutor(runnable -> {
+        Thread thread = new Thread(runnable);
+        thread.setName("binance-subscription-retry");
+        thread.setDaemon(true);
+        return thread;
+    });
     private final AtomicBoolean running = new AtomicBoolean(false);
+    private final AtomicBoolean subscriptionRetryScheduled = new AtomicBoolean(false);
+    private final AtomicBoolean marketStreamsSubscribed = new AtomicBoolean(false);
     private volatile WebSocketStreamClient client;
 
     private static final ObjectMapper objectMapper = new ObjectMapper()
@@ -62,11 +71,47 @@ public class BinanceWsClient {
         String baseUrl = binanceProperties.getBaseUrl();
         client = new WebSocketStreamClientImpl(baseUrl);
         running.set(true);
-        subscribeCombineStreams(
-                binanceProperties.getKlineInterval(),
-                binanceProperties.getStreamTypes(),
-                loadMarketSymbols()
-        );
+        subscribeMarketStreamsWhenAvailable();
+    }
+
+    private void subscribeMarketStreamsWhenAvailable() {
+        if (!running.get() || marketStreamsSubscribed.get()) {
+            return;
+        }
+
+        try {
+            List<String> symbols = loadMarketSymbols();
+            if (symbols.isEmpty()) {
+                scheduleSubscriptionRetry();
+                return;
+            }
+            Integer connectionId = subscribeCombineStreams(
+                    binanceProperties.getKlineInterval(),
+                    binanceProperties.getStreamTypes(),
+                    symbols
+            );
+            if (connectionId != null) {
+                marketStreamsSubscribed.set(true);
+            } else {
+                scheduleSubscriptionRetry();
+            }
+        } catch (Exception e) {
+            log.warn("market 服务暂不可用，datasource 保持运行并稍后重试: {}", e.getMessage());
+            scheduleSubscriptionRetry();
+        }
+    }
+
+    private void scheduleSubscriptionRetry() {
+        if (!running.get() || !subscriptionRetryScheduled.compareAndSet(false, true)) {
+            return;
+        }
+
+        long delayMillis = Math.max(1000L, binanceProperties.getReconnectDelay().toMillis());
+        log.info("将在 {} ms 后重新获取交易对并尝试订阅", delayMillis);
+        subscriptionRetryExecutor.schedule(() -> {
+            subscriptionRetryScheduled.set(false);
+            subscribeMarketStreamsWhenAvailable();
+        }, delayMillis, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -138,7 +183,13 @@ public class BinanceWsClient {
     }
 
     private List<String> loadMarketSymbols() {
-        R<List<MarketSymbolVo>> response = remoteMarketService.listSymbols();
+        R<List<MarketSymbolVo>> response;
+        try {
+            response = remoteMarketService.listSymbols();
+        } catch (Exception e) {
+            log.warn("无法连接 market 服务获取交易对: {}", e.getMessage());
+            return List.of();
+        }
         if (response == null || response.code() != R.SUCCESS_CODE || response.data() == null) {
             String message = response == null ? "无响应" : response.message();
             log.error("从 market 服务获取交易对失败: {}", message);
@@ -272,6 +323,8 @@ public class BinanceWsClient {
     public void stop() {
         log.info("正在停止 Binance SDK WebSocket...");
         running.set(false);
+        marketStreamsSubscribed.set(false);
+        subscriptionRetryExecutor.shutdownNow();
         WebSocketStreamClient currentClient = client;
         if (currentClient != null) {
             connectionIds.forEach(currentClient::closeConnection);

@@ -9,3 +9,9 @@ spring:
     requested-heartbeat: 30
     publisher-confirm-type: correlated
     publisher-returns: true
+
+exchange:
+  rabbitmq:
+    market-data-queue: ${RABBITMQ.MARKET.DATA_QUEUE}
+    market-data-exchange: ${RABBITMQ.MARKET.DATA_EXCHANGE}
+    market-data-biz-type: ${RABBITMQ.MARKET.MARKET_DATA_BIZ_TYPE}

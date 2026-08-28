@@ -1,5 +1,5 @@
 server:
-  port: 18470
+  port: ${business.port:18470}
 spring:
   profiles:
     active: dev
@@ -8,7 +8,7 @@ spring:
       - redis
       - mq
   application:
-    name: exchange-business-market
+    name: ${business.application_name:exchange-business-market}
   cloud:
     nacos:
       username: nacos

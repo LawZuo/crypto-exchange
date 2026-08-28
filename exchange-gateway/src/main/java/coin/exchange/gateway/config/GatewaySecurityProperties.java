@@ -15,7 +15,6 @@ public class GatewaySecurityProperties {
     private List<String> ignorePaths = new ArrayList<>(List.of(
             "/api/crypto-exchange/web/auth/login",
             "/api/crypto-exchange/web/auth/register",
-            "/api/crypto-exchange/web/auth/logout",
             "/api/crypto-exchange/web/market/**",
             "/swagger-ui.html",
             "/swagger-ui/**",

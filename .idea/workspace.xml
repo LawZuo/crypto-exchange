@@ -5,7 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 部署docker">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/model/AccountWalletVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/model/AccountWalletVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/ExchangeAuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/ExchangeAuthApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/mq/MarketDataConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/mq/MarketDataConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-mq.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/MarketRabbitConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/MarketRabbitConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/mq/MarketDataPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/mq/MarketDataPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-mq.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +102,7 @@
     "project.structure.side.proportion": "0.2862069",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "应用程序.BinanceMarkWebSocketTest.executor": "Run",
+    "应用程序.ExchangeAdminApplication.executor": "Run",
     "应用程序.ExchangeAuthApplication.executor": "Run",
     "应用程序.ExchangeBusinessAccountApplication.executor": "Run",
     "应用程序.ExchangeBusinessMarketApplication.executor": "Run",
@@ -95,6 +112,7 @@
     "应用程序.ExchangeModuleResourceApplication.executor": "Run",
     "应用程序.ExchangeModuleServiceApplication.executor": "Run",
     "应用程序.ExchangeResourceUploadApplication.executor": "Run",
+    "应用程序.ExchangeWebApplication.executor": "Run",
     "应用程序.GatewayApplication.executor": "Run"
   }
 }]]></component>
@@ -107,7 +125,33 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.ExchangeBusinessAccountApplication">
+  <component name="RunManager" selected="应用程序.GatewayApplication">
+    <configuration name="ExchangeAdminApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.admin.ExchangeAdminApplication" />
+      <module name="exchange-admin" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="coin.exchange.admin.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeAuthApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.auth.ExchangeAuthApplication" />
+      <module name="exchange-auth" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="coin.exchange.auth.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ExchangeBusinessAccountApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="coin.exchange.business.account.ExchangeBusinessAccountApplication" />
       <module name="exchange-bussiness-account" />
@@ -121,12 +165,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExchangeBusinessMarketApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.business.market.ExchangeBusinessMarketApplication" />
-      <module name="exchange-business-market" />
+    <configuration name="ExchangeWebApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.web.ExchangeWebApplication" />
+      <module name="exchange-web" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.business.market.*" />
+          <option name="PATTERN" value="coin.exchange.web.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -134,38 +178,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ExchangeBusinessUserApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.user.ExchangeBusinessUserApplication" />
-      <module name="exchange-business-user" />
+    <configuration name="GatewayApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="coin.exchange.gateway.GatewayApplication" />
+      <module name="exchange-gateway" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="coin.exchange.module.user.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExchangeModuleDataSourceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.datasrouce.ExchangeModuleDataSourceApplication" />
-      <module name="exchange-module-datasource" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="coin.exchange.module.datasrouce.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ExchangeModuleResourceApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="coin.exchange.module.resource.ExchangeModuleResourceApplication" />
-      <module name="exchange-module-resource" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="coin.exchange.module.resource.*" />
+          <option name="PATTERN" value="coin.exchange.gateway.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -175,11 +193,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="应用程序.GatewayApplication" />
+        <item itemvalue="应用程序.ExchangeWebApplication" />
+        <item itemvalue="应用程序.ExchangeAdminApplication" />
+        <item itemvalue="应用程序.ExchangeAuthApplication" />
         <item itemvalue="应用程序.ExchangeBusinessAccountApplication" />
-        <item itemvalue="应用程序.ExchangeBusinessUserApplication" />
-        <item itemvalue="应用程序.ExchangeModuleDataSourceApplication" />
-        <item itemvalue="应用程序.ExchangeBusinessMarketApplication" />
-        <item itemvalue="应用程序.ExchangeModuleResourceApplication" />
       </list>
     </recent_temporary>
   </component>
@@ -318,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787736139905</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: 部署docker">
+      <option name="closed" value="true" />
+      <created>1787739654976</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1787739654976</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

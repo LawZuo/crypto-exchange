@@ -11,11 +11,11 @@ if [[ "${1:-}" == "--skip-build" ]]; then
   echo "[1/2] Reusing existing Spring Boot packages..."
 else
   echo "[1/2] Packaging Spring Boot services..."
-  MAVEN_FLAGS=()
   if [[ "${MAVEN_OFFLINE:-false}" == "true" ]]; then
-    MAVEN_FLAGS+=("-o")
+    mvn -o -f "$PROJECT_DIR/exchange-parent/pom.xml" clean package -Dmaven.test.skip=true
+  else
+    mvn -f "$PROJECT_DIR/exchange-parent/pom.xml" clean package -Dmaven.test.skip=true
   fi
-  mvn "${MAVEN_FLAGS[@]}" -f "$PROJECT_DIR/exchange-parent/pom.xml" clean package -Dmaven.test.skip=true
 fi
 
 if [[ "$BUNDLE_DIR" != "$PROJECT_DIR/dist/crypto-exchange-docker" ]]; then

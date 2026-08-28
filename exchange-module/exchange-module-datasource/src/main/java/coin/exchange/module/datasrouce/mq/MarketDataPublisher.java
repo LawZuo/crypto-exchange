@@ -5,6 +5,7 @@ import coin.exchange.common.core.constant.MqConstants;
 import coin.exchange.common.rabbitmq.service.MqMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Locale;
@@ -16,6 +17,12 @@ public class MarketDataPublisher {
 
     private final MqMessageService mqMessageService;
 
+    @Value("${exchange.rabbitmq.market-data-exchange}")
+    private String marketDataExchange;
+
+    @Value("${exchange.rabbitmq.market-data-biz-type}")
+    private String marketDataBizType;
+
     public void publish(String type, String symbol, String interval, Object payload) {
         MarketStreamMessageVo message = new MarketStreamMessageVo();
         message.setSource("binance");
@@ -26,7 +33,7 @@ public class MarketDataPublisher {
         message.setTimestamp(System.currentTimeMillis());
 
         try {
-            mqMessageService.send(MqConstants.MARKET_DATA_EXCHANGE, routingKey(type, symbol), MqConstants.MARKET_DATA_BIZ_TYPE, message);
+            mqMessageService.send(marketDataExchange, routingKey(type, symbol), marketDataBizType, message);
         } catch (Exception e) {
             log.warn("发布行情MQ失败: type={}, symbol={}, error={}", type, symbol, e.getMessage());
         }

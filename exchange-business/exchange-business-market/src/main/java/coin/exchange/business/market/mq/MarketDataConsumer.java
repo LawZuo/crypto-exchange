@@ -28,7 +28,7 @@ public class MarketDataConsumer {
     private final MarketWebSocketPublisher marketWebSocketPublisher;
     private final ObjectMapper objectMapper;
 
-    @RabbitListener(queues = MqConstants.MARKET_DATA_QUEUE)
+    @RabbitListener(queues = "${exchange.rabbitmq.market-data-queue}")
     public void onMarketData(MqMessage<?> message,
                              Channel channel,
                              @Header(AmqpHeaders.DELIVERY_TAG) long tag) throws IOException {
