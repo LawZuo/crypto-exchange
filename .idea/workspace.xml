@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 部署docker">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker-package.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/model/AccountWalletVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/model/AccountWalletVo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/ExchangeAuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/ExchangeAuthApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/mq/MarketDataConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/mq/MarketDataConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application-mq.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/MarketRabbitConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/MarketRabbitConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/mq/MarketDataPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/mq/MarketDataPublisher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-mq.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-mq.yml" afterDir="false" />
-    </list>
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 部署docker" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -344,7 +326,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787739654976</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="feat: 部署docker">
+      <option name="closed" value="true" />
+      <created>1787883231587</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1787883231587</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
