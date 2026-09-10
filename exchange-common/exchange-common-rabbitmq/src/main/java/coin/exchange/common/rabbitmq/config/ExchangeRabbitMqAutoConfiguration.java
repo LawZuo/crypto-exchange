@@ -14,7 +14,6 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.autoconfigure.amqp.RabbitTemplateCustomizer;
@@ -37,9 +36,7 @@ import java.util.List;
 @EnableConfigurationProperties(RabbitMqProperties.class)
 public class ExchangeRabbitMqAutoConfiguration {
 
-    @Bean("exchangeRabbitObjectMapper")
-    @ConditionalOnMissingBean(name = "exchangeRabbitObjectMapper")
-    public ObjectMapper exchangeRabbitObjectMapper() {
+    private ObjectMapper createRabbitObjectMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
@@ -86,8 +83,8 @@ public class ExchangeRabbitMqAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean(MessageConverter.class)
     @ConditionalOnProperty(prefix = "exchange.rabbitmq", name = "json-message-converter", havingValue = "true", matchIfMissing = true)
-    public MessageConverter exchangeRabbitMessageConverter(@Qualifier("exchangeRabbitObjectMapper") ObjectMapper objectMapper) {
-        Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(objectMapper);
+    public MessageConverter exchangeRabbitMessageConverter() {
+        Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(createRabbitObjectMapper());
         // 关键：防止反序列化时因缺少 __TypeId__ 头而失败
         converter.setCreateMessageIds(true);
         return converter;

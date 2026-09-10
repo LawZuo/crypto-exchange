@@ -50,19 +50,19 @@ public class AccountBalanceLogDo {
     @TableField("to_usdt")
     private BigDecimal toUsdt;
 
-    // 账户可用余额
+    // 操作前可用余额
     @TableField("before_available_balance")
     private BigDecimal beforeAvailableBalance;
 
-    // 账户冻结余额
+    // 操作后可用余额
     @TableField("after_available_balance")
     private BigDecimal afterAvailableBalance;
 
-    // 账户总余额
+    // 操作前冻结余额
     @TableField("before_frozen_balance")
     private BigDecimal beforeFrozenBalance;
 
-    // 账户总余额
+    // 操作后冻结余额
     @TableField("after_frozen_balance")
     private BigDecimal afterFrozenBalance;
 
@@ -72,7 +72,7 @@ public class AccountBalanceLogDo {
 
     // 关联id
     @TableField("association_id")
-    private Long associationId;
+    private String associationId;
 
     // 客户端ip
     @TableField("client_ip")

@@ -14,7 +14,7 @@ public interface AccountBalanceLogMapper extends BaseMapper<AccountBalanceLogDo>
     /**
      * 根据用户ID查询资金记录
      */
-    @Select("select * from account_balance_log where user_id = #{userId} and is_deleted = 0 order by create_time desc")
+    @Select("select * from account_balance_log where user_id = #{userId} and is_deleted = 0 order by create_time desc, id desc")
     List<AccountBalanceLogDo> listByUserId(@Param("userId") Long userId);
 
     /**

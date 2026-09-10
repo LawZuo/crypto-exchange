@@ -11,4 +11,9 @@ public class RedisKeyConstants {
      * 用户登录Token
      */
     public static final String LOGIN_TOKEN_KEY_PREFIX = "user:login:";
+
+    /**
+     * 币种最新数据
+     */
+    public static final String KLINE_KEY_PREFIX = "kline:latest:";
 }

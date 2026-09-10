@@ -1,6 +1,7 @@
 package coin.exchange.business.account.mapper;
 
 import coin.exchange.business.account.domain.AccountWalletDo;
+import coin.exchange.common.core.enums.WalletTypeCode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

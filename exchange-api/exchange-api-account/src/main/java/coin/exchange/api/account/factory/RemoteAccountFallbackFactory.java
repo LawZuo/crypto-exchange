@@ -1,5 +1,6 @@
 package coin.exchange.api.account.factory;
 
+import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
 import coin.exchange.api.account.model.AccountWalletVo;
 import coin.exchange.api.account.service.RemoteAccountService;
 import coin.exchange.common.core.response.R;
@@ -17,6 +18,16 @@ public class RemoteAccountFallbackFactory implements FallbackFactory<RemoteAccou
             @Override
             public R<AccountWalletVo> getWalletBalance(Long userId) {
                 return R.fail("【Feign异常】调取账户钱包信息失败" + throwable.getMessage());
+            }
+
+            @Override
+            public R<String> frozenAssets(AccountFrozenAssetsDto accountFrozenAssetsDto) {
+                return R.fail("【Feign异常】冻结资产操作失败" + throwable.getMessage());
+            }
+
+            @Override
+            public R<String> deductAssets(AccountFrozenAssetsDto assetsDto) {
+                return R.fail("【Feign异常】扣除资产操作失败" + throwable.getMessage());
             }
         };
     }

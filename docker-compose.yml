@@ -94,8 +94,21 @@ services:
       context: .
       args:
         JAR_FILE: jars/exchange-business-market.jar
+    environment:
+      <<: *service-environment
+      BT_DATASOURCE_BASE_URL: ${BT_DATASOURCE_BASE_URL:-http://exchange-datasource:18461}
     volumes:
       - ./logs/exchange-business-market:/app/logs
+
+  exchange-business-spot:
+    <<: *service-defaults
+    image: crypto-exchange/business-spot:${IMAGE_TAG:-latest}
+    build:
+      context: .
+      args:
+        JAR_FILE: jars/exchange-business-spot.jar
+    volumes:
+      - ./logs/exchange-business-spot:/app/logs
 
   exchange-datasource:
     <<: *service-defaults

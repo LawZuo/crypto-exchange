@@ -13,6 +13,8 @@
     <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-notification/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-resource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-resource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-api/src/main/java" charset="UTF-8" />
@@ -23,12 +25,16 @@
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-notification/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-bussiness-trade/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/exchange-bussiness-trade/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/exchange-spot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-business/exchange-spot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-business/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java" charset="UTF-8" />
@@ -71,7 +77,11 @@
     <file url="file://$PROJECT_DIR$/exchange-resource/exchange-resource-upload/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-resource/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-resource/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-spot/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/exchange-spot/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/exchange-web/src/main/resources" charset="UTF-8" />
+    <file url="file:///src/main/java" charset="UTF-8" />
+    <file url="file:///src/main/resources" charset="UTF-8" />
   </component>
 </project>

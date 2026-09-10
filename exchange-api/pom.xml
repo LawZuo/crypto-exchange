@@ -19,6 +19,7 @@
         <module>exchange-api-notification</module>
         <module>exchange-api-common</module>
         <module>exchange-api-resource</module>
+        <module>exchange-api-spot</module>
     </modules>
 
     <properties>

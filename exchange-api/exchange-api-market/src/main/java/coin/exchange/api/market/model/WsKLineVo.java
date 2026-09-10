@@ -1,5 +1,6 @@
 package coin.exchange.api.market.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -16,19 +17,19 @@ public class WsKLineVo {
 
     private String i; // 类型 1m
 
-    private BigDecimal o;
+    private BigDecimal o; // ✅ 开盘价 - BigDecimal!
 
-    private BigDecimal c;
+    private BigDecimal c; // ✅ 收盘价
 
-    private BigDecimal h;
+    private BigDecimal h; // ✅ 最高价
 
-    private BigDecimal l;
+    private BigDecimal l; // ✅ 最低价
 
-    private BigDecimal v;
+    private BigDecimal v; // ✅ 成交量
 
-    private BigDecimal q;
+    private BigDecimal q; // 成交额
 
-    private BigDecimal V;
+    private BigDecimal V; // 主动买入量
 
-    private BigDecimal Q;
+    private BigDecimal Q; // 主动买入额
 }

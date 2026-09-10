@@ -1,6 +1,8 @@
 package coin.exchange.business.account.service;
 
+import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
 import coin.exchange.business.account.domain.AccountWalletDo;
+import coin.exchange.common.core.enums.WalletTypeCode;
 
 import java.util.List;
 
@@ -30,12 +32,12 @@ public interface AccountWalletService {
     List<AccountWalletDo> listWallets(Long userId);
 
     /**
-     * 更新钱包
+     * 冻结钱包余额
      */
-    int updateWallet(AccountWalletDo wallet);
+    void frozenBalance(AccountFrozenAssetsDto assetsDto);
 
     /**
-     * 删除钱包
+     * 扣除钱包余额
      */
-    int deleteWallet(Long id);
+    void deductBalance(AccountFrozenAssetsDto assetsDto);
 }

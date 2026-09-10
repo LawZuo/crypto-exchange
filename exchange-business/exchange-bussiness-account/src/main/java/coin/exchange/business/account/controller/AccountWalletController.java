@@ -1,6 +1,7 @@
 package coin.exchange.business.account.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
 import coin.exchange.api.account.model.AccountWalletVo;
 import coin.exchange.business.account.domain.AccountWalletDo;
 import coin.exchange.business.account.service.AccountBalanceLogService;
@@ -8,10 +9,7 @@ import coin.exchange.business.account.service.AccountWalletService;
 import coin.exchange.common.core.response.R;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,4 +39,29 @@ public class AccountWalletController {
         return R.success(result);
     }
 
+    /**
+     * 冻结资产
+     */
+    @PostMapping("/frozen")
+    public R<String> frozenAssets(@RequestBody AccountFrozenAssetsDto accountFrozenAssetsDto) {
+        try {
+            accountWalletService.frozenBalance(accountFrozenAssetsDto);
+            return R.success(null);
+        } catch (RuntimeException e) {
+            return R.fail("冻结资产失败:" + e);
+        }
+    }
+
+    /**
+     * 扣除资产
+     */
+    @PostMapping("/deduct")
+    public R<String> deductAssets(@RequestBody AccountFrozenAssetsDto assetsDto) {
+        try {
+            accountWalletService.deductBalance(assetsDto);
+            return R.success(null);
+        } catch (RuntimeException e) {
+            return R.fail("扣除资产失败:" + e);
+        }
+    }
 }

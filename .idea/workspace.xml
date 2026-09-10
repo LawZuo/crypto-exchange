@@ -4,7 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 部署docker" />
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 部署docker">
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/dto/AccountFrozenAssetsDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/config/ExchangeApiSpotAutoConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/dto/CreateSpotDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/factory/RemoteSpotFallbackFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/test/java/coin/exchange/AppTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/resources/application-feign.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/enums/AssociationTypeCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/enums/BalanceTypeCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/enums/WalletAssetsCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/enums/WalletTypeCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/factory/RemoteAccountFallbackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/factory/RemoteAccountFallbackFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/service/RemoteAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/service/RemoteAccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/model/WsKLineVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/model/WsKLineVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountBalanceLogDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/domain/AccountBalanceLogDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/mapper/AccountBalanceLogMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/mapper/AccountBalanceLogMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/mapper/AccountWalletMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/mapper/AccountWalletMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountWalletService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountWalletService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/impl/AccountWalletServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/impl/AccountWalletServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/RedisKeyConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/RedisKeyConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/config/ExchangeRabbitMqAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-rabbitmq/src/main/java/coin/exchange/common/rabbitmq/config/ExchangeRabbitMqAutoConfiguration.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,13 +47,18 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="lawzhuo" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -28,12 +67,12 @@
     &quot;assignee&quot;: &quot;LawZuo&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/LawZuo/crypto-exchange.git&quot;,
-    &quot;accountId&quot;: &quot;fa57e5ea-24fe-458b-91ee-1043008fbda3&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/LawZuo/crypto-exchange.git",
+    "accountId": "6a4e1ba0-9975-4f18-8518-3f1260ef0441"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/6.1.12/spring-web-6.1.12.jar!/org/springframework/web/bind/annotation/PathVariable.class" root0="SKIP_INSPECTION" />
   </component>
@@ -72,16 +111,29 @@
     "Maven.exchange-parent [validate].executor": "Run",
     "Maven.exchange-parent [verify].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ExchangeBusinessMarketApplication.executor": "Run",
+    "Spring Boot.ExchangeBusinessUserApplication.executor": "Run",
+    "Spring Boot.ExchangeModuleDataSourceApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/user/Desktop/work/crypto-exchange",
+    "last_opened_file_path": "/Users/lawzhuo/Desktop/me/exchange/crypto-exchange",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "模块",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2862069",
+    "run.configurations.included.in.services": "true",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "应用程序.BinanceMarkWebSocketTest.executor": "Run",
     "应用程序.ExchangeAdminApplication.executor": "Run",
@@ -107,7 +159,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="应用程序.GatewayApplication">
+  <component name="RunManager" selected="Spring Boot.ExchangeModuleDataSourceApplication">
     <configuration name="ExchangeAdminApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="coin.exchange.admin.ExchangeAdminApplication" />
       <module name="exchange-admin" />
@@ -173,6 +225,76 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ExchangeAdminApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-admin" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.admin.ExchangeAdminApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeAuthApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-auth" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.auth.ExchangeAuthApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeBusinessAccountApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-bussiness-account" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.business.account.ExchangeBusinessAccountApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeBusinessMarketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-business-market" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.business.market.ExchangeBusinessMarketApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeBusinessUserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-business-user" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.module.user.ExchangeBusinessUserApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeModuleDataSourceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-module-datasource" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.module.datasrouce.ExchangeModuleDataSourceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeModuleResourceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-module-resource" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.module.resource.ExchangeModuleResourceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeSpotApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-business-spot" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.spot.ExchangeSpotApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ExchangeWebApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-web" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.web.ExchangeWebApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="exchange-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="coin.exchange.gateway.GatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="应用程序.GatewayApplication" />
@@ -186,7 +308,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.23892.409" />
+        <option value="bundled-jdk-30f59d01ecdd-34e2839f716b-intellij.indexing.shared.core-IU-262.9437.185" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.9437.185" />
       </set>
     </attachedChunks>
   </component>
@@ -336,6 +459,9 @@
     </task>
     <option name="localTasksCounter" value="18" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
