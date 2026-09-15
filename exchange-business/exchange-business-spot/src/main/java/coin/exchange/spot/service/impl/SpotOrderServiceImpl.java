@@ -1,6 +1,7 @@
 package coin.exchange.spot.service.impl;
 
 import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
+import coin.exchange.api.account.dto.CreateAccountWalletDto;
 import coin.exchange.api.account.service.RemoteAccountService;
 import coin.exchange.api.market.model.WsKLineVo;
 import coin.exchange.api.spot.dto.CreateSpotDto;
@@ -62,6 +63,10 @@ public class SpotOrderServiceImpl extends ServiceImpl<SpotOrderMapper, SpotOrder
 
         // 创建订单
         SpotOrderDo order = createOrderFun(spotDto, symbolConfig);
+
+        // 确保该用户的基础币、计价币现货钱包已创建（接口幂等）
+        ensureSpotWallet(spotDto.getUserId(), order.getBaseAsset());
+        ensureSpotWallet(spotDto.getUserId(), order.getQuoteAsset());
 
         // 限价下单
         if (orderType == 1) {
@@ -197,11 +202,23 @@ public class SpotOrderServiceImpl extends ServiceImpl<SpotOrderMapper, SpotOrder
     /**
      * Feign fallback 也会返回 R.fail，必须显式检查，避免资产扣除失败后继续扣手续费。
      */
-    private static void requireAccountOperationSuccess(R<String> result, String operation) {
+    private static <T> T requireAccountOperationSuccess(R<T> result, String operation) {
         if (result == null || result.code() != R.SUCCESS_CODE) {
             String message = result == null ? "账户服务无响应" : result.message();
             throw new IllegalStateException(operation + "失败：" + message);
         }
+        return result.data();
+    }
+
+    private void ensureSpotWallet(Long userId, String currency) {
+        CreateAccountWalletDto walletDto = new CreateAccountWalletDto();
+        walletDto.setUserId(userId);
+        walletDto.setCurrency(currency);
+        walletDto.setWalletType(WalletTypeCode.SPOT);
+        requireAccountOperationSuccess(
+                remoteAccountService.createWallet(walletDto),
+                "创建" + currency + "现货钱包"
+        );
     }
 
     // 构造冻结资产类

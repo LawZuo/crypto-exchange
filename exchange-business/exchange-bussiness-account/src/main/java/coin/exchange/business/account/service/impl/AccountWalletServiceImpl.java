@@ -1,6 +1,7 @@
 package coin.exchange.business.account.service.impl;
 
 import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
+import coin.exchange.api.account.dto.CreateAccountWalletDto;
 import coin.exchange.business.account.domain.AccountBalanceLogDo;
 import coin.exchange.business.account.domain.AccountWalletDo;
 import coin.exchange.business.account.mapper.AccountWalletMapper;
@@ -10,10 +11,12 @@ import coin.exchange.common.core.enums.WalletTypeCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 @Slf4j
@@ -31,6 +34,48 @@ public class AccountWalletServiceImpl implements AccountWalletService {
         }
         accountWalletMapper.insert(wallet);
         return wallet.getId();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Long getOrCreateWallet(CreateAccountWalletDto walletDto) {
+        if (walletDto == null || walletDto.getUserId() == null) {
+            throw new IllegalArgumentException("用户ID不能为空");
+        }
+        if (walletDto.getCurrency() == null || walletDto.getCurrency().isBlank()) {
+            throw new IllegalArgumentException("币种不能为空");
+        }
+        if (walletDto.getWalletType() == null) {
+            throw new IllegalArgumentException("钱包类型不能为空");
+        }
+
+        String currency = walletDto.getCurrency().trim().toUpperCase(Locale.ROOT);
+        Integer walletType = walletDto.getWalletType().getCode();
+        AccountWalletDo existing = getWallet(walletDto.getUserId(), currency, walletType);
+        if (existing != null) {
+            return existing.getId();
+        }
+
+        AccountWalletDo wallet = new AccountWalletDo();
+        wallet.setUserId(walletDto.getUserId());
+        wallet.setCurrency(currency);
+        wallet.setWalletType(walletType);
+        wallet.setAvailableBalance(BigDecimal.ZERO);
+        wallet.setFrozenBalance(BigDecimal.ZERO);
+        wallet.setTotalBalance(BigDecimal.ZERO);
+        wallet.setStatus(1);
+        wallet.setVersion(1);
+        wallet.setIsDeleted(0);
+        try {
+            accountWalletMapper.insert(wallet);
+            return wallet.getId();
+        } catch (DuplicateKeyException duplicateKeyException) {
+            AccountWalletDo concurrentWallet = getWallet(walletDto.getUserId(), currency, walletType);
+            if (concurrentWallet != null) {
+                return concurrentWallet.getId();
+            }
+            throw duplicateKeyException;
+        }
     }
 
     @Override

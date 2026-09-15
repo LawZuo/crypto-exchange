@@ -1,6 +1,7 @@
 package coin.exchange.business.account.service;
 
 import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
+import coin.exchange.api.account.dto.CreateAccountWalletDto;
 import coin.exchange.business.account.domain.AccountWalletDo;
 import coin.exchange.common.core.enums.WalletTypeCode;
 
@@ -15,6 +16,11 @@ public interface AccountWalletService {
      * 创建钱包
      */
     Long createWallet(AccountWalletDo wallet);
+
+    /**
+     * 根据用户、币种和类型幂等创建钱包。
+     */
+    Long getOrCreateWallet(CreateAccountWalletDto walletDto);
 
     /**
      * 根据ID查询钱包
