@@ -46,7 +46,7 @@ public class AuthController {
             @Valid @RequestBody LoginDto loginDto,
             HttpServletRequest request
     ) {
-        log.info("【用户登录】账号：{}", loginDto.getUsername());
+        log.info("【用户登录】登录类型：{}", loginDto.getLoginType());
         log.info("【用户登录】请求头信息：{}", ServletUtils.getHeaders(request));
         UserVo userVo = loginService.login(loginDto, request);
 

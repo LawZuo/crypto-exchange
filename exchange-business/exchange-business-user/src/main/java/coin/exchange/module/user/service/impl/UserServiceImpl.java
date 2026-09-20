@@ -125,4 +125,18 @@ public class UserServiceImpl implements UserService {
         BeanUtil.copyProperties(user, userAuthVo);
         return userAuthVo;
     }
+
+    @Override
+    public UserAuthVo getUserAuthByEmail(String email) {
+        if (Objects.isNull(email) || email.isBlank()) {
+            throw new IllegalArgumentException("邮箱不能为空");
+        }
+        UserDo user = userMapper.getUserByEmail(email.trim());
+        if (user == null) {
+            return null;
+        }
+        UserAuthVo userAuthVo = new UserAuthVo();
+        BeanUtil.copyProperties(user, userAuthVo);
+        return userAuthVo;
+    }
 }

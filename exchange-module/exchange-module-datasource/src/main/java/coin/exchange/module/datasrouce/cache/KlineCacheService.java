@@ -1,10 +1,10 @@
 package coin.exchange.module.datasrouce.cache;
 
 import coin.exchange.common.redis.service.RedisService;
-import coin.exchange.module.datasrouce.domain.DepthWsMessageDo;
-import coin.exchange.module.datasrouce.domain.KlineWsMessageDo;
-import coin.exchange.module.datasrouce.domain.TickerWsMessageDo;
-import coin.exchange.module.datasrouce.domain.TradeWsMessageDo;
+import coin.exchange.api.market.model.BinanceDepthVo;
+import coin.exchange.api.market.model.BinanceKlineVo;
+import coin.exchange.api.market.model.BinanceTickerVo;
+import coin.exchange.api.market.model.BinanceTradeVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -25,37 +25,37 @@ public class KlineCacheService {
     /**
      * 缓存k线数据
      */
-    public void cacheKlineData(String symbol, String interval, KlineWsMessageDo.Source.Kline kline) {
+    public void cacheKlineData(String symbol, String interval, BinanceKlineVo kline) {
         String key = KLINE_KEY_PREFIX + symbol.toLowerCase() + ":" + interval;
         redisService.setCacheObject(key, kline, TTL_SECONDS, TimeUnit.SECONDS);
-        log.info("更新最新K线缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, kline);
+//        log.info("更新最新K线缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, kline);
     }
 
     /**
      * 缓存24小时ticker数据
      */
-    public void cacheTickerData(String symbol, TickerWsMessageDo.Source ticker) {
+    public void cacheTickerData(String symbol, BinanceTickerVo ticker) {
         String key = marketKey("ticker", symbol);
         redisService.setCacheObject(key, ticker, TTL_SECONDS, TimeUnit.SECONDS);
-        log.info("更新Ticker缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, ticker);
+//        log.info("更新Ticker缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, ticker);
     }
 
     /**
      * 缓存深度增量数据
      */
-    public void cacheDepthData(String symbol, DepthWsMessageDo.Source depth) {
+    public void cacheDepthData(String symbol, BinanceDepthVo depth) {
         String key = marketKey("depth", symbol);
         redisService.setCacheObject(key, depth, TTL_SECONDS, TimeUnit.SECONDS);
-        log.info("更新Depth缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, depth);
+//        log.info("更新Depth缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, depth);
     }
 
     /**
      * 缓存最近成交数据
      */
-    public void cacheTradeData(String symbol, TradeWsMessageDo.Source trade) {
+    public void cacheTradeData(String symbol, BinanceTradeVo trade) {
         String key = marketKey("trade", symbol);
         redisService.setCacheObject(key, trade, TTL_SECONDS, TimeUnit.SECONDS);
-        log.info("更新Trade缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, trade);
+//        log.info("更新Trade缓存: key={}, ttl={}s, value={}", key, TTL_SECONDS, trade);
     }
 
     private String marketKey(String type, String symbol) {

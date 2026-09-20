@@ -5,6 +5,7 @@
         <groupId>coin.exchange</groupId>
         <artifactId>exchange-parent</artifactId>
         <version>1.0</version>
+        <relativePath>../exchange-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>exchange-module</artifactId>

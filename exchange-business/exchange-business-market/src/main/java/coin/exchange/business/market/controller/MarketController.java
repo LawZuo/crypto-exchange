@@ -7,10 +7,12 @@ import coin.exchange.api.market.model.BinanceTickerVo;
 import coin.exchange.api.market.model.BinanceTradeVo;
 import coin.exchange.api.market.model.MarketCacheSnapshotVo;
 import coin.exchange.api.market.model.MarketSymbolVo;
+import coin.exchange.api.market.model.MarketRankVo;
 import coin.exchange.business.market.domain.MarketSymbolDo;
 import coin.exchange.business.market.service.BinanceMarketService;
 import coin.exchange.business.market.service.MarketCacheService;
 import coin.exchange.business.market.service.MarketSymbolService;
+import coin.exchange.business.market.service.MarketRankingService;
 import coin.exchange.common.core.response.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +34,7 @@ public class MarketController {
     private final MarketSymbolService marketSymbolService;
     private final BinanceMarketService binanceMarketService;
     private final MarketCacheService marketCacheService;
+    private final MarketRankingService marketRankingService;
 
     /**
      * 交易对列表
@@ -97,5 +100,23 @@ public class MarketController {
                                                    @RequestParam(value = "interval", defaultValue = "1m") String interval,
                                                    @RequestParam(value = "types", required = false) List<String> types) {
         return R.success(marketCacheService.getSnapshot(symbol, interval, types));
+    }
+
+    @GetMapping("/rank/gainers")
+    public R<List<MarketRankVo>> listGainers(
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        return R.success(marketRankingService.listGainers(limit));
+    }
+
+    @GetMapping("/rank/losers")
+    public R<List<MarketRankVo>> listLosers(
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        return R.success(marketRankingService.listLosers(limit));
+    }
+
+    @GetMapping("/rank/volume")
+    public R<List<MarketRankVo>> listVolumeRank(
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        return R.success(marketRankingService.listVolume(limit));
     }
 }

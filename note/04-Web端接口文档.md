@@ -44,6 +44,7 @@
 - `POST /auth/login`
 - `POST /auth/register`
 - `GET /market/**`
+- `GET /spot/symbols`
 
 其他 Web 接口需要 Token。请求示例：
 
@@ -66,6 +67,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9...
 | GET | `/market/trades` | 否 | 查询近期成交 |
 | GET | `/market/klines` | 否 | 查询 K 线 |
 | GET | `/market/cache` | 否 | 查询行情缓存快照 |
+| POST | `/spot/orders` | 是 | 创建现货订单 |
+| GET | `/spot/orders` | 是 | 查询当前用户现货订单 |
+| GET | `/spot/trades` | 是 | 查询当前用户现货成交记录 |
+| GET | `/spot/symbols` | 否 | 查询现货交易对 |
+| GET | `/spot/account-flows` | 是 | 查询当前用户现货账户流水 |
 | POST | `/resource/upload/kyc` | 是 | 上传 KYC 图片 |
 | POST | `/resource/upload/avatar` | 是 | 上传头像 |
 | POST | `/resource/email/code` | 是 | 发送邮箱验证码 |
@@ -259,9 +265,76 @@ types=ticker&types=depth
 
 响应 `data` 包含 `symbol`、`interval`、`ticker`、`depth`、`trade`、`kline`；未请求或无缓存的类型可能为 `null`。
 
-## 8. 资源接口
+## 8. 现货接口
 
-### 8.1 上传 KYC 图片
+除交易对列表外，现货接口都需要 Token。用户 ID 由 Web 服务从 Token 中获取，请求不接受客户端传入的 `userId`。
+
+### 8.1 创建现货订单
+
+```http
+POST /spot/orders
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+```json
+{
+  "symbol": "BTCUSDT",
+  "side": 1,
+  "orderType": 1,
+  "quantity": 0.001,
+  "price": 65000
+}
+```
+
+| 字段 | 类型 | 必填 | 说明 |
+|---|---|---|---|
+| symbol | string | 是 | 现货交易对，如 `BTCUSDT` |
+| side | integer | 是 | `1` 买入，`2` 卖出 |
+| orderType | integer | 是 | `1` 限价单，`2` 市价单 |
+| quantity | decimal | 是 | 委托数量 |
+| price | decimal | 限价单必填 | 委托价格；市价单可为 `0` 或不传 |
+
+成功时 `data` 为订单号，格式为 `SP_O_XXXXXXXX`。
+
+### 8.2 查询现货订单
+
+```http
+GET /spot/orders
+Authorization: Bearer <token>
+```
+
+返回当前登录用户的订单列表，包含订单号、交易对、买卖方向、订单类型、委托价格、数量、成交数量、状态和时间等信息。
+
+### 8.3 查询现货成交记录
+
+```http
+GET /spot/trades
+Authorization: Bearer <token>
+```
+
+返回当前登录用户的成交记录，包含成交号、订单号、交易对、成交价格、数量、成交额、手续费及手续费币种等信息。
+
+### 8.4 查询现货交易对
+
+```http
+GET /spot/symbols
+```
+
+该接口无需登录，返回 `spot_symbol` 中配置的现货交易对、基础币种、计价币种、精度、最小下单数量和状态等信息。
+
+### 8.5 查询现货账户流水
+
+```http
+GET /spot/account-flows
+Authorization: Bearer <token>
+```
+
+返回当前登录用户的资产变动流水，包含币种、变动金额、变动前后余额、业务类型和关联业务 ID。
+
+## 9. 资源接口
+
+### 9.1 上传 KYC 图片
 
 ```http
 POST /resource/upload/kyc
@@ -271,7 +344,7 @@ Content-Type: multipart/form-data
 
 表单字段：`file`。
 
-### 8.2 上传头像
+### 9.2 上传头像
 
 ```http
 POST /resource/upload/avatar
@@ -291,7 +364,7 @@ Content-Type: multipart/form-data
 }
 ```
 
-### 8.3 发送邮箱验证码
+### 9.3 发送邮箱验证码
 
 ```http
 POST /resource/email/code
@@ -305,7 +378,7 @@ Content-Type: application/json
 }
 ```
 
-## 9. cURL 示例
+## 10. cURL 示例
 
 ```bash
 BASE_URL=http://localhost:18080/api/crypto-exchange/web
@@ -316,27 +389,13 @@ curl -X POST "$BASE_URL/auth/login" \
 
 curl "$BASE_URL/market/ticker?symbol=BTCUSDT"
 
+curl "$BASE_URL/spot/symbols"
+
+curl -X POST "$BASE_URL/spot/orders" \
+  -H 'Authorization: Bearer <token>' \
+  -H 'Content-Type: application/json' \
+  -d '{"symbol":"BTCUSDT","side":1,"orderType":1,"quantity":0.001,"price":65000}'
+
 curl "$BASE_URL/user/alice" \
   -H 'Authorization: Bearer <token>'
 ```
-
-## 10. WebSocket 说明
-
-行情服务实现了内部 WebSocket：
-
-```text
-ws://<market-service-host>:18470/ws/market
-```
-
-订阅消息：
-
-```json
-{
-  "action": "subscribe",
-  "symbol": "BTCUSDT",
-  "interval": "1m",
-  "types": ["ticker", "depth", "trade", "kline"]
-}
-```
-
-当前网关未配置 `/ws/market` 路由，所以该地址不能通过 Web Base URL 使用；生产使用前应增加 Gateway WebSocket 路由和鉴权。

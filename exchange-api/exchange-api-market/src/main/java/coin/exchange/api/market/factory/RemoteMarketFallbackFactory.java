@@ -6,6 +6,7 @@ import coin.exchange.api.market.model.BinanceKlineVo;
 import coin.exchange.api.market.model.BinanceTickerVo;
 import coin.exchange.api.market.model.BinanceTradeVo;
 import coin.exchange.api.market.model.MarketCacheSnapshotVo;
+import coin.exchange.api.market.model.MarketRankVo;
 import coin.exchange.api.market.service.RemoteMarketService;
 import coin.exchange.common.core.response.R;
 import lombok.extern.slf4j.Slf4j;
@@ -23,8 +24,28 @@ public class RemoteMarketFallbackFactory implements FallbackFactory<RemoteMarket
         log.error("行情服务调用失败: {}", throwable.getMessage());
         return new RemoteMarketService() {
             @Override
-            public R<List<MarketSymbolVo>> listSymbols() {
+            public R<List<MarketSymbolVo>> listSymbols(Integer status) {
                 return R.fail("Feign调取交易对列表失败" + throwable.getMessage());
+            }
+
+            @Override
+            public R<MarketSymbolVo> getSymbol(String symbol) {
+                return R.fail("Feign调取交易对详情失败" + throwable.getMessage());
+            }
+
+            @Override
+            public R<List<MarketRankVo>> listGainers(Integer limit) {
+                return R.fail("Feign调取涨幅榜失败" + throwable.getMessage());
+            }
+
+            @Override
+            public R<List<MarketRankVo>> listLosers(Integer limit) {
+                return R.fail("Feign调取跌幅榜失败" + throwable.getMessage());
+            }
+
+            @Override
+            public R<List<MarketRankVo>> listVolumeRank(Integer limit) {
+                return R.fail("Feign调取成交量榜失败" + throwable.getMessage());
             }
 
             @Override

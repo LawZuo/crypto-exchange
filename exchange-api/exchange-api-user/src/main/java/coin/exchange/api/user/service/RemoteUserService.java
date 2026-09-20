@@ -43,6 +43,13 @@ public interface RemoteUserService {
             @PathVariable("username") String username
     );
 
+    /** 通过邮箱查询认证信息。 */
+    @GetMapping("/user/information/auth/email/{email}")
+    R<UserAuthVo> getUserAuthInfoByEmail(
+            @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
+            @PathVariable("email") String email
+    );
+
     /**
      * 注册用户
      */

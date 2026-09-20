@@ -4,14 +4,73 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 新增现货交易模块">
+    <list default="true" id="bf6d8841-8ad7-484c-9a06-835d4b3580ab" name="更改" comment="feat: 新增创建钱包模块">
+      <change afterPath="$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/resources/application-redis.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/controller/WebAccountController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/note/09-Admin_RBAC设计.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/factory/RemoteAccountFallbackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/factory/RemoteAccountFallbackFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/service/RemoteAccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-account/src/main/java/coin/exchange/api/account/service/RemoteAccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/java/coin/exchange/spot/service/impl/SpotOrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/java/coin/exchange/spot/service/impl/SpotOrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/controller/AccountWalletController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountWalletService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/AccountWalletService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/impl/AccountWalletServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/java/coin/exchange/business/account/service/impl/AccountWalletServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DOCKER_DEPLOY.md" beforeDir="false" afterPath="$PROJECT_DIR$/DOCKER_DEPLOY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-package.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker-package.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-server-deploy.sh" beforeDir="false" afterPath="$PROJECT_DIR$/docker-server-deploy.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dosc/market-realtime-data-flow.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/market-realtime-data-flow.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dosc/web-api.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/web-api.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dosc/ws-market.md" beforeDir="false" afterPath="$PROJECT_DIR$/dosc/ws-market.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-admin/src/main/java/coin/exchange/admin/controller/AdminQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-admin/src/main/java/coin/exchange/admin/controller/AdminQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-admin/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-admin/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/factory/RemoteMarketFallbackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/factory/RemoteMarketFallbackFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/model/MarketSymbolVo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/model/MarketSymbolVo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/service/RemoteBinanceDataSourceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/service/RemoteBinanceDataSourceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/service/RemoteMarketService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-market/src/main/java/coin/exchange/api/market/service/RemoteMarketService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/config/ExchangeApiSpotAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/config/ExchangeApiSpotAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/dto/CreateSpotDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/dto/CreateSpotDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/factory/RemoteSpotFallbackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-spot/src/main/java/coin/exchange/api/spot/factory/RemoteSpotFallbackFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/factory/RemoteUserFallbackFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/factory/RemoteUserFallbackFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/service/RemoteUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-api/exchange-api-user/src/main/java/coin/exchange/api/user/service/RemoteUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/dto/LoginDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/dto/LoginDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/java/coin/exchange/auth/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-auth/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ExchangeBusinessMarketApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ExchangeBusinessMarketApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/controller/MarketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/controller/MarketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/domain/MarketSymbolDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/domain/MarketSymbolDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/MarketSymbolServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/service/impl/MarketSymbolServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/java/coin/exchange/business/market/ws/MarketWebSocketPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-market/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-spot/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/ExchangeBusinessUserApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/ExchangeBusinessUserApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/java/coin/exchange/module/user/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-business-user/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-business/exchange-bussiness-account/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/RedisKeyConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-core/src/main/java/coin/exchange/common/core/constant/RedisKeyConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java/coin/exchange/common/redis/service/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-common/exchange-common-redis/src/main/java/coin/exchange/common/redis/service/RedisService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/java/coin/exchange/gateway/config/GatewaySecurityProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application-route.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/adapter/BinanceWsClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/cache/KlineCacheService.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/cache/KlineCacheService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/cache/MarketMemoryCache.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/cache/MarketMemoryCache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/BinanceProperties.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/config/BinanceProperties.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/domain/TradeWsMessageDo.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/domain/TradeWsMessageDo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/service/impl/BinanceMarketDataServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/java/coin/exchange/module/datasrouce/service/impl/BinanceMarketDataServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-binance.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application-binance.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-datasource/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/exchange-module-resource/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/exchange-module-resource/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-module/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-module/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-web/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-web/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/controller/WebMarketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/controller/WebMarketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/controller/WebUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/controller/WebUserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/dto/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-web/src/main/java/coin/exchange/web/dto/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exchange-web/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/exchange-web/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note/01-项目文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/note/01-项目文档.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note/03-部署说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/note/03-部署说明.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note/04-Web端接口文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/note/04-Web端接口文档.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/note/05-Admin端接口文档.md" beforeDir="false" afterPath="$PROJECT_DIR$/note/05-Admin端接口文档.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +81,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -61,69 +120,75 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;JUnit.BinanceMarkWebSocketTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BinanceMarkWebSocketTest.ws.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BinanceMarketDataManualTest.connectBinanceMarketData.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BinanceMarketDataManualTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BinanceMarketPropertiesTest.normalizeSymbolsRemovesBlankAndDuplicateValues.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BinanceStreamUrlBuilderTest.buildCombinedTickerStreamUrl.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.BinanceWebSocketTest.ws.executor&quot;: &quot;Run&quot;,
-    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [test].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.crypto-exchange-root [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [install].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [site].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [validate].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.exchange-parent [verify].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ExchangeBusinessMarketApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ExchangeBusinessUserApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ExchangeModuleDataSourceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/lawzhuo/Desktop/me/exchange/crypto-exchange&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;模块&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2862069&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
-    &quot;应用程序.BinanceMarkWebSocketTest.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeAdminApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeAuthApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeBusinessAccountApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeBusinessMarketApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeBusinessUserApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeModuleDataSourceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeModuleMailApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeModuleResourceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeModuleServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeResourceUploadApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.ExchangeWebApplication.executor&quot;: &quot;Run&quot;,
-    &quot;应用程序.GatewayApplication.executor&quot;: &quot;Run&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.BinanceMarkWebSocketTest.executor": "Run",
+    "JUnit.BinanceMarkWebSocketTest.ws.executor": "Run",
+    "JUnit.BinanceMarketDataManualTest.connectBinanceMarketData.executor": "Run",
+    "JUnit.BinanceMarketDataManualTest.executor": "Run",
+    "JUnit.BinanceMarketPropertiesTest.normalizeSymbolsRemovesBlankAndDuplicateValues.executor": "Run",
+    "JUnit.BinanceStreamUrlBuilderTest.buildCombinedTickerStreamUrl.executor": "Debug",
+    "JUnit.BinanceWebSocketTest.ws.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "Maven.crypto-exchange-root [clean].executor": "Run",
+    "Maven.crypto-exchange-root [compile].executor": "Run",
+    "Maven.crypto-exchange-root [install].executor": "Run",
+    "Maven.crypto-exchange-root [package].executor": "Run",
+    "Maven.crypto-exchange-root [test].executor": "Run",
+    "Maven.crypto-exchange-root [validate].executor": "Run",
+    "Maven.exchange-parent [clean].executor": "Run",
+    "Maven.exchange-parent [compile].executor": "Run",
+    "Maven.exchange-parent [install].executor": "Run",
+    "Maven.exchange-parent [package].executor": "Run",
+    "Maven.exchange-parent [site].executor": "Run",
+    "Maven.exchange-parent [validate].executor": "Run",
+    "Maven.exchange-parent [verify].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ExchangeAuthApplication.executor": "Run",
+    "Spring Boot.ExchangeBusinessAccountApplication.executor": "Run",
+    "Spring Boot.ExchangeBusinessMarketApplication.executor": "Run",
+    "Spring Boot.ExchangeBusinessUserApplication.executor": "Run",
+    "Spring Boot.ExchangeModuleDataSourceApplication.executor": "Run",
+    "Spring Boot.ExchangeModuleResourceApplication.executor": "Run",
+    "Spring Boot.ExchangeSpotApplication.executor": "Run",
+    "Spring Boot.ExchangeWebApplication.executor": "Run",
+    "Spring Boot.GatewayApplication.executor": "Run",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/lawzhuo/Desktop/me/exchange/crypto-exchange",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "模块",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2862069",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
+    "应用程序.BinanceMarkWebSocketTest.executor": "Run",
+    "应用程序.ExchangeAdminApplication.executor": "Run",
+    "应用程序.ExchangeAuthApplication.executor": "Run",
+    "应用程序.ExchangeBusinessAccountApplication.executor": "Run",
+    "应用程序.ExchangeBusinessMarketApplication.executor": "Run",
+    "应用程序.ExchangeBusinessUserApplication.executor": "Run",
+    "应用程序.ExchangeModuleDataSourceApplication.executor": "Run",
+    "应用程序.ExchangeModuleMailApplication.executor": "Run",
+    "应用程序.ExchangeModuleResourceApplication.executor": "Run",
+    "应用程序.ExchangeModuleServiceApplication.executor": "Run",
+    "应用程序.ExchangeResourceUploadApplication.executor": "Run",
+    "应用程序.ExchangeWebApplication.executor": "Run",
+    "应用程序.GatewayApplication.executor": "Run"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/exchange-module/exchange-module-resource/src/main/resources/templates/email" />
@@ -133,7 +198,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Spring Boot.ExchangeModuleDataSourceApplication">
+  <component name="RunManager" selected="Spring Boot.GatewayApplication">
     <configuration name="ExchangeAdminApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="coin.exchange.admin.ExchangeAdminApplication" />
       <module name="exchange-admin" />
@@ -464,7 +529,8 @@
     <MESSAGE value="feat: 持续优化" />
     <MESSAGE value="feat: 部署docker" />
     <MESSAGE value="feat: 新增现货交易模块" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 新增现货交易模块" />
+    <MESSAGE value="feat: 新增创建钱包模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 新增创建钱包模块" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

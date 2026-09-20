@@ -4,12 +4,18 @@ import coin.exchange.api.market.model.BinanceDepthVo;
 import coin.exchange.api.market.model.BinanceKlineVo;
 import coin.exchange.api.market.model.BinanceTickerVo;
 import coin.exchange.api.market.model.BinanceTradeVo;
+import coin.exchange.common.core.enums.StatusCode;
+import coin.exchange.common.core.exception.BusinessException;
 import coin.exchange.module.datasrouce.config.BinanceProperties;
 import coin.exchange.module.datasrouce.service.BinanceMarketDataService;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.util.UriBuilder;
 
 import java.math.BigDecimal;
@@ -21,9 +27,10 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class BinanceMarketDataServiceImpl implements BinanceMarketDataService {
 
-    private static final int DEFAULT_DEPTH_LIMIT = 100;
+    private static final int DEFAULT_DEPTH_LIMIT = 10;
     private static final int DEFAULT_TRADE_LIMIT = 100;
     private static final int DEFAULT_KLINE_LIMIT = 500;
     private static final int MAX_LIMIT = 1000;
@@ -130,13 +137,26 @@ public class BinanceMarketDataServiceImpl implements BinanceMarketDataService {
     }
 
     private JsonNode get(String path, Function<UriBuilder, URI> uriFunction) {
-        return restClientBuilder
-                .baseUrl(binanceProperties.getRestBaseUrl())
-                .build()
-                .get()
-                .uri(uriBuilder -> uriFunction.apply(uriBuilder.path(path)))
-                .retrieve()
-                .body(JsonNode.class);
+        try {
+            return restClientBuilder
+                    .baseUrl(binanceProperties.getRestBaseUrl())
+                    .build()
+                    .get()
+                    .uri(uriBuilder -> uriFunction.apply(uriBuilder.path(path)))
+                    .retrieve()
+                    .body(JsonNode.class);
+        } catch (ResourceAccessException e) {
+            log.error("Binance REST连接失败: baseUrl={}, path={}", binanceProperties.getRestBaseUrl(), path, e);
+            throw new BusinessException(StatusCode.INTERNAL_ERROR, "Binance行情服务连接失败");
+        } catch (RestClientResponseException e) {
+            log.error("Binance REST返回异常: baseUrl={}, path={}, status={}, body={}",
+                    binanceProperties.getRestBaseUrl(), path, e.getStatusCode(), e.getResponseBodyAsString(), e);
+            throw new BusinessException(StatusCode.INTERNAL_ERROR,
+                    "Binance行情服务返回异常: " + e.getStatusCode().value());
+        } catch (RestClientException e) {
+            log.error("Binance REST请求失败: baseUrl={}, path={}", binanceProperties.getRestBaseUrl(), path, e);
+            throw new BusinessException(StatusCode.INTERNAL_ERROR, "Binance行情服务请求失败");
+        }
     }
 
     private List<List<BigDecimal>> parsePriceLevels(JsonNode levels) {

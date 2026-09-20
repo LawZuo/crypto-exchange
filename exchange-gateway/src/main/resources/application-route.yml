@@ -5,10 +5,16 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowed-origins-patterns: "*"
+            allowed-origin-patterns: "*"
             allowed-methods: "*"
             allowed-headers: "*"
       routes:
+        # 行情 WebSocket 统一入口
+        - id: exchange-market-websocket-route
+          uri: lb:ws://exchange-business-market
+          predicates:
+            - Path=/ws/market
+
         # 用户端统一接口
         - id: exchange-web-route
           uri: lb://exchange-web

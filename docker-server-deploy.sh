@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -Eeuo pipefail
 
-DEPLOY_DIR="$(cd "$(dirname "$0")" && pwd)"
-ACTION="${1:-up}"
+DEPLOY_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 COMPOSE_FILE="$DEPLOY_DIR/docker-compose.yml"
-LOG_SERVICES=(
+ENV_FILE="$DEPLOY_DIR/.env"
+ACTION="${1:-up}"
+
+if [[ $# -gt 0 ]]; then
+  shift
+fi
+
+SERVICES=(
   exchange-gateway
   exchange-web
   exchange-admin
@@ -13,9 +19,45 @@ LOG_SERVICES=(
   exchange-business-user
   exchange-business-account
   exchange-business-market
+  exchange-business-spot
   exchange-datasource
   exchange-resource
 )
+
+JARS=(
+  exchange-gateway.jar
+  exchange-web.jar
+  exchange-admin.jar
+  exchange-auth.jar
+  exchange-business-user.jar
+  exchange-business-account.jar
+  exchange-business-market.jar
+  exchange-business-spot.jar
+  exchange-datasource.jar
+  exchange-resource.jar
+)
+
+usage() {
+  cat <<'EOF'
+Usage: ./deploy.sh <command> [service...]
+
+Commands:
+  up [service...]       Build and start all or selected services
+  build [service...]    Build all or selected service images
+  start [service...]    Start existing containers
+  stop [service...]     Stop containers without removing them
+  restart [service...]  Restart all or selected containers
+  down                  Stop and remove this project's containers and network
+  logs [service...]     Follow logs (all services when omitted)
+  ps                    Show service status
+  config                Validate and print the resolved Compose configuration
+EOF
+}
+
+fail() {
+  echo "ERROR: $*" >&2
+  exit 1
+}
 
 run_with_timeout() {
   local seconds="$1"
@@ -27,69 +69,124 @@ run_with_timeout() {
   fi
 }
 
-if [[ ! -f "$COMPOSE_FILE" ]]; then
-  echo "Missing Compose file: $COMPOSE_FILE"
-  exit 1
-fi
+require_file() {
+  [[ -f "$1" ]] || fail "Missing file: $1"
+}
 
-if [[ ! -f "$DEPLOY_DIR/.env" ]]; then
-  cp "$DEPLOY_DIR/.env.example" "$DEPLOY_DIR/.env"
-  echo "Created $DEPLOY_DIR/.env"
-  echo "Review passwords and service addresses in .env, then run this command again."
-  exit 1
-fi
+prepare_env() {
+  if [[ ! -f "$ENV_FILE" ]]; then
+    if [[ "$ACTION" == "up" || "$ACTION" == "build" ]]; then
+      require_file "$DEPLOY_DIR/.env.example"
+      install -m 0600 "$DEPLOY_DIR/.env.example" "$ENV_FILE"
+      echo "Created $ENV_FILE"
+      fail "Review .env values, then run the command again."
+    fi
+    fail "Missing environment file: $ENV_FILE"
+  fi
 
-if grep -Eq '^[A-Z0-9_]+=(change-me)?$' "$DEPLOY_DIR/.env"; then
-  echo "Replace all empty or change-me values in $DEPLOY_DIR/.env before deployment."
-  exit 1
-fi
+  if grep -Eq '^[A-Z0-9_.]+[[:space:]]*=[[:space:]]*(|change-me)[[:space:]]*$' "$ENV_FILE"; then
+    fail "Replace all empty or change-me values in $ENV_FILE."
+  fi
+}
 
-for service in "${LOG_SERVICES[@]}"; do
-  mkdir -p "$DEPLOY_DIR/logs/$service"
-  chmod 0777 "$DEPLOY_DIR/logs/$service"
-done
+prepare_log_directories() {
+  local service
+  for service in "${SERVICES[@]}"; do
+    install -d -m 0777 "$DEPLOY_DIR/logs/$service"
+    # 镜像使用非 root 的 exchange 用户（当前 UID/GID 999）。发布脚本通常由
+    # root 执行，挂载目录若保持 root:root 775，会导致 Logback 无法创建文件，
+    # 应用随即进入重启循环。这里同时兼容已存在的目录和日志文件。
+    chmod -R a+rwX "$DEPLOY_DIR/logs/$service"
+  done
+}
 
-echo "[1/4] Checking Docker daemon..."
-if ! run_with_timeout 15 docker info; then
-  echo "Docker daemon is unavailable or did not respond within 15 seconds."
-  echo "Docker service status:"
-  systemctl status docker --no-pager -l 2>&1 || true
-  echo "Recent Docker service logs:"
-  journalctl -u docker -n 50 --no-pager 2>&1 || true
-  exit 1
-fi
+check_jars() {
+  local jar
+  for jar in "${JARS[@]}"; do
+    require_file "$DEPLOY_DIR/jars/$jar"
+  done
+}
 
-echo "[2/4] Checking Docker Compose..."
-if ! run_with_timeout 10 docker compose version; then
-  echo "Docker Compose v2 is required on this server."
-  exit 1
-fi
+show_failed_services() {
+  local failed_services
+  failed_services="$("${COMPOSE[@]}" ps --all --status exited --services 2>/dev/null || true)"
+  if [[ -n "$failed_services" ]]; then
+    echo "The following services exited during startup:" >&2
+    echo "$failed_services" >&2
+    # shellcheck disable=SC2086
+    "${COMPOSE[@]}" logs --tail=100 $failed_services >&2 || true
+    return 1
+  fi
+}
 
 case "$ACTION" in
-  up)
-    echo "[3/4] Validating deployment configuration..."
-    docker compose -f "$COMPOSE_FILE" config --quiet
-    echo "[4/4] Building images with verbose progress output..."
-    BUILDKIT_PROGRESS=plain docker compose -f "$COMPOSE_FILE" build
-    echo "Image build completed. Starting services..."
-    docker compose -f "$COMPOSE_FILE" up -d --no-build
-    echo "Services started. Current status:"
-    docker compose -f "$COMPOSE_FILE" ps
-    ;;
-  down)
-    docker compose -f "$COMPOSE_FILE" down
-    ;;
-  restart)
-    docker compose -f "$COMPOSE_FILE" restart
-    ;;
-  logs)
-    docker compose -f "$COMPOSE_FILE" logs -f --tail=200
-    ;;
-  ps)
-    docker compose -f "$COMPOSE_FILE" ps
+  up|build|start|stop|restart|down|logs|ps|config) ;;
+  -h|--help|help)
+    usage
+    exit 0
     ;;
   *)
-    echo "Usage: $0 {up|down|restart|logs|ps}"
+    usage >&2
     exit 2
+    ;;
+esac
+
+require_file "$COMPOSE_FILE"
+
+echo "[1/3] Checking Docker daemon..."
+if ! run_with_timeout 15 docker info >/dev/null; then
+  fail "Docker daemon is unavailable or did not respond within 15 seconds."
+fi
+
+echo "[2/3] Checking Docker Compose..."
+if ! run_with_timeout 10 docker compose version >/dev/null; then
+  fail "Docker Compose v2 is required."
+fi
+
+prepare_env
+COMPOSE=(docker compose --project-directory "$DEPLOY_DIR" --env-file "$ENV_FILE" -f "$COMPOSE_FILE")
+
+echo "[3/3] Running '$ACTION' for crypto-exchange..."
+case "$ACTION" in
+  up)
+    check_jars
+    prepare_log_directories
+    "${COMPOSE[@]}" config --quiet
+    BUILDKIT_PROGRESS=plain "${COMPOSE[@]}" build "$@"
+    "${COMPOSE[@]}" up -d --no-build "$@"
+    "${COMPOSE[@]}" ps --all
+    show_failed_services
+    ;;
+  build)
+    check_jars
+    "${COMPOSE[@]}" config --quiet
+    BUILDKIT_PROGRESS=plain "${COMPOSE[@]}" build "$@"
+    ;;
+  start)
+    prepare_log_directories
+    "${COMPOSE[@]}" start "$@"
+    "${COMPOSE[@]}" ps --all
+    ;;
+  stop)
+    "${COMPOSE[@]}" stop "$@"
+    ;;
+  restart)
+    "${COMPOSE[@]}" restart "$@"
+    "${COMPOSE[@]}" ps --all
+    ;;
+  down)
+    [[ $# -eq 0 ]] || fail "The down command does not accept service names. Use stop for selected services."
+    "${COMPOSE[@]}" down
+    ;;
+  logs)
+    "${COMPOSE[@]}" logs --follow --tail=200 "$@"
+    ;;
+  ps)
+    [[ $# -eq 0 ]] || fail "The ps command does not accept service names."
+    "${COMPOSE[@]}" ps --all
+    ;;
+  config)
+    [[ $# -eq 0 ]] || fail "The config command does not accept service names."
+    "${COMPOSE[@]}" config
     ;;
 esac

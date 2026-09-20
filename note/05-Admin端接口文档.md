@@ -149,15 +149,12 @@ Authorization: Bearer <token>
     "symbol": "BTCUSDT",
     "baseCurrency": "BTC",
     "quoteCurrency": "USDT",
-    "pricePrecision": 2,
-    "quantityPrecision": 6,
-    "minOrderQuantity": 0.00001,
-    "minOrderAmount": 5,
     "status": 1,
     "sort": 1,
     "remark": null,
-    "createTime": "2026-08-01T10:00:00",
-    "updateTime": "2026-08-28T10:00:00"
+    "lastPrice": 76956.42,
+    "priceChange": -950.12,
+    "priceChangePercent": -1.22
   }
 ]
 ```

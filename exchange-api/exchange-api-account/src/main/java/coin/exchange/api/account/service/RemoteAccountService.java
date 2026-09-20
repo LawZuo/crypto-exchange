@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @FeignClient(
         name = "exchange-business-account",
         fallbackFactory = RemoteAccountFallbackFactory.class
@@ -27,7 +29,7 @@ public interface RemoteAccountService {
      * 通过用户ID获取钱包信息
      */
     @GetMapping("/account/wallet/balance/{userId}")
-    R<AccountWalletVo> getWalletBalance(@PathVariable("userId") Long userId);
+    R<List<AccountWalletVo>> getWalletBalance(@PathVariable("userId") Long userId);
 
     /**
      * 冻结资产

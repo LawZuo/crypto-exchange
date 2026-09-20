@@ -14,7 +14,6 @@ import java.util.List;
 
 @FeignClient(
         name = "exchange-service-datasource",
-        url = "${bt.datasource.base-url:http://localhost:8077}",
         fallbackFactory = RemoteBinanceDataSourceFallbackFactory.class
 )
 public interface RemoteBinanceDataSourceService {

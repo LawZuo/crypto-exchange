@@ -5,7 +5,6 @@ import coin.exchange.api.account.dto.AccountFrozenAssetsDto;
 import coin.exchange.api.account.dto.CreateAccountWalletDto;
 import coin.exchange.api.account.model.AccountWalletVo;
 import coin.exchange.business.account.domain.AccountWalletDo;
-import coin.exchange.business.account.service.AccountBalanceLogService;
 import coin.exchange.business.account.service.AccountWalletService;
 import coin.exchange.common.core.response.R;
 import jakarta.validation.Valid;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -44,8 +42,14 @@ public class AccountWalletController {
             @PathVariable(name = "userId", required = true) Long userId
     ) {
         List<AccountWalletDo> walletList = accountWalletService.listWallets(userId);
-        List<AccountWalletVo> result = new ArrayList<>();
-        BeanUtil.copyProperties(walletList, AccountWalletVo.class);
+        List<AccountWalletVo> result = walletList.stream().map(wallet -> {
+            AccountWalletVo walletVo = new AccountWalletVo();
+            BeanUtil.copyProperties(wallet, walletVo);
+            if (wallet.getFrozenBalance() != null) {
+                walletVo.setFreezeBalance(wallet.getFrozenBalance().toPlainString());
+            }
+            return walletVo;
+        }).toList();
         return R.success(result);
     }
 

@@ -1,5 +1,9 @@
 package coin.exchange.module.datasrouce.adapter;
 
+import coin.exchange.api.market.model.BinanceDepthVo;
+import coin.exchange.api.market.model.BinanceKlineVo;
+import coin.exchange.api.market.model.BinanceTickerVo;
+import coin.exchange.api.market.model.BinanceTradeVo;
 import coin.exchange.api.market.model.MarketSymbolVo;
 import coin.exchange.api.market.service.RemoteMarketService;
 import coin.exchange.common.core.response.R;
@@ -22,24 +26,30 @@ import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.CompletableFuture;
+import java.util.Set;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class BinanceWsClient {
+
+    private static final int MARKET_WORKER_COUNT = 4;
+    private static final int MARKET_QUEUE_CAPACITY = 2000;
 
     private final BinanceProperties binanceProperties;
     private final RemoteMarketService remoteMarketService;
@@ -47,12 +57,32 @@ public class BinanceWsClient {
     private final MarketDataPublisher marketDataPublisher;
 
     private final List<Integer> connectionIds = new CopyOnWriteArrayList<>();
-    private final ExecutorService marketExecutor = Executors.newFixedThreadPool(4, runnable -> {
-        Thread thread = new Thread(runnable);
-        thread.setName("binance-market-" + thread.getId());
-        thread.setDaemon(true);
-        return thread;
-    });
+    private final AtomicLong discardedMarketTasks = new AtomicLong();
+    private final ThreadPoolExecutor marketExecutor = new ThreadPoolExecutor(
+            MARKET_WORKER_COUNT,
+            MARKET_WORKER_COUNT,
+            0L,
+            TimeUnit.MILLISECONDS,
+            new ArrayBlockingQueue<>(MARKET_QUEUE_CAPACITY),
+            runnable -> {
+                Thread thread = new Thread(runnable);
+                thread.setName("binance-market-" + thread.getId());
+                thread.setDaemon(true);
+                return thread;
+            },
+            (task, executor) -> {
+                if (executor.isShutdown()) {
+                    return;
+                }
+                executor.getQueue().poll();
+                executor.getQueue().offer(task);
+                long discarded = discardedMarketTasks.incrementAndGet();
+                if (discarded == 1 || discarded % 1000 == 0) {
+                    log.warn("Binance行情队列已满，丢弃旧任务并保留最新数据: discarded={}, queueSize={}",
+                            discarded, executor.getQueue().size());
+                }
+            }
+    );
     private final ScheduledExecutorService subscriptionRetryExecutor = Executors.newSingleThreadScheduledExecutor(runnable -> {
         Thread thread = new Thread(runnable);
         thread.setName("binance-subscription-retry");
@@ -62,6 +92,8 @@ public class BinanceWsClient {
     private final AtomicBoolean running = new AtomicBoolean(false);
     private final AtomicBoolean subscriptionRetryScheduled = new AtomicBoolean(false);
     private final AtomicBoolean marketStreamsSubscribed = new AtomicBoolean(false);
+    private final AtomicLong activeConnectionGeneration = new AtomicLong();
+    private volatile Set<String> subscribedSymbols = Set.of();
     private volatile WebSocketStreamClient client;
 
     private static final ObjectMapper objectMapper = new ObjectMapper()
@@ -92,6 +124,7 @@ public class BinanceWsClient {
             );
             if (connectionId != null) {
                 marketStreamsSubscribed.set(true);
+                subscribedSymbols = Set.copyOf(symbols);
             } else {
                 scheduleSubscriptionRetry();
             }
@@ -99,6 +132,35 @@ public class BinanceWsClient {
             log.warn("market 服务暂不可用，datasource 保持运行并稍后重试: {}", e.getMessage());
             scheduleSubscriptionRetry();
         }
+    }
+
+    /** 定期同步 market_symbol，交易对启停后自动重建 Binance 订阅。 */
+    @Scheduled(initialDelayString = "${exchange.market.binance.symbol-refresh-ms:30000}",
+            fixedDelayString = "${exchange.market.binance.symbol-refresh-ms:30000}")
+    public synchronized void refreshMarketSymbolSubscriptions() {
+        if (!running.get() || !marketStreamsSubscribed.get()) {
+            return;
+        }
+        List<String> symbols = loadMarketSymbols();
+        if (symbols.isEmpty() || subscribedSymbols.equals(Set.copyOf(symbols))) {
+            return;
+        }
+
+        log.info("market 交易对发生变化，重建 Binance 订阅: old={}, new={}", subscribedSymbols, symbols);
+        marketStreamsSubscribed.set(false);
+        WebSocketStreamClient currentClient = client;
+        if (currentClient != null) {
+            connectionIds.forEach(connectionId -> {
+                try {
+                    currentClient.closeConnection(connectionId);
+                } catch (Exception e) {
+                    log.debug("关闭旧 Binance 订阅失败: connectionId={}", connectionId, e);
+                }
+            });
+        }
+        connectionIds.clear();
+        subscribedSymbols = Set.of();
+        subscribeMarketStreamsWhenAvailable();
     }
 
     private void scheduleSubscriptionRetry() {
@@ -185,7 +247,7 @@ public class BinanceWsClient {
     private List<String> loadMarketSymbols() {
         R<List<MarketSymbolVo>> response;
         try {
-            response = remoteMarketService.listSymbols();
+            response = remoteMarketService.listSymbols(1);
         } catch (Exception e) {
             log.warn("无法连接 market 服务获取交易对: {}", e.getMessage());
             return List.of();
@@ -225,15 +287,21 @@ public class BinanceWsClient {
             log.warn("Binance WebSocket 未配置订阅流，跳过启动");
             return null;
         }
+        long connectionGeneration = activeConnectionGeneration.incrementAndGet();
         int connectionId = client.combineStreams(
                 new ArrayList<>(streams),
                 response -> log.info("Binance SDK WebSocket 已连接: {}", response.request().url()),
                 this::onMessage,
                 (code, reason) -> log.info("Binance SDK WebSocket 正在关闭: code={}, reason={}", code, reason),
-                (code, reason) -> log.info("Binance SDK WebSocket 已关闭: code={}, reason={}", code, reason),
+                (code, reason) -> {
+                    log.warn("Binance SDK WebSocket 已关闭: code={}, reason={}", code, reason);
+                    reconnectMarketStreams(connectionGeneration);
+                },
                 (throwable, response) -> {
                     String responseText = response == null ? "null" : response.toString();
-                    log.error("Binance SDK WebSocket 连接失败: response={}, error={}", responseText, throwable.getMessage(), throwable);
+                    String errorMessage = throwable == null ? "unknown" : throwable.getMessage();
+                    log.error("Binance SDK WebSocket 连接失败: response={}, error={}", responseText, errorMessage, throwable);
+                    reconnectMarketStreams(connectionGeneration);
                 }
         );
         connectionIds.add(connectionId);
@@ -242,11 +310,24 @@ public class BinanceWsClient {
         return connectionId;
     }
 
+    /**
+     * Binance 会因为网络波动或服务端断开连接。断线后必须清除已订阅标记，
+     * 否则重试任务会误以为连接仍然有效，从而永久停止行情推送。
+     */
+    private void reconnectMarketStreams(long connectionGeneration) {
+        if (!running.get() || connectionGeneration != activeConnectionGeneration.get()) {
+            return;
+        }
+        marketStreamsSubscribed.set(false);
+        subscribedSymbols = Set.of();
+        scheduleSubscriptionRetry();
+    }
+
     public void onMessage(String message) {
         if (!running.get()) {
             return;
         }
-        log.info("收到 Binance 行情数据: {}", message);
+//        log.info("收到 Binance 行情数据: {}", message);
         try {
             JsonNode root = objectMapper.readTree(message);
             JsonNode data = root.path("data");
@@ -272,37 +353,103 @@ public class BinanceWsClient {
         KlineWsMessageDo wsMsg = objectMapper.readValue(message, KlineWsMessageDo.class);
         KlineWsMessageDo.Source source = wsMsg.getData();
         KlineWsMessageDo.Source.Kline kline = source.getKline();
+        BinanceKlineVo payload = toKlineVo(kline);
         submitMarketTask("kline", source.getS(), () -> {
-            marketMemoryCache.putKline(source.getS(), kline.getI(), kline);
-            marketDataPublisher.publish("kline", source.getS(), kline.getI(), kline);
+            marketMemoryCache.putKline(source.getS(), kline.getI(), payload);
+            marketDataPublisher.publish("kline", source.getS(), kline.getI(), payload);
         });
     }
 
     private void cacheTicker(String message) throws JsonProcessingException {
         TickerWsMessageDo wsMsg = objectMapper.readValue(message, TickerWsMessageDo.class);
         TickerWsMessageDo.Source ticker = wsMsg.getData();
+        BinanceTickerVo payload = toTickerVo(ticker);
         submitMarketTask("ticker", ticker.getS(), () -> {
-            marketMemoryCache.putTicker(ticker.getS(), ticker);
-            marketDataPublisher.publish("ticker", ticker.getS(), null, ticker);
+            marketMemoryCache.putTicker(ticker.getS(), payload);
+            marketDataPublisher.publish("ticker", ticker.getS(), null, payload);
         });
     }
 
     private void cacheDepth(String message) throws JsonProcessingException {
         DepthWsMessageDo wsMsg = objectMapper.readValue(message, DepthWsMessageDo.class);
         DepthWsMessageDo.Source depth = wsMsg.getData();
+        BinanceDepthVo payload = toDepthVo(depth);
         submitMarketTask("depth", depth.getS(), () -> {
-            marketMemoryCache.putDepth(depth.getS(), depth);
-            marketDataPublisher.publish("depth", depth.getS(), null, depth);
+            marketMemoryCache.putDepth(depth.getS(), payload);
+            marketDataPublisher.publish("depth", depth.getS(), null, payload);
         });
     }
 
     private void cacheTrade(String message) throws JsonProcessingException {
         TradeWsMessageDo wsMsg = objectMapper.readValue(message, TradeWsMessageDo.class);
         TradeWsMessageDo.Source trade = wsMsg.getData();
+        BinanceTradeVo payload = toTradeVo(trade);
         submitMarketTask("trade", trade.getS(), () -> {
-            marketMemoryCache.putTrade(trade.getS(), trade);
-            marketDataPublisher.publish("trade", trade.getS(), null, trade);
+            marketMemoryCache.putTrade(trade.getS(), payload);
+            marketDataPublisher.publish("trade", trade.getS(), null, payload);
         });
+    }
+
+    private BinanceTickerVo toTickerVo(TickerWsMessageDo.Source source) {
+        BinanceTickerVo target = new BinanceTickerVo();
+        target.setSymbol(source.getS());
+        target.setPriceChange(source.getP());
+        target.setPriceChangePercent(source.getPriceChangePercent());
+        target.setWeightedAvgPrice(source.getW());
+        target.setPrevClosePrice(source.getX());
+        target.setLastPrice(source.getC());
+        target.setLastQuantity(source.getLastQuantity());
+        target.setBidPrice(source.getB());
+        target.setBidQuantity(source.getBestBidQuantity());
+        target.setAskPrice(source.getA());
+        target.setAskQuantity(source.getBestAskQuantity());
+        target.setOpenPrice(source.getO());
+        target.setHighPrice(source.getH());
+        target.setLowPrice(source.getL());
+        target.setVolume(source.getV());
+        target.setQuoteVolume(source.getQ());
+        target.setOpenTime(source.getOpenTime());
+        target.setCloseTime(source.getCloseTime());
+        target.setFirstTradeId(source.getFirstTradeId());
+        target.setLastTradeId(source.getLastTradeId());
+        target.setTradeCount(source.getN());
+        return target;
+    }
+
+    private BinanceDepthVo toDepthVo(DepthWsMessageDo.Source source) {
+        BinanceDepthVo target = new BinanceDepthVo();
+        target.setLastUpdateId(source.getU());
+        target.setBids(source.getBids());
+        target.setAsks(source.getAsks());
+        return target;
+    }
+
+    private BinanceTradeVo toTradeVo(TradeWsMessageDo.Source source) {
+        BinanceTradeVo target = new BinanceTradeVo();
+        target.setId(source.getT());
+        target.setPrice(source.getP());
+        target.setQuantity(source.getQ());
+        target.setQuoteQuantity(source.getP().multiply(source.getQ()));
+        target.setTime(source.getTradeTime());
+        target.setBuyerMaker(source.getM());
+        target.setBestMatch(source.getBestMatch());
+        return target;
+    }
+
+    private BinanceKlineVo toKlineVo(KlineWsMessageDo.Source.Kline source) {
+        BinanceKlineVo target = new BinanceKlineVo();
+        target.setOpenTime(source.getT());
+        target.setOpenPrice(source.getO());
+        target.setHighPrice(source.getH());
+        target.setLowPrice(source.getL());
+        target.setClosePrice(source.getC());
+        target.setVolume(source.getV());
+        target.setCloseTime(source.getCloseTime());
+        target.setQuoteAssetVolume(source.getQ());
+        target.setTradeCount(source.getN());
+        target.setTakerBuyBaseAssetVolume(source.getTakerBuyVolume());
+        target.setTakerBuyQuoteAssetVolume(source.getTakerBuyTurnover());
+        return target;
     }
 
     private void submitMarketTask(String type, String symbol, Runnable task) {
@@ -310,9 +457,12 @@ public class BinanceWsClient {
             return;
         }
         try {
-            CompletableFuture.runAsync(task, marketExecutor).exceptionally(ex -> {
-                log.error("处理Binance行情失败: type={}, symbol={}", type, symbol, ex);
-                return null;
+            marketExecutor.execute(() -> {
+                try {
+                    task.run();
+                } catch (Exception e) {
+                    log.error("处理Binance行情失败: type={}, symbol={}", type, symbol, e);
+                }
             });
         } catch (RejectedExecutionException e) {
             log.debug("Binance market executor stopped, skip {} {}", type, symbol);
@@ -324,6 +474,7 @@ public class BinanceWsClient {
         log.info("正在停止 Binance SDK WebSocket...");
         running.set(false);
         marketStreamsSubscribed.set(false);
+        subscribedSymbols = Set.of();
         subscriptionRetryExecutor.shutdownNow();
         WebSocketStreamClient currentClient = client;
         if (currentClient != null) {

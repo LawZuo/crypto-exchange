@@ -10,13 +10,17 @@
 | Content-Type | 默认 `application/json`，上传接口使用 `multipart/form-data` |
 | 字符编码 | UTF-8 |
 
-当前部署环境的完整基础地址：
+开发环境的完整基础地址：
+
+```text
+http://localhost:18080/api/crypto-exchange/web
+```
+
+生产环境的完整基础地址：
 
 ```text
 http://101.96.227.205:18080/api/crypto-exchange/web
 ```
-
-前端建议通过环境变量配置基础地址，不要把服务器 IP 硬编码在业务代码中。
 
 ## 2. 认证方式
 
@@ -227,15 +231,12 @@ GET /market/symbols
       "symbol": "BTCUSDT",
       "baseCurrency": "BTC",
       "quoteCurrency": "USDT",
-      "pricePrecision": 2,
-      "quantityPrecision": 6,
-      "minOrderQuantity": 0.00001,
-      "minOrderAmount": 5,
       "status": 1,
       "sort": 1,
       "remark": null,
-      "createTime": "2026-08-01T10:00:00",
-      "updateTime": "2026-08-01T10:00:00"
+      "lastPrice": 76956.42,
+      "priceChange": -950.12,
+      "priceChangePercent": -1.22
     }
   ]
 }
@@ -579,20 +580,6 @@ const login = await request('/auth/login', {
   body: JSON.stringify({ username: 'demo', password: '123456' }),
 });
 localStorage.setItem('token', login.token);
-```
-
-## 9. Swagger
-
-网关 Swagger UI：
-
-```text
-http://101.96.227.205:18080/swagger-ui.html
-```
-
-Web OpenAPI JSON：
-
-```text
-http://101.96.227.205:18080/api/crypto-exchange/web/v3/api-docs
 ```
 
 ## 10. 当前实现注意事项

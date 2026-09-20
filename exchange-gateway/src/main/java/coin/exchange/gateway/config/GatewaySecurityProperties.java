@@ -16,6 +16,8 @@ public class GatewaySecurityProperties {
             "/api/crypto-exchange/web/auth/login",
             "/api/crypto-exchange/web/auth/register",
             "/api/crypto-exchange/web/market/**",
+            "/api/crypto-exchange/web/spot/symbols",
+            "/ws/market",
             "/swagger-ui.html",
             "/swagger-ui/**",
             "/webjars/**",

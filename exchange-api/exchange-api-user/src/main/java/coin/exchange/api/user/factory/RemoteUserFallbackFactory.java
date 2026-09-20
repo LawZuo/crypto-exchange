@@ -30,6 +30,11 @@ public class RemoteUserFallbackFactory implements FallbackFactory<RemoteUserServ
             }
 
             @Override
+            public R<UserAuthVo> getUserAuthInfoByEmail(String source, String email) {
+                return R.fail("Feign通过邮箱调取用户认证信息失败:" + throwable.getMessage());
+            }
+
+            @Override
             public R<Long> registerUser(RegisterUserDto dto) {
                 return R.fail("Feign调取注册用户服务失败:" + throwable.getMessage());
             }

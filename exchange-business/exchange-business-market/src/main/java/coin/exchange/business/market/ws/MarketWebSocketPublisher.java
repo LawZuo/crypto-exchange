@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -14,7 +15,9 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * WebSocket消息发布者
@@ -27,6 +30,13 @@ public class MarketWebSocketPublisher {
     private final ObjectMapper objectMapper;
     private final MarketCacheService marketCacheService;
     private final MarketWebSocketSessionRegistry sessionRegistry;
+    /**
+     * 保存每个交易对、行情类型和周期的最新数据。
+     *
+     * <p>不能在推送后删除：上游行情并不保证每一秒每种类型都有新消息，
+     * WebSocket 需要按照配置的频率持续向客户端推送最近一次行情。</p>
+     */
+    private final Map<MarketDataKey, MarketStreamMessageVo> latestMarketData = new ConcurrentHashMap<>();
 
     public void sendConnected(String sessionId) {
         send(sessionId, Map.of("type", "connected", "sessionId", sessionId));
@@ -51,6 +61,18 @@ public class MarketWebSocketPublisher {
     }
 
     public void publish(MarketStreamMessageVo marketData) {
+        if (marketData == null || marketData.getSymbol() == null || marketData.getType() == null) {
+            return;
+        }
+        latestMarketData.put(MarketDataKey.from(marketData), marketData);
+    }
+
+    @Scheduled(fixedRateString = "${exchange.market.websocket.push_interval_ms:1000}")
+    public void flushPendingMarketData() {
+        latestMarketData.values().forEach(this::sendMarketData);
+    }
+
+    private void sendMarketData(MarketStreamMessageVo marketData) {
         Map<String, Object> response = response("market", marketData.getTimestamp(), marketData);
         String payload = serialize(response);
         if (payload == null) {
@@ -108,6 +130,16 @@ public class MarketWebSocketPublisher {
         } catch (IOException | IllegalStateException e) {
             sessionRegistry.remove(session.getId());
             log.debug("【exchange-business-market】发送WebSocket消息失败: sessionId={}", session.getId(), e);
+        }
+    }
+
+    private record MarketDataKey(String symbol, String type, String interval) {
+        private static MarketDataKey from(MarketStreamMessageVo marketData) {
+            return new MarketDataKey(
+                    marketData.getSymbol().trim().toUpperCase(Locale.ROOT),
+                    marketData.getType().trim().toLowerCase(Locale.ROOT),
+                    marketData.getInterval() == null ? "" : marketData.getInterval().trim().toLowerCase(Locale.ROOT)
+            );
         }
     }
 }

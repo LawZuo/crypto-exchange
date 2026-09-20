@@ -7,9 +7,11 @@ import coin.exchange.api.market.model.BinanceTickerVo;
 import coin.exchange.api.market.model.BinanceTradeVo;
 import coin.exchange.api.market.model.MarketCacheSnapshotVo;
 import coin.exchange.api.market.model.MarketSymbolVo;
+import coin.exchange.api.market.model.MarketRankVo;
 import coin.exchange.common.core.response.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -21,7 +23,19 @@ import java.util.List;
 public interface RemoteMarketService {
 
     @GetMapping("/market/symbols")
-    R<List<MarketSymbolVo>> listSymbols();
+    R<List<MarketSymbolVo>> listSymbols(@RequestParam(value = "status", required = false) Integer status);
+
+    @GetMapping("/market/symbols/{symbol}")
+    R<MarketSymbolVo> getSymbol(@PathVariable("symbol") String symbol);
+
+    @GetMapping("/market/rank/gainers")
+    R<List<MarketRankVo>> listGainers(@RequestParam(value = "limit", defaultValue = "10") Integer limit);
+
+    @GetMapping("/market/rank/losers")
+    R<List<MarketRankVo>> listLosers(@RequestParam(value = "limit", defaultValue = "10") Integer limit);
+
+    @GetMapping("/market/rank/volume")
+    R<List<MarketRankVo>> listVolumeRank(@RequestParam(value = "limit", defaultValue = "10") Integer limit);
 
     @GetMapping("/market/ticker")
     R<BinanceTickerVo> getBinanceTicker(@RequestParam("symbol") String symbol);

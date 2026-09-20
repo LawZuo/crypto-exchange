@@ -4,7 +4,7 @@ x-service-defaults: &service-defaults
     - .env
   environment: &service-environment
     TZ: ${TZ:-Asia/Macau}
-    JAVA_OPTS: ${JAVA_OPTS:--XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0}
+    JAVA_OPTS: ${JAVA_OPTS:--Xms128m -Xmx512m -XX:+ExitOnOutOfMemoryError}
     LOG_PATH: /app/logs
     LOGGING_FILE_PATH: /app/logs
     NACOS_SERVER_ADDR: ${NACOS_SERVER_ADDR}
@@ -23,6 +23,7 @@ x-service-defaults: &service-defaults
     DATABASE.REDIS.TIMEOUT: ${REDIS_TIMEOUT:-5000ms}
   networks:
     - exchange-network
+  mem_limit: ${SERVICE_MEMORY_LIMIT:-768m}
 
 services:
   exchange-gateway:
@@ -36,6 +37,12 @@ services:
       - "${GATEWAY_HOST_PORT:-18080}:18080"
     volumes:
       - ./logs/exchange-gateway:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18080'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-web:
     <<: *service-defaults
@@ -46,6 +53,12 @@ services:
         JAR_FILE: jars/exchange-web.jar
     volumes:
       - ./logs/exchange-web:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18300'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-admin:
     <<: *service-defaults
@@ -56,6 +69,12 @@ services:
         JAR_FILE: jars/exchange-admin.jar
     volumes:
       - ./logs/exchange-admin:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18301'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-auth:
     <<: *service-defaults
@@ -66,6 +85,12 @@ services:
         JAR_FILE: jars/exchange-auth.jar
     volumes:
       - ./logs/exchange-auth:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18400'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-business-user:
     <<: *service-defaults
@@ -76,6 +101,12 @@ services:
         JAR_FILE: jars/exchange-business-user.jar
     volumes:
       - ./logs/exchange-business-user:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18471'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-business-account:
     <<: *service-defaults
@@ -86,6 +117,12 @@ services:
         JAR_FILE: jars/exchange-business-account.jar
     volumes:
       - ./logs/exchange-business-account:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18472'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-business-market:
     <<: *service-defaults
@@ -96,9 +133,16 @@ services:
         JAR_FILE: jars/exchange-business-market.jar
     environment:
       <<: *service-environment
-      BT_DATASOURCE_BASE_URL: ${BT_DATASOURCE_BASE_URL:-http://exchange-datasource:18461}
+      JAVA_OPTS: ${MARKET_JAVA_OPTS:--Xms256m -Xmx1024m -XX:+ExitOnOutOfMemoryError}
+    mem_limit: ${MARKET_MEMORY_LIMIT:-1536m}
     volumes:
       - ./logs/exchange-business-market:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18470'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-business-spot:
     <<: *service-defaults
@@ -109,6 +153,12 @@ services:
         JAR_FILE: jars/exchange-business-spot.jar
     volumes:
       - ./logs/exchange-business-spot:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18473'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-datasource:
     <<: *service-defaults
@@ -117,8 +167,19 @@ services:
       context: .
       args:
         JAR_FILE: jars/exchange-datasource.jar
+    environment:
+      <<: *service-environment
+      JAVA_OPTS: ${DATASOURCE_JAVA_OPTS:--Xms256m -Xmx768m -XX:+ExitOnOutOfMemoryError}
+    mem_limit: ${DATASOURCE_MEMORY_LIMIT:-1g}
+    memswap_limit: ${DATASOURCE_MEMORY_SWAP_LIMIT:-2g}
     volumes:
       - ./logs/exchange-datasource:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18461'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
   exchange-resource:
     <<: *service-defaults
@@ -133,6 +194,12 @@ services:
     volumes:
       - exchange-uploads:/app/uploads
       - ./logs/exchange-resource:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c '</dev/tcp/127.0.0.1/18460'"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 90s
 
 networks:
   exchange-network:

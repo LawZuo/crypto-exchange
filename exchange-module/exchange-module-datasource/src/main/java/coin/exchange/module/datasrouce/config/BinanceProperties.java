@@ -18,7 +18,7 @@ public class BinanceProperties {
     private String baseUrl;
 
     // 币安现货行情 REST 根地址。
-    private String restBaseUrl = "https://api.binance.com";
+    private String restBaseUrl = "https://data-api.binance.vision";
 
     // 订阅的数据流类型。
     private List<BinanceStreamType> streamTypes = new ArrayList<>(List.of(BinanceStreamType.TICKER));;

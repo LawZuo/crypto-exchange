@@ -2,18 +2,17 @@ package coin.exchange.common.core.constant;
 
 public class RedisKeyConstants {
 
-    /**
-     * MQ消息队列key
-     */
+    // MQ消息队列key
     public static final String MQ_MESSSAGE_KEY = "mq:dedup:";
 
-    /**
-     * 用户登录Token
-     */
+    // 用户登录Token
     public static final String LOGIN_TOKEN_KEY_PREFIX = "user:login:";
 
-    /**
-     * 币种最新数据
-     */
+    // 币种最新数据
     public static final String KLINE_KEY_PREFIX = "kline:latest:";
+
+    // 行情榜单
+    public static final String CHANGE_RANK_KEY = "market:rank:change:24h";
+    public static final String VOLUME_RANK_KEY = "market:rank:quote-volume:24h";
+    public static final String TICKER_KEY_PREFIX = "market:ticker:";
 }

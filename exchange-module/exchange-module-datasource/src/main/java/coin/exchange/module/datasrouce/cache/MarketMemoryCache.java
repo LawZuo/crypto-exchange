@@ -1,9 +1,9 @@
 package coin.exchange.module.datasrouce.cache;
 
-import coin.exchange.module.datasrouce.domain.DepthWsMessageDo;
-import coin.exchange.module.datasrouce.domain.KlineWsMessageDo;
-import coin.exchange.module.datasrouce.domain.TickerWsMessageDo;
-import coin.exchange.module.datasrouce.domain.TradeWsMessageDo;
+import coin.exchange.api.market.model.BinanceDepthVo;
+import coin.exchange.api.market.model.BinanceKlineVo;
+import coin.exchange.api.market.model.BinanceTickerVo;
+import coin.exchange.api.market.model.BinanceTradeVo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,36 +14,36 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class MarketMemoryCache {
 
-    private final ConcurrentHashMap<String, TickerWsMessageDo.Source> tickerCache = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String, DepthWsMessageDo.Source> depthCache = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String, TradeWsMessageDo.Source> tradeCache = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String, KlineWsMessageDo.Source.Kline> klineCache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, BinanceTickerVo> tickerCache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, BinanceDepthVo> depthCache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, BinanceTradeVo> tradeCache = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, BinanceKlineVo> klineCache = new ConcurrentHashMap<>();
 
-    public void putTicker(String symbol, TickerWsMessageDo.Source ticker) {
+    public void putTicker(String symbol, BinanceTickerVo ticker) {
         tickerCache.put(symbolKey(symbol), ticker);
     }
 
-    public void putDepth(String symbol, DepthWsMessageDo.Source depth) {
+    public void putDepth(String symbol, BinanceDepthVo depth) {
         depthCache.put(symbolKey(symbol), depth);
     }
 
-    public void putTrade(String symbol, TradeWsMessageDo.Source trade) {
+    public void putTrade(String symbol, BinanceTradeVo trade) {
         tradeCache.put(symbolKey(symbol), trade);
     }
 
-    public void putKline(String symbol, String interval, KlineWsMessageDo.Source.Kline kline) {
+    public void putKline(String symbol, String interval, BinanceKlineVo kline) {
         klineCache.put(klineKey(symbol, interval), kline);
     }
 
-    public Map<String, TickerWsMessageDo.Source> tickerSnapshot() {
+    public Map<String, BinanceTickerVo> tickerSnapshot() {
         return Map.copyOf(tickerCache);
     }
 
-    public Map<String, DepthWsMessageDo.Source> depthSnapshot() {
+    public Map<String, BinanceDepthVo> depthSnapshot() {
         return Map.copyOf(depthCache);
     }
 
-    public Map<String, TradeWsMessageDo.Source> tradeSnapshot() {
+    public Map<String, BinanceTradeVo> tradeSnapshot() {
         return Map.copyOf(tradeCache);
     }
 
@@ -64,6 +64,6 @@ public class MarketMemoryCache {
         return symbolKey(symbol) + ":" + interval.trim();
     }
 
-    public record KlineSnapshot(String symbol, String interval, KlineWsMessageDo.Source.Kline kline) {
+    public record KlineSnapshot(String symbol, String interval, BinanceKlineVo kline) {
     }
 }

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @Slf4j
 public class RemoteAccountFallbackFactory implements FallbackFactory<RemoteAccountService> {
@@ -22,7 +24,7 @@ public class RemoteAccountFallbackFactory implements FallbackFactory<RemoteAccou
             }
 
             @Override
-            public R<AccountWalletVo> getWalletBalance(Long userId) {
+            public R<List<AccountWalletVo>> getWalletBalance(Long userId) {
                 return R.fail("【Feign异常】调取账户钱包信息失败" + throwable.getMessage());
             }
 

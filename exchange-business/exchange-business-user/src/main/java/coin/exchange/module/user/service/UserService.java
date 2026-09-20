@@ -28,6 +28,9 @@ public interface UserService {
      */
     UserAuthVo getUserAuthByUsername(String username);
 
+    /** 根据邮箱获取认证信息。 */
+    UserAuthVo getUserAuthByEmail(String email);
+
     /**
      * 根据email获取用户信息
      */

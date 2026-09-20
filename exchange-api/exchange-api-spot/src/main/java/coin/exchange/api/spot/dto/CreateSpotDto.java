@@ -1,7 +1,6 @@
 package coin.exchange.api.spot.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -13,7 +12,6 @@ import java.math.BigDecimal;
 public class CreateSpotDto {
 
     // 用户id
-    @NotNull(message = "用户ID不能为空")
     private Long userId;
 
     // 币种

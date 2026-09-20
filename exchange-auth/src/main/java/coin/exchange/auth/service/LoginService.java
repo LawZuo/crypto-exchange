@@ -7,6 +7,8 @@ import coin.exchange.api.user.model.UserVo;
 import coin.exchange.api.user.service.RemoteUserService;
 import coin.exchange.auth.dto.LoginDto;
 import coin.exchange.common.core.constant.SecurityConstants;
+import coin.exchange.common.core.enums.StatusCode;
+import coin.exchange.common.core.exception.BusinessException;
 import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.IpUtil;
 import cn.hutool.core.bean.BeanUtil;
@@ -31,7 +33,8 @@ public class LoginService {
      */
     public UserVo login(LoginDto loginDto, HttpServletRequest request) {
 
-        log.info("【用户登录】账号：{}", loginDto.getUsername());
+        String loginName = resolveLoginName(loginDto);
+        log.info("【用户登录】登录类型：{}，登录标识：{}", loginDto.getLoginType(), loginName);
 
         // 获取用户的IP地址
         String ip = IpUtil.getClientIp(
@@ -42,22 +45,47 @@ public class LoginService {
         );
         log.info("【用户登录】IP：{}", ip);
 
-        R<UserAuthVo> result = remoteUserService.getUserAuthInfo(SecurityConstants.INNER, loginDto.getUsername());
+        R<UserAuthVo> result = loginDto.getLoginType() == 2
+                ? remoteUserService.getUserAuthInfoByEmail(SecurityConstants.INNER, loginName)
+                : remoteUserService.getUserAuthInfo(SecurityConstants.INNER, loginName);
         log.debug("【用户登录】Feign获取认证信息成功: {}", result != null && result.code() == R.SUCCESS_CODE);
-        UserAuthVo user = result == null ? null : result.getData();
+        if (result == null) {
+            throw new BusinessException(StatusCode.INTERNAL_ERROR, "用户服务无响应");
+        }
+        if (result.code() != R.SUCCESS_CODE) {
+            throw new BusinessException(StatusCode.INTERNAL_ERROR, result.message());
+        }
+
+        UserAuthVo user = result.getData();
         if (user == null) {
-            throw new RuntimeException("用户不存在");
+            throw new BusinessException(StatusCode.USER_NOT_FOUND);
         }
         if (user.getStatus() == 0) {
-            throw new RuntimeException("用户被禁用");
+            throw new BusinessException(StatusCode.USER_DISABLED);
         }
         if (!SecurityUtils.matchesPassword(loginDto.getPassword(), user.getPassword())) {
-            throw new RuntimeException("用户名或密码错误");
+            throw new BusinessException(StatusCode.USER_PASSWORD_ERROR);
         }
         UserVo userVo = new UserVo();
         BeanUtil.copyProperties(user, userVo);
         recordLogin(user.getId(), ip, request);
         return userVo;
+    }
+
+    private String resolveLoginName(LoginDto loginDto) {
+        if (loginDto.getLoginType() == 1) {
+            if (loginDto.getUsername() == null || loginDto.getUsername().isBlank()) {
+                throw new BusinessException(StatusCode.BAD_REQUEST, "账号不能为空");
+            }
+            return loginDto.getUsername().trim();
+        }
+        if (loginDto.getLoginType() == 2) {
+            if (loginDto.getEmail() == null || loginDto.getEmail().isBlank()) {
+                throw new BusinessException(StatusCode.BAD_REQUEST, "邮箱不能为空");
+            }
+            return loginDto.getEmail().trim();
+        }
+        throw new BusinessException(StatusCode.BAD_REQUEST, "登录类型只支持1-账号或2-邮箱");
     }
 
     private void recordLogin(Long userId, String ip, HttpServletRequest request) {

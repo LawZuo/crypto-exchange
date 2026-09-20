@@ -2,16 +2,16 @@
 
 ## 1. 连接地址
 
-`exchange-business-market` 当前端口为 `8083`，WebSocket 地址：
+WebSocket 由 Gateway 统一对外提供，本地地址：
 
 ```text
-ws://localhost:8083/ws/market
+ws://localhost:18080/ws/market
 ```
 
-如果通过网关或服务器部署，把 `localhost:8083` 换成实际域名和端口：
+服务器地址：
 
 ```text
-ws://{business-market-host}:{port}/ws/market
+ws://101.96.227.205:18080/ws/market
 wss://{domain}/ws/market
 ```
 
@@ -225,21 +225,21 @@ kline: symbol + type + interval 全部匹配才推送
 ```json
 {
   "symbol": "BTCUSDT",
-  "priceChange": "123.45",
-  "priceChangePercent": "0.12",
-  "weightedAvgPrice": "65000.00",
-  "prevClosePrice": "64800.00",
-  "lastPrice": "65123.45",
-  "lastQuantity": "0.01",
-  "bidPrice": "65123.44",
-  "bidQuantity": "1.2",
-  "askPrice": "65123.45",
-  "askQuantity": "0.8",
-  "openPrice": "64800.00",
-  "highPrice": "66000.00",
-  "lowPrice": "64000.00",
-  "volume": "1234.56",
-  "quoteVolume": "80123456.78",
+  "priceChange": 123.45,
+  "priceChangePercent": 0.12,
+  "weightedAvgPrice": 65000.00,
+  "prevClosePrice": 64800.00,
+  "lastPrice": 65123.45,
+  "lastQuantity": 0.01,
+  "bidPrice": 65123.44,
+  "bidQuantity": 1.2,
+  "askPrice": 65123.45,
+  "askQuantity": 0.8,
+  "openPrice": 64800.00,
+  "highPrice": 66000.00,
+  "lowPrice": 64000.00,
+  "volume": 1234.56,
+  "quoteVolume": 80123456.78,
   "openTime": 1785979200000,
   "closeTime": 1786065600000,
   "firstTradeId": 100,
@@ -253,15 +253,15 @@ kline: symbol + type + interval 全部匹配才推送
 ```json
 {
   "lastUpdateId": 123456789,
-  "bids": [["65123.44", "1.2"]],
-  "asks": [["65123.45", "0.8"]]
+  "bids": [[65123.44, 1.2]],
+  "asks": [[65123.45, 0.8]]
 }
 ```
 
 `bids` 和 `asks` 每一项格式：
 
 ```text
-[price, quantity]
+[计价币USDT价格, 当前币种数量]
 ```
 
 ### trade payload
@@ -269,9 +269,9 @@ kline: symbol + type + interval 全部匹配才推送
 ```json
 {
   "id": 123456,
-  "price": "65123.45",
-  "quantity": "0.01",
-  "quoteQuantity": "651.2345",
+  "price": 65123.45,
+  "quantity": 0.01,
+  "quoteQuantity": 651.2345,
   "time": 1786065600000,
   "buyerMaker": false,
   "bestMatch": true
@@ -283,16 +283,16 @@ kline: symbol + type + interval 全部匹配才推送
 ```json
 {
   "openTime": 1786065540000,
-  "openPrice": "65100.00",
-  "highPrice": "65150.00",
-  "lowPrice": "65080.00",
-  "closePrice": "65123.45",
-  "volume": "12.34",
+  "openPrice": 65100.00,
+  "highPrice": 65150.00,
+  "lowPrice": 65080.00,
+  "closePrice": 65123.45,
+  "volume": 12.34,
   "closeTime": 1786065599999,
-  "quoteAssetVolume": "803456.78",
+  "quoteAssetVolume": 803456.78,
   "tradeCount": 320,
-  "takerBuyBaseAssetVolume": "6.12",
-  "takerBuyQuoteAssetVolume": "398765.43"
+  "takerBuyBaseAssetVolume": 6.12,
+  "takerBuyQuoteAssetVolume": 398765.43
 }
 ```
 
@@ -301,7 +301,7 @@ kline: symbol + type + interval 全部匹配才推送
 ### 原生 JavaScript
 
 ```js
-const ws = new WebSocket('ws://localhost:8083/ws/market');
+const ws = new WebSocket('ws://localhost:18080/ws/market');
 
 ws.onopen = () => {
   ws.send(JSON.stringify({
@@ -384,7 +384,7 @@ npm install -g wscat
 连接：
 
 ```bash
-wscat -c ws://localhost:8083/ws/market
+wscat -c ws://localhost:18080/ws/market
 ```
 
 发送订阅：
@@ -401,7 +401,7 @@ wscat -c ws://localhost:8083/ws/market
 
 ## 8. 排查 checklist
 
-1. 确认 `exchange-business-market` 已启动，端口是 `8083`。
+1. 确认 Gateway 和 `exchange-business-market` 均已启动，Gateway 端口是 `18080`。
 2. 启动日志里应该能看到 `【exchange-business-market】注册Websocket`。
 3. 前端连接地址必须是 `/ws/market`。
 4. `symbol` 必须传，例如 `BTCUSDT`。

@@ -84,7 +84,7 @@ WebSocket 相关类职责：
 连接地址：
 
 ```text
-ws://{business-market-host}:8083/ws/market
+ws://localhost:18080/ws/market
 ```
 
 订阅消息：

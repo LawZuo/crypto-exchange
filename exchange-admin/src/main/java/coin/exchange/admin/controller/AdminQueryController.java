@@ -30,12 +30,12 @@ public class AdminQueryController {
     }
 
     @GetMapping("/accounts/{userId}/wallet")
-    public R<AccountWalletVo> getWallet(@PathVariable("userId") Long userId) {
+    public R<List<AccountWalletVo>> getWallet(@PathVariable("userId") Long userId) {
         return remoteAccountService.getWalletBalance(userId);
     }
 
     @GetMapping("/market/symbols")
     public R<List<MarketSymbolVo>> listSymbols() {
-        return remoteMarketService.listSymbols();
+        return remoteMarketService.listSymbols(null);
     }
 }

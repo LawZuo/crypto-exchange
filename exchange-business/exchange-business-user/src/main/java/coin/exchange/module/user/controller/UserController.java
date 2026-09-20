@@ -1,12 +1,15 @@
 package coin.exchange.module.user.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import coin.exchange.api.account.dto.CreateAccountWalletDto;
+import coin.exchange.api.account.service.RemoteAccountService;
 import coin.exchange.api.user.dto.LoginRecordDto;
 import coin.exchange.api.user.dto.RegisterUserDto;
 import coin.exchange.api.user.model.UserAuthVo;
 import coin.exchange.api.user.model.UserVo;
 import coin.exchange.common.core.constant.SecurityConstants;
 import coin.exchange.common.core.enums.StatusCode;
+import coin.exchange.common.core.enums.WalletTypeCode;
 import coin.exchange.common.core.exception.BusinessException;
 import coin.exchange.common.core.response.R;
 import coin.exchange.common.core.utils.ServletUtils;
@@ -17,7 +20,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final RemoteAccountService remoteAccountService;
 
     /**
      * 获取用户信息
@@ -65,16 +68,48 @@ public class UserController {
         return R.success(userAuthVo);
     }
 
+    /** 通过邮箱获取用户认证信息，仅供内部服务调用。 */
+    @GetMapping("/auth/email/{email}")
+    public R<UserAuthVo> getUserAuthByEmail(
+            @RequestHeader(value = SecurityConstants.FROM_SOURCE, required = false) String source,
+            @PathVariable("email") String email
+    ) {
+        if (!SecurityConstants.INNER.equals(source)) {
+            throw new BusinessException(StatusCode.FORBIDDEN, "非法内部接口调用");
+        }
+        return R.success(userService.getUserAuthByEmail(email));
+    }
+
     /**
      * 注册用户
      */
     @PostMapping("/register")
     @Idempotent(prefix = "user:register", key = "#p0.username", expire = 30, message = "注册请求正在处理，请勿重复提交")
     public R<Long> registerUser(@Valid @RequestBody RegisterUserDto dto, HttpServletRequest request) {
-        log.info("注册用户信息接口被调用，账号：{}，邮箱：{}", dto.getUsername(), dto.getEmail());
-        Long userId = userService.createUser(dto, request);
-        log.warn("注册用户信息成功，返回用户ID：{}", userId);
-        return R.success(userId);
+        try {
+            log.info("注册用户信息接口被调用，账号：{}，邮箱：{}", dto.getUsername(), dto.getEmail());
+            Long userId = userService.createUser(dto, request);
+
+            // 初始化钱包
+            if (userId != null) {
+                CreateAccountWalletDto walletDto = new CreateAccountWalletDto();
+                walletDto.setCurrency("USDT");
+                walletDto.setUserId(userId);
+                walletDto.setWalletType(WalletTypeCode.ASSETS);
+                R<Long> walletResult = remoteAccountService.createWallet(walletDto);
+                if (walletResult == null || walletResult.code() != R.SUCCESS_CODE || walletResult.getData() == null) {
+                    String message = walletResult == null ? "账户服务无响应" : walletResult.message();
+                    log.error("初始化USDT钱包失败，userId: {}，message: {}", userId, message);
+                    throw new BusinessException(StatusCode.INTERNAL_ERROR, "初始化USDT钱包失败：" + message);
+                }
+                log.info("初始化USDT钱包成功，userId: {}，walletId: {}", userId, walletResult.getData());
+            }
+
+            return R.success(userId);
+        } catch (RuntimeException e) {
+            log.error("注册用户失败", e);
+            return R.fail(e.toString());
+        }
     }
 
     /**

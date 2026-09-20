@@ -3,7 +3,7 @@ exchange:
     binance:
       enabled: true
       base-url: wss://data-stream.binance.vision
-      rest-base-url: https://api.binance.com
+      rest-base-url: https://data-api.binance.vision
       stream-types:
         - kline
         - depth

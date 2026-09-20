@@ -30,5 +30,8 @@ public class TradeWsMessageDo {
         private Long tradeTime;
 
         private Boolean m;
+
+        @JsonProperty("M")
+        private Boolean bestMatch;
     }
 }

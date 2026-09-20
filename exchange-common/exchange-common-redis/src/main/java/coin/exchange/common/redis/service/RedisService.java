@@ -4,6 +4,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
 import java.util.concurrent.TimeUnit;
+import java.util.Collection;
+import java.util.Set;
 
 /**
  * Redis服务
@@ -124,5 +126,39 @@ public class RedisService {
     public boolean deleteObject(final String key)
     {
         return redisTemplate.delete(key);
+    }
+
+    public boolean addToSortedSet(final String key, final Object value, final double score)
+    {
+        return Boolean.TRUE.equals(redisTemplate.opsForZSet().add(key, value, score));
+    }
+
+    public Long removeFromSortedSet(final String key, final Object... values)
+    {
+        return redisTemplate.opsForZSet().remove(key, values);
+    }
+
+    public Set<Object> rangeSortedSet(final String key, final long start, final long end)
+    {
+        return redisTemplate.opsForZSet().range(key, start, end);
+    }
+
+    public Set<Object> reverseRangeSortedSet(final String key, final long start, final long end)
+    {
+        return redisTemplate.opsForZSet().reverseRange(key, start, end);
+    }
+
+    public void removeSortedSetMembersNotIn(final String key, final Collection<String> retainedMembers)
+    {
+        Set<Object> members = rangeSortedSet(key, 0, -1);
+        if (members == null || members.isEmpty()) {
+            return;
+        }
+        Object[] staleMembers = members.stream()
+                .filter(member -> !retainedMembers.contains(String.valueOf(member)))
+                .toArray();
+        if (staleMembers.length > 0) {
+            removeFromSortedSet(key, staleMembers);
+        }
     }
 }

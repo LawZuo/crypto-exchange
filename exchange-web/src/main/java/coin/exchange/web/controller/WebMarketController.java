@@ -6,10 +6,12 @@ import coin.exchange.api.market.model.BinanceTickerVo;
 import coin.exchange.api.market.model.BinanceTradeVo;
 import coin.exchange.api.market.model.MarketCacheSnapshotVo;
 import coin.exchange.api.market.model.MarketSymbolVo;
+import coin.exchange.api.market.model.MarketRankVo;
 import coin.exchange.api.market.service.RemoteMarketService;
 import coin.exchange.common.core.response.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +27,30 @@ public class WebMarketController {
 
     @GetMapping("/symbols")
     public R<List<MarketSymbolVo>> listSymbols() {
-        return remoteMarketService.listSymbols();
+        return remoteMarketService.listSymbols(null);
+    }
+
+    @GetMapping("/symbols/{symbol}")
+    public R<MarketSymbolVo> getSymbol(@PathVariable("symbol") String symbol) {
+        return remoteMarketService.getSymbol(symbol);
+    }
+
+    @GetMapping("/rank/gainers")
+    public R<List<MarketRankVo>> listGainers(
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        return remoteMarketService.listGainers(limit);
+    }
+
+    @GetMapping("/rank/losers")
+    public R<List<MarketRankVo>> listLosers(
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        return remoteMarketService.listLosers(limit);
+    }
+
+    @GetMapping("/rank/volume")
+    public R<List<MarketRankVo>> listVolumeRank(
+            @RequestParam(value = "limit", defaultValue = "10") Integer limit) {
+        return remoteMarketService.listVolumeRank(limit);
     }
 
     @GetMapping("/ticker")

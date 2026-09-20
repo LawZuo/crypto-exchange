@@ -15,12 +15,12 @@ spring:
       password: LawZhuo1002.
       discovery:
         server-addr: 106.12.183.54:8848
-        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+        namespace: ${NACOS_NAMESPACE:crypto-exchange-local}
       config:
         server-addr: 106.12.183.54:8848
         file-extension: yaml
         refresh-enabled: true
-        namespace: 09a6d4e7-6ba4-410c-9451-822410f9fbe6
+        namespace: ${NACOS_NAMESPACE:crypto-exchange-local}
   config:
     import:
       - nacos:exchange-business-market.yml?group=BUSINESS_GROUP
@@ -38,7 +38,4 @@ exchange:
     websocket:
       send_time_limit_ms: ${business.market.websocket.send-time-limit-ms}
       buffer_size_limit_bytes: ${business.market.websocket.buffer-size-limit-bytes}
-
-bt:
-  datasource:
-    base-url: ${BT_DATASOURCE_BASE_URL:http://localhost:8077}
+      push_interval_ms: ${business.market.websocket.push-interval-ms:1000}

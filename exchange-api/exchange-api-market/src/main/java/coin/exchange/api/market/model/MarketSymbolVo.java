@@ -19,21 +19,15 @@ public class MarketSymbolVo {
 
     private String quoteCurrency;
 
-    private Integer pricePrecision;
-
-    private Integer quantityPrecision;
-
-    private BigDecimal minOrderQuantity;
-
-    private BigDecimal minOrderAmount;
-
     private Integer status;
 
     private Integer sort;
 
     private String remark;
 
-    private LocalDateTime createTime;
+    private BigDecimal lastPrice;
 
-    private LocalDateTime updateTime;
+    private BigDecimal priceChange;
+
+    private BigDecimal priceChangePercent;
 }

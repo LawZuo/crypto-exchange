@@ -43,6 +43,11 @@
         </dependency>
         <dependency>
             <groupId>coin.exchange</groupId>
+            <artifactId>exchange-api-spot</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>coin.exchange</groupId>
             <artifactId>exchange-api-resource</artifactId>
             <version>1.0</version>
         </dependency>

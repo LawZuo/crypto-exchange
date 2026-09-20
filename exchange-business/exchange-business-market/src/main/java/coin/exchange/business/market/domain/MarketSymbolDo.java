@@ -34,22 +34,6 @@ public class MarketSymbolDo {
     @TableField("quote_currency")
     private String quoteCurrency;
 
-    // 价格精度
-    @TableField("price_precision")
-    private Integer pricePrecision;
-
-    // 数量精度
-    @TableField("quantity_precision")
-    private Integer quantityPrecision;
-
-    // 最小下单数量
-    @TableField("min_order_quantity")
-    private BigDecimal minOrderQuantity;
-
-    // 最小下单金额
-    @TableField("min_order_amount")
-    private BigDecimal minOrderAmount;
-
     // 状态
     @TableField("status")
     private Integer status;
@@ -73,4 +57,16 @@ public class MarketSymbolDo {
     @TableField("is_deleted")
     @TableLogic(value = "0", delval = "1")
     private Integer isDeleted;
+
+    // 最新市场价（非数据库字段）
+    @TableField(exist = false)
+    private BigDecimal lastPrice;
+
+    // 24小时涨跌额（非数据库字段）
+    @TableField(exist = false)
+    private BigDecimal priceChange;
+
+    // 24小时涨跌幅（非数据库字段）
+    @TableField(exist = false)
+    private BigDecimal priceChangePercent;
 }

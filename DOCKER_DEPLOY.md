@@ -65,8 +65,20 @@ GATEWAY_HOST_PORT=18080
 ./deploy.sh ps
 ./deploy.sh logs
 ./deploy.sh restart
+./deploy.sh stop
 ./deploy.sh down
 ```
+
+也可以只操作指定服务：
+
+```bash
+./deploy.sh up exchange-business-spot
+./deploy.sh restart exchange-gateway exchange-web
+./deploy.sh logs exchange-business-market
+./deploy.sh stop exchange-datasource
+```
+
+`stop` 只停止容器，不删除容器、网络、卷和镜像；`down` 只删除当前 Compose 项目的容器和网络，不删除卷和镜像。
 
 仅网关端口会映射到宿主机。默认访问地址：
 
